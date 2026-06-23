@@ -1,0 +1,76 @@
+---
+title: "Composio"
+description: "Let the agent use your Composio-connected apps (Gmail, Slack, GitHub, Notion, and more), reads instant, writes approval-gated."
+---
+
+Let the agent use your Composio-connected apps (Gmail, Slack, GitHub, Notion, and 1000+ more). Brain Map connects to your Composio MCP endpoint and discovers the actions available there, then exposes them to the agent. OAuth to each app is handled on Composio's side, so you do not hand the app your Gmail or GitHub credentials. Read actions run immediately; write actions are approval-gated, so the agent queues them and they only fire after you approve. This is the developer-grade connector lane; Zapier is the no-code lane.
+
+## What you need
+
+- A Composio MCP URL (Streamable HTTP) from your Composio MCP server or tool router. The URL is the credential for most setups.
+- (Optional) a Composio API key if your endpoint is gateway-fronted and requires the `x-consumer-api-key` header. Connection still works on the URL alone when no key is needed.
+- The apps and actions you want, connected and enabled in the Composio dashboard. Brain Map shows whatever your endpoint exposes; it does not configure apps for you.
+
+## Setup
+
+<Steps>
+  <Step title="Create a Composio account">
+    Sign up at composio.dev. The free tier covers about 20k tool calls per month.
+  </Step>
+  <Step title="Connect apps">
+    Create an MCP server or tool router and connect one or more apps (GitHub or Gmail are easy), enabling the actions you want. Composio runs the OAuth for each app.
+  </Step>
+  <Step title="Open the Composio card">
+    Copy your Composio MCP URL. In Brain Map, go to Admin (marketplace) and open the Composio card (it shows an MCP badge).
+  </Step>
+  <Step title="Paste credentials">
+    Paste the Composio MCP URL into its write-only box and Save. If your endpoint sits behind a gateway needing a consumer key, also paste the Composio API key into its box (sent as the `x-consumer-api-key` header). Most hosted URLs carry their own auth.
+  </Step>
+  <Step title="Enable">
+    Flip Enable on. It applies on your next message. New actions appear within about a minute.
+  </Step>
+</Steps>
+
+## How it works
+
+- Brain Map is an MCP client to your Composio endpoint. It reads the URL (and optional key) live and handshakes to discover your actions.
+- Composio exposes tools as either one tool per action (e.g. `GITHUB_LIST_REPOSITORIES`, `GMAIL_SEND_EMAIL`) or a tool-router meta-set (e.g. `COMPOSIO_SEARCH_TOOLS` plus `COMPOSIO_EXECUTE_TOOL`). Brain Map handles both.
+- Reads run immediately, writes are approval-gated. Brain Map decides by the action name: names with GET / LIST / FETCH / SEARCH / READ / RETRIEVE / FIND / VIEW / COUNT / CHECK run live; everything else (and anything ambiguous) queues a proposal that only fires on your approval.
+- Results come back as a structured tile (source badge, success/error chip, key/value rows and tables) with a raw toggle and copy.
+- App credentials stay on Composio's side. Brain Map only holds the MCP URL and the optional consumer key.
+
+## What you can ask
+
+Whatever you connected on the Composio side. For example, with GitHub plus Gmail:
+
+- "list my GitHub repos via Composio" (runs immediately)
+- "create a GitHub issue titled X in <repo>" (queues an approval)
+- "send an email via Composio to <addr>" (queued for approval)
+
+## Limitations
+
+- Only what you enable in Composio is available. Brain Map mirrors your endpoint; it does not add integrations.
+- Writes are approval-gated by design. With the tool-router shape, a read run through the single executor is also gated (conservative but safe).
+- About a minute of lag when you enable a new action.
+- One MCP URL per box. Treat the URL (and any key) as the credential; rotate on the Composio side.
+- The hosted free tier is about 20k tool calls per month; self-hosting Composio is the path if you outgrow it.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Composio or Zapier?">
+    Both live under Apps and both are MCP connectors. Composio is the developer-grade lane with OAuth handled per app and a large toolkit; Zapier is the no-code, long-tail lane. Use either or both.
+  </Accordion>
+  <Accordion title="Do I need the API key?">
+    Only if your Composio endpoint is behind a gateway that requires the `x-consumer-api-key` header. Otherwise the MCP URL alone connects.
+  </Accordion>
+  <Accordion title="Can the agent act on its own?">
+    No. Writes queue for your approval and only fire after you approve. Reads run on their own.
+  </Accordion>
+  <Accordion title="Where do my keys live?">
+    The MCP URL and the optional API key are saved write-only to your pod, never shown back, never in the repo. Rotate them on the Composio side if they leak.
+  </Accordion>
+  <Accordion title="An action did not show up.">
+    Make sure it is connected and enabled on your Composio MCP server, then wait about 60 seconds for the discovery cache to refresh.
+  </Accordion>
+</AccordionGroup>

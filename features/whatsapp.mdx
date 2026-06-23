@@ -1,0 +1,58 @@
+---
+title: WhatsApp
+description: Connect WhatsApp so your AI can send and receive messages.
+---
+
+Your AI assistant can send and receive WhatsApp messages. The Setup Assistant handles the full process — no CLI or technical access required.
+
+## Connecting WhatsApp
+
+<Steps>
+  <Step title="Open the Setup Assistant">
+    In your chat interface, switch to the **Setup Assistant** agent and say:
+
+    > "Help me connect to WhatsApp"
+
+    The Setup Assistant will automatically install the WhatsApp plugin and configure it for you.
+  </Step>
+
+  <Step title="Scan the QR Code">
+    Once the plugin is installed, the Setup Assistant will generate a QR code and share a link like:
+
+    `https://yourname.madeformeai.com/files/whatsapp-qr.png`
+
+    Open that link in your browser, then:
+
+    1. Open WhatsApp on your phone
+    2. Go to **Settings → Linked Devices → Link a Device**
+    3. Scan the QR code
+
+    <Warning>Scan within 60 seconds — the QR expires quickly. If it times out, just say "new QR" and the assistant will generate a fresh one.</Warning>
+  </Step>
+
+  <Step title="You're connected">
+    The Setup Assistant will confirm once linked:
+
+    > WhatsApp is ready.
+
+    Your AI can now send and receive WhatsApp messages on your behalf.
+  </Step>
+</Steps>
+
+---
+
+## About your WhatsApp number
+
+WhatsApp connects using your existing account — the same way WhatsApp Web works. This means your AI uses **your own phone number**.
+
+To message your AI, you'd be messaging yourself — which works, but feels a bit odd. For a more natural experience, consider linking a second number (Google Voice, a spare SIM, etc.) so your AI has its own dedicated contact.
+
+---
+
+## Troubleshooting
+
+**QR timed out before I could scan** — Say "new QR" and the assistant will generate a fresh one immediately.
+
+**Setup Assistant seems confused or stuck** — Switch to Claude Sonnet in the model selector. The WhatsApp setup flow works best with a more capable model.
+
+**Linked the wrong number** — Ask the Setup Assistant to disconnect WhatsApp and start over with a different number.

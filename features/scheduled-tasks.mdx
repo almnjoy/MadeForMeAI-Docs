@@ -1,0 +1,69 @@
+---
+title: Scheduled Tasks
+description: Your AI can do things automatically on a schedule — without you having to ask every time.
+---
+
+Some things are better when they just happen. Your AI supports scheduled tasks — recurring actions that run automatically at whatever interval you set, without you needing to be in the chat.
+
+---
+
+## What scheduled tasks are
+
+A scheduled task is something you ask your AI to do on a repeating schedule. You set it up once, it keeps running.
+
+Examples:
+- The **Job Search Agent** searches job boards every few hours and notifies you when it finds a strong match
+- A daily briefing that summarizes things you care about each morning
+- A weekly check-in that looks at specific websites or data and reports back
+
+Most users encounter scheduled tasks first through the [Job Search Agent](/features/job-search-agent) — that's the most common use case right now.
+
+---
+
+## How your AI handles scheduled runs
+
+When a scheduled task fires, your AI wakes up in an isolated session, does the work, writes any results to its files or your notification channel, and goes back to sleep. It doesn't interrupt your active conversations.
+
+If your AI is busy when a scheduled task fires, it skips that run and waits for the next one.
+
+Active hours are respected — tasks only run between 9am and 9pm by default so you're not getting pinged at 3am.
+
+---
+
+## Setting up a schedule
+
+Scheduling is handled through conversation. When you set up something like the Job Search Agent, the Setup Assistant asks how often you want it to run:
+
+- Every 4 hours
+- Twice daily
+- Daily
+- Weekly
+
+Just tell it your preference and it handles the rest.
+
+For other recurring tasks, just ask your AI directly:
+
+- _"Check this website every morning and tell me if anything changed"_
+- _"Send me a summary of my notes every Sunday"_
+- _"Remind me every Friday to send client invoices"_
+
+---
+
+## Manual runs
+
+Scheduled agents also respond to on-demand requests. For the Job Search Agent:
+- _"Run jobs now"_
+- _"Check for jobs right now"_
+
+For other tasks, just describe what you want done.
+
+---
+
+## Changing or stopping a schedule
+
+Just tell your AI:
+- _"Change my job search to run daily instead of every 4 hours"_
+- _"Stop the morning briefing"_
+- _"Pause the job search for now"_
+
+It updates the schedule and confirms.

@@ -1,0 +1,110 @@
+---
+title: "Marketplace"
+description: "Every tool your Brain Map agent can use, organized by what it does for you."
+---
+
+Brain Map ships with a marketplace of apps and plugins. Each one is a tool the agent can use on your behalf: read your network, pull your revenue, send a Telegram, draft a review request, drive a browser. You turn on the ones you want from the Admin marketplace, add any keys they need, and they light up.
+
+Two rules hold across everything here:
+
+<CardGroup cols={2}>
+  <Card title="Reads run instantly" icon="bolt">
+    Looking something up, checking status, pulling a balance: these happen live, no approval needed.
+  </Card>
+  <Card title="Writes are approval-gated" icon="shield-check">
+    Sending, creating, deleting, or moving anything queues for your approval first. Nothing fires on its own unless you set a Trust Rule.
+  </Card>
+</CardGroup>
+
+## Network and infrastructure
+
+<CardGroup cols={2}>
+  <Card title="Meraki Network Ops" href="/marketplace/meraki">
+    Run Cisco Meraki from chat. Find a client, check uplinks and ports, block or unblock.
+  </Card>
+  <Card title="Infra Monitoring" href="/marketplace/infra">
+    Prometheus, Loki, and Grafana tiles plus infra-health snapshots. Operator feature, set up per account.
+  </Card>
+</CardGroup>
+
+## Money and sales
+
+<CardGroup cols={2}>
+  <Card title="Money (Stripe + Plaid)" href="/marketplace/money">
+    Live revenue and bank balances on one page. Read-only.
+  </Card>
+  <Card title="Twenty CRM" href="/marketplace/twenty-crm">
+    Read your pipeline and move deals between stages, with a drag-and-drop kanban page.
+  </Card>
+  <Card title="Review Requests" href="/marketplace/review-requests">
+    After a paid job, draft an approval-gated ask for a Google or Yelp review.
+  </Card>
+</CardGroup>
+
+## Automation and connectors
+
+<CardGroup cols={2}>
+  <Card title="Zapier" href="/marketplace/zapier">
+    The no-code lane. Reach thousands of apps through your Zapier MCP server.
+  </Card>
+  <Card title="Composio" href="/marketplace/composio">
+    The developer-grade lane. Gmail, Slack, GitHub, Notion, and 1000+ more via OAuth.
+  </Card>
+  <Card title="n8n Automations" href="/marketplace/n8n-automations">
+    The doing layer: templated email, calendar reads, and lead capture through your n8n.
+  </Card>
+  <Card title="Scheduled Jobs" href="/marketplace/scheduled-jobs">
+    Run an agent instruction on a schedule. Owner-only, off by default.
+  </Card>
+  <Card title="Saved Plays" href="/marketplace/saved-plays">
+    Save an approved multi-step sequence as a named play and recall it in one line.
+  </Card>
+</CardGroup>
+
+## Messaging and voice
+
+<CardGroup cols={2}>
+  <Card title="Telegram Alerts" href="/marketplace/telegram">
+    Approval-gated outbound alerts, reminders, and notes to your chat.
+  </Card>
+  <Card title="Unified Inbox" href="/marketplace/unified-inbox">
+    One stream of inbound leads, plus drive the agent from Telegram and get replies.
+  </Card>
+  <Card title="Voice (ElevenLabs)" href="/marketplace/voice-elevenlabs">
+    A premium read-aloud voice for the canvas. Key-gated, browser voice as fallback.
+  </Card>
+  <Card title="Voice Calls (Retell)" href="/marketplace/voice-calls-retell">
+    Outbound AI phone calls with summary, sentiment, and transcript.
+  </Card>
+</CardGroup>
+
+## Knowledge and storage
+
+<CardGroup cols={2}>
+  <Card title="Memory View" href="/marketplace/memory-view">
+    An Obsidian-style graph of your notes. Every note a node, every wikilink an edge.
+  </Card>
+  <Card title="WebDAV Vault" href="/marketplace/webdav-vault">
+    Your notes as plain markdown files, two-way synced with Obsidian.
+  </Card>
+  <Card title="Assets" href="/marketplace/assets">
+    Object storage for files your agents generate: proposals, exports, PDFs.
+  </Card>
+  <Card title="Skills" href="/marketplace/skills">
+    Reusable markdown playbooks the agent loads on demand to keep its context lean.
+  </Card>
+</CardGroup>
+
+## Browser and security
+
+<CardGroup cols={2}>
+  <Card title="Agent Browser" href="/marketplace/agent-browser">
+    A real, watchable Chrome on an isolated VM the agent can drive. Clicks are approval-gated.
+  </Card>
+  <Card title="1Password" href="/marketplace/1password">
+    Look up vault items from chat and reveal one field behind an approval.
+  </Card>
+  <Card title="Trust Rules" href="/marketplace/trust-rules">
+    Grant once so a specific write runs by itself next time. You stay in control.
+  </Card>
+</CardGroup>

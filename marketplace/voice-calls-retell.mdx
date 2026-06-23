@@ -1,0 +1,62 @@
+---
+title: "Voice Calls (Retell)"
+description: "Outbound AI phone calls, a demo call to your own number and approval-gated follow-ups behind a TCPA consent gate."
+---
+
+Outbound AI phone calls. A demo call to your own number, and approval-gated follow-up calls to contacts behind a TCPA voice-consent gate. Call summary, sentiment, and transcript stream back from Retell webhooks. Inbound capture stays in your existing n8n Retell flows.
+
+## What you need
+
+A Retell account, an API key, a phone number, and one outbound agent id.
+
+## Setup
+
+<Steps>
+  <Step title="Set up Retell">
+    Create a Retell account. Get the API key, buy or assign a phone number, and create one outbound agent.
+  </Step>
+  <Step title="Paste your credentials">
+    Marketplace, then Voice Calls. Paste `RETELL_API_KEY`, `RETELL_FROM_NUMBER` (E.164, e.g. +1303...), and `RETELL_AGENT_ID`.
+  </Step>
+  <Step title="Set the webhook">
+    In the Retell dashboard, set the call webhook to your Brain Map Retell webhook endpoint (`/api/webhooks/retell`).
+  </Step>
+  <Step title="First-run signature check">
+    First-run only: set `RETELL_WEBHOOK_INSECURE=true` in the api .env until you confirm Retell's signature scheme, then remove it so signatures are enforced.
+  </Step>
+</Steps>
+
+## How it works
+
+`demo_call` and `follow_up_call` queue an approval. On approve, the action calls Retell create-phone-call with dynamic variables (person plus topic) and metadata (intent plus CRM id). Retell webhooks (call_started / ended / analyzed) hit the Retell webhook endpoint and update the `voice_calls` table. `call_status` reads the result.
+
+## What you can ask
+
+- "Demo call my phone +1..." (no third-party consent needed)
+- "Call Sarah about her renewal, she consented" (needs `voice_consent=true`)
+- "How did call <id> go?" (reads the result)
+- "List my Retell agents and numbers"
+
+## Limitations
+
+<Note>
+Every call is approval-gated; nothing dials until you approve. `follow_up_call` is refused on approve unless `voice_consent` is true (TCPA).
+</Note>
+
+- Outbound only here; inbound is your n8n flows.
+- Honor DNC, the 8am to 9pm callee-local window, and recording disclosure in two-party states.
+- Confirm Retell's webhook signature scheme before trusting it in production.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Will it dial without me?">
+    No. Every call is approval-gated; nothing dials until you approve.
+  </Accordion>
+  <Accordion title="TCPA risk on the demo?">
+    None. The demo calls your own consented number.
+  </Accordion>
+  <Accordion title="Standard vs fun agent?">
+    demo_call uses the standard demo agent by default; pass `fun=true` (or say "the fun one") for the alternate agent if one is configured (`RETELL_AGENT_ID_FUN`).
+  </Accordion>
+</AccordionGroup>

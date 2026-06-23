@@ -1,0 +1,70 @@
+---
+title: "Meraki Network Ops"
+description: "Run Cisco Meraki network checks from chat, find clients, triage outages, and block or unblock a client after you approve."
+---
+
+Cisco Meraki network operations, run from the Brain Map chat. Ask about a client in plain language and the agent finds it across your org, pulls its status, usage, and events, checks the WAN uplinks and the switch port or access point it depends on, and tells you the likely problem. It can also block or unblock a client, but only after you approve. Everything is read-only except block/unblock, and those never fire on their own.
+
+## What you need
+
+- A Meraki Dashboard API key. In the Meraki Dashboard: your profile (top right), then My profile, then API access, then Generate API key. You need org-admin rights. Read-only is enough for lookups; to use block/unblock the key's account needs write access to the network.
+- Your Organization ID. The long number for your org. Quickest way: with the key set, ask the agent "list my meraki networks" once it's enabled, or pull it from `GET /organizations` in the Meraki API, or read it out of a dashboard URL.
+
+No agent, no on-prem connector. The calls go straight to Meraki's cloud API.
+
+## Setup
+
+<Steps>
+  <Step title="Open the Meraki card">
+    Go to Admin (the tools marketplace) and click the Meraki card.
+  </Step>
+  <Step title="Add your credentials">
+    Paste your Meraki API key and Organization ID into the write-only boxes and hit Save on each. The fields show "set" once saved and never show the value back.
+  </Step>
+  <Step title="Enable">
+    Flip the Enable toggle on. It applies on your next message, no restart.
+  </Step>
+</Steps>
+
+## How it works
+
+Brain Map calls the Meraki Dashboard API (`api.meraki.com`) server-side using your key, which stays in the pod and never reaches the browser. `find_client` is the entry point: it matches the client you named by IP, MAC, or hostname and hands the other tools a network and client id. The read tools then pull details, usage, events, uplink health, switch ports, and wireless or DNS/VLAN data, and `run_client_health_check` chains the relevant reads into one bundle the agent summarizes. Every result drops as a tile on your canvas. `block_client` and `unblock_client` are the only writes: they queue an approval card and only change the Meraki device-policy (Blocked or Normal) after you click approve. Reversible.
+
+## What you can ask
+
+- "find the client at 10.x.x.x" (or by MAC or hostname)
+- "what are the details on that client"
+- "is the internet up / show uplink status"
+- "show the ports on switch <serial>"
+- "google isn't loading for <client>, what's wrong" (full triage in one go)
+- "block <client>" / "unblock <client>" (queues an approval, then sets the device-policy)
+
+## Limitations
+
+<Note>
+Reads are instant. The only writes are block and unblock, and both wait for your approval click. Nothing fires on its own.
+</Note>
+
+- `find_client` only sees clients seen in the last 24 hours. If a device is off or hasn't been on recently, try the MAC or hostname instead of the IP.
+- Block sets the client's Meraki device-policy to Blocked (reversible per client), not a firewall rule. Unblock sets it back to Normal.
+- The Meraki API allows about 5 requests per second per org. The plugin stays within that; a very broad question that fans out across many networks may be slower.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Does it change anything without asking?">
+    No. Reads are instant. The only writes are block and unblock, and both wait for your approval click.
+  </Accordion>
+  <Accordion title="It says it can't find my client.">
+    find_client only sees clients seen in the last 24 hours. If the device is off or hasn't been on the network recently, it won't show. Try the MAC or hostname instead of the IP.
+  </Accordion>
+  <Accordion title="Is block a firewall rule?">
+    No. It sets the client's Meraki device-policy to Blocked (reversible per client), which is cleaner than editing firewall rules. Unblock sets it back to Normal.
+  </Accordion>
+  <Accordion title="Is my API key safe?">
+    The key box is write-only. It's saved to your pod, never shown back or returned to the browser, and never in the repo.
+  </Accordion>
+  <Accordion title="Rate limits?">
+    The Meraki API allows about 5 requests per second per org. The plugin keeps within that; a very broad question that fans out across many networks may be a little slower.
+  </Accordion>
+</AccordionGroup>

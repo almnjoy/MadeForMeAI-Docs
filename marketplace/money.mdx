@@ -1,0 +1,84 @@
+---
+title: "Money (Stripe + Plaid)"
+description: "Live revenue from Stripe and bank, credit, and investment balances from Plaid, read-only, with a net worth number."
+---
+
+Live revenue and bank balances in Brain Map. Two independent sources under one toggle: Stripe for your available and pending revenue, and Plaid for bank, credit, and investment balances across your linked institutions, plus a net worth number. It is read-only. Plaid here never moves money, it only reads balances. You get the agent tool (`get_money`), the Money page, and the Connect a bank flow, all from the one Money card. Turn on one side, the other, or both.
+
+## What you need
+
+Stripe (revenue), one key:
+
+- A Stripe secret key (Dashboard, then Developers, then API keys). Use a restricted key with read access only (Balance read, Charges read, Payouts read) so the key can never move money.
+
+Plaid (balances), your app keys, then each user links a bank:
+
+- A Plaid client ID and secret from your Plaid dashboard. This is the operator's app credential and needs production approval for real banks (sandbox keys only hit Plaid's fake banks). One set of app keys serves everyone on the box.
+- Then, per person, a linked bank. On the Money page, Connect a bank opens Plaid Link, you log into your bank, and Plaid hands Brain Map a token it stores. No app keys, no Link.
+
+Optional Plaid env knobs (defaults are fine): `PLAID_ENV` (`production` by default, set `sandbox` to test), `PLAID_INSTITUTION_ALLOW` (comma-separated allowlist of institution names/ids), `PLAID_LINK_PRODUCTS` (`transactions` by default), `PLAID_REDIRECT_URI` (your registered OAuth redirect, needed for OAuth banks).
+
+## Setup
+
+<Steps>
+  <Step title="Open the Money card">
+    Go to Admin (the marketplace) and click the Money card.
+  </Step>
+  <Step title="Add Stripe, Plaid, or both">
+    For Stripe, paste your Stripe secret key into its write-only box and Save. For Plaid, paste your Plaid client ID and secret and Save on each.
+  </Step>
+  <Step title="Enable">
+    Flip Enable on. It applies on your next message, no restart. The card shows connected as soon as Stripe is set, or as soon as both Plaid keys are set.
+  </Step>
+  <Step title="Connect a bank (Plaid only)">
+    Open the Money page and click Connect a bank to link each account. This per-user bank login is the link step, not a replacement for the app keys.
+  </Step>
+</Steps>
+
+## How it works
+
+- Brain Map calls the Stripe and Plaid APIs directly with your keys, which stay in your pod. The key boxes are write-only.
+- Stripe returns your balance (available plus pending), recent charges, and recent payouts.
+- Plaid uses `/accounts/get` (cached balances), so it works without the realtime Balance product. It tallies cash (depository), credit, and investment, and computes net worth = cash + investment minus credit. Each linked bank is one stored token.
+- Connect a bank runs the standard Plaid Link flow; the access token is saved in Brain Map's own database (`plaid_items`).
+- The Money page is the visual version. The agent's `get_money` drops the same numbers as a tile.
+
+## What you can ask
+
+- "what's my cash position" / "how much cash do I have"
+- "what's my net worth"
+- "how much revenue is available in Stripe" / "what's pending in Stripe"
+- "show me the money tile"
+
+Whichever side is configured is what comes back.
+
+## Limitations
+
+<Note>
+Read-only. Nothing here moves money, sends a payout, or initiates a transfer. Use a read-only restricted Stripe key to keep it that way at the source.
+</Note>
+
+- Plaid needs production approval for real banks. Sandbox keys only reach Plaid's test institutions.
+- Each person links their own bank. The app keys make Plaid available; they don't link an account on their own.
+- Balances are cached (`/accounts/get`), not realtime to the second. Fine for net worth and cash position, not for intra-minute trading numbers.
+- Transactions are available per account (`/api/money/plaid/transactions`) only if the Transactions product is enabled on that Plaid item; otherwise it returns empty.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can it move my money?">
+    No. It reads balances and revenue only. Plaid never moves money here, and a read-only Stripe key can't either.
+  </Accordion>
+  <Accordion title="Do I need both Stripe and Plaid?">
+    No. They're independent. Either one lights the feature up. Stripe is for revenue, Plaid is for bank, credit, and investment balances.
+  </Accordion>
+  <Accordion title="Why doesn't Plaid show anything after I added the keys?">
+    The keys make Plaid available, but you still have to Connect a bank on the Money page so there's an account to read. Also check `PLAID_ENV` is `production` (sandbox only sees fake banks).
+  </Accordion>
+  <Accordion title="Whose Plaid keys are these?">
+    The operator's app keys. One set serves everyone on the box. Each user then links their own bank on top of that.
+  </Accordion>
+  <Accordion title="Can I limit which banks show?">
+    Yes. Set `PLAID_INSTITUTION_ALLOW` to a comma-separated list of institution names or ids; only matches show. Blank shows everything you've linked.
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,51 @@
+---
+title: "Agent Browser"
+description: "A real, watchable Chrome browser on an isolated VM the agent can drive, reads run instantly and interactions are approval-gated."
+---
+
+A real, watchable Google Chrome browser running on an isolated VM that the agent can drive (real Chrome stable via Patchright, not bundled Chromium, so it is far harder for sites to flag as a bot). Reads (open a page, screenshot it, pull its text and links) run immediately. Interactions (click, type) are approval-gated. The VM keeps a persistent profile so cookies and history accumulate.
+
+## What you need
+
+A reachable browser VM control API (the llmchrome VM). For a new customer this is a managed cloud browser (Browserbase) or their own VM. Read-only endpoints needed: `/navigate`, `/extract`, `/screenshot`. Click and type need `/click` and `/type` on the VM (Phase 2, not built yet).
+
+## Setup
+
+<Steps>
+  <Step title="Open the Agent Browser card">
+    Go to the marketplace and open Agent Browser.
+  </Step>
+  <Step title="Paste the two keys">
+    Paste `BROWSER_VM_URL` (the control API, e.g. `http://10.20.30.110:8080`) and `BROWSER_VM_TOKEN` (the control API bearer token).
+  </Step>
+</Steps>
+
+## How it works
+
+`browse` calls `/navigate`, then `/extract`, then `/screenshot`, and renders an image tile (the screenshot) plus a doc tile (the page text). The agent gets the title, status, first chunk of text, and the links. `browser_action` queues an approval; on approve it calls the VM write endpoint.
+
+## What you can ask
+
+- "Open <url> and show me the page" (browses and screenshots)
+- "Read what's on <url>" (pulls the text)
+- "Click the Login button" / "type my email in the form" (approval-gated)
+
+## Limitations
+
+<Note>
+Read-only today. Any interaction (click, type) is approval-gated, and the write endpoints are Phase 2, not built yet.
+</Note>
+
+- The VM browses untrusted sites; keep it isolated and snapshot-reverted.
+- One shared browser context; not multi-user isolated (that is the managed-cloud path).
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Is it safe?">
+    Reads only by default. Any interaction is approval-gated. Never type a secret into a page from a prompt; use a merchant API or enter it yourself.
+  </Accordion>
+  <Accordion title="Can I watch it?">
+    Yes, via noVNC behind Authentik SSO.
+  </Accordion>
+</AccordionGroup>

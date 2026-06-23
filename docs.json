@@ -1,0 +1,187 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "MadeForMeAI",
+  "theme": "mint",
+  "logo": {
+    "light": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MadeForMeAI-Logo-Redesign-scaled.png",
+    "dark": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MadeForMeAI-Logo-Redesign-scaled.png"
+  },
+  "favicon": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MiniLogo-e1781884807487.png",
+  "colors": {
+    "primary": "#1e3a8a",
+    "light": "#0ea5e9",
+    "dark": "#f97316"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Discord",
+        "href": "https://discord.gg/uEugVKA8PH"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Reserve a spot",
+      "href": "https://madeformeai.com/early-access"
+    }
+  },
+  "footer": {
+    "socials": {
+      "discord": "https://discord.gg/uEugVKA8PH"
+    }
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "quickstart",
+          "getting-started/what-is-your-ai",
+          "getting-started/your-ai-url",
+          "getting-started/logging-in",
+          "getting-started/first-conversation",
+          "getting-started/add-to-phone",
+          "faq"
+        ]
+      },
+      {
+        "group": "Choose Your Setup",
+        "pages": [
+          "setups/choosing",
+          "setups/standard",
+          "setups/brain-map",
+          "setups/business-in-a-box"
+        ]
+      },
+      {
+        "group": "Understanding Your AI",
+        "pages": [
+          "understanding/how-memory-works",
+          "understanding/what-it-can-do",
+          "understanding/cloud-not-local",
+          "understanding/tool-calls"
+        ]
+      },
+      {
+        "group": "Connect Your Apps",
+        "pages": [
+          "connect/overview",
+          "connect/whatsapp",
+          "connect/telegram",
+          "connect/discord",
+          "connect/google-drive"
+        ]
+      },
+      {
+        "group": "Features",
+        "pages": [
+          "features/dashboard",
+          "features/memory",
+          "features/model-picker",
+          "features/file-uploads",
+          "features/web-search",
+          "features/setup-assistant",
+          "features/job-search-agent",
+          "features/scheduled-tasks",
+          {
+            "group": "Agents",
+            "pages": [
+              "features/agent-switcher",
+              "features/agents",
+              "features/your-agents"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Brain Map Marketplace",
+        "pages": [
+          "marketplace/overview",
+          {
+            "group": "Network and Infrastructure",
+            "pages": [
+              "marketplace/meraki",
+              "marketplace/infra"
+            ]
+          },
+          {
+            "group": "Money and Sales",
+            "pages": [
+              "marketplace/money",
+              "marketplace/twenty-crm",
+              "marketplace/review-requests"
+            ]
+          },
+          {
+            "group": "Automation and Connectors",
+            "pages": [
+              "marketplace/zapier",
+              "marketplace/composio",
+              "marketplace/n8n-automations",
+              "marketplace/scheduled-jobs",
+              "marketplace/saved-plays"
+            ]
+          },
+          {
+            "group": "Messaging and Voice",
+            "pages": [
+              "marketplace/telegram",
+              "marketplace/unified-inbox",
+              "marketplace/voice-elevenlabs",
+              "marketplace/voice-calls-retell"
+            ]
+          },
+          {
+            "group": "Knowledge and Storage",
+            "pages": [
+              "marketplace/memory-view",
+              "marketplace/webdav-vault",
+              "marketplace/assets",
+              "marketplace/skills"
+            ]
+          },
+          {
+            "group": "Browser and Security",
+            "pages": [
+              "marketplace/agent-browser",
+              "marketplace/1password",
+              "marketplace/trust-rules"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Your Account",
+        "pages": [
+          "account/plans",
+          "account/billing",
+          "account/managing-subscription",
+          "account/cancellation",
+          "byok/what-is-byok",
+          "byok/setup",
+          "byok/adding-your-key",
+          "byok/supported-providers"
+        ]
+      },
+      {
+        "group": "Troubleshooting",
+        "pages": [
+          "troubleshooting/common-issues",
+          "troubleshooting/cant-log-in",
+          "troubleshooting/my-ai-forgot-me",
+          "troubleshooting/slow-or-stuck",
+          "troubleshooting/model-not-responding",
+          "troubleshooting/email-not-received"
+        ]
+      },
+      {
+        "group": "Legal",
+        "pages": [
+          "legal/privacy",
+          "legal/terms"
+        ]
+      }
+    ]
+  }
+}

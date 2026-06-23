@@ -1,0 +1,73 @@
+---
+title: "Telegram Alerts"
+description: "An approval-gated outbound alert channel, the agent queues a Telegram message and it sends to your chat after you approve."
+---
+
+An approval-gated alert channel. The agent can queue a Telegram message (an alert, reminder, or note), you approve it, and it sends to your chat through a bot. This plugin (the `telegram` feature) is outbound notify only. To talk to the agent from Telegram and get replies, use the Unified Inbox app's gateway instead. One toggle, one bot token, one chat id.
+
+## What you need
+
+- A bot token from @BotFather (`/newbot`).
+- A chat id, the destination. You do not have to hunt for it: message the bot once, then the helper (`GET /api/admin/telegram/chat-ids`) lists the chats the bot has seen with their ids. A private chat is a positive number; a group is a negative number.
+
+## Setup
+
+<Steps>
+  <Step title="Create a bot">
+    In Telegram, message @BotFather, send `/newbot`, follow the prompts, and copy the bot token (looks like `8875xxxxxx:AAH...`).
+  </Step>
+  <Step title="Save the token">
+    Open Admin (marketplace), then the Telegram card. Paste the Bot token into its write-only box and Save.
+  </Step>
+  <Step title="Register your chat">
+    In Telegram, open your new bot and send it any message (e.g. `/start`). A bot cannot message you first, so this registers your chat.
+  </Step>
+  <Step title="Save the chat id">
+    Back on the card, the Chat id is found for you by the setup helper. Paste the chat id into its box and Save.
+  </Step>
+  <Step title="Enable">
+    Flip Enable on. It applies on your next message, no restart.
+  </Step>
+</Steps>
+
+## How it works
+
+- The agent tool `notify_telegram` queues a message as an approval. Nothing sends yet.
+- On approve, the `send_telegram` action calls the Telegram Bot API `sendMessage` with your token and chat id. Messages render as HTML, up to 4000 characters.
+- Token and chat id are read live via the marketplace key store (saved to your pod, never shown back, never in the repo).
+- It is send-only. The bot has no responder, so it will not reply to messages you send it. That silence is normal.
+
+## What you can ask
+
+- "send a telegram that the backup finished" (queues an approval, sends on approve)
+- "telegram me a reminder to call the vendor at 3" (same, queued)
+- any "notify / alert / ping my telegram" phrasing
+
+Every send waits for your approval first.
+
+## Limitations
+
+- Outbound only. The bot does not answer messages or run commands. It is an alert sink.
+- Message the bot first. Telegram will not give you a chat id until the bot has seen a message from you.
+- One chat id at a time per box (the default destination). You can target a group by using the group's chat id.
+- 4000 character cap, HTML parse mode.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="The bot does not reply when I message it. Is it broken?">
+    This plugin is send-only, so it does not echo replies. If you want the bot to actually answer you, set that up under the Unified Inbox app: add your chat id to `TELEGRAM_ALLOWED_CHAT_IDS` and the agent gateway will reply. Without that, messaging the bot is only to register your chat id.
+  </Accordion>
+  <Accordion title="What is the chat id and where do I get it?">
+    It is the destination chat. Message the bot once, then the setup helper lists it for you. Paste it into the Chat id box.
+  </Accordion>
+  <Accordion title="Can it send to a group?">
+    Yes. Add the bot to the group, send a message there, and the helper shows the group's (negative) chat id. Use that as the chat id.
+  </Accordion>
+  <Accordion title="Is my token safe?">
+    The key box is write-only. The token is saved to your pod, never shown back or returned to the browser, and never in the repo.
+  </Accordion>
+  <Accordion title="My token leaked / I pasted it somewhere.">
+    Message @BotFather, `/revoke`, get a fresh token, and paste the new one in the same box. It applies live.
+  </Accordion>
+</AccordionGroup>

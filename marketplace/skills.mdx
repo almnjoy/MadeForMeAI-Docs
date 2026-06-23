@@ -1,0 +1,53 @@
+---
+title: "Skills"
+description: "Reusable markdown playbooks the agent loads on demand, a named checklist it follows for a task to keep its context lean."
+---
+
+Reusable markdown playbooks the agent loads on demand. A skill is a named, editable markdown document, a checklist the agent follows for a task: lead outreach, proposal/SOW, email drip, infra triage, clean writing, brand voice. Add the ones you want; the agent pulls a skill's full text only when a task matches, which keeps its context lean.
+
+## What you need
+
+Nothing to supply, it's built in. Skills are stored per box in the database and edited in-app.
+
+## Setup
+
+<Steps>
+  <Step title="Open the Skills tab">
+    Skills live in the marketplace Skills tab (no key needed). A small starter pack is seeded per box.
+  </Step>
+  <Step title="Add or edit skills">
+    Tap Add on a skill to make it available to the agent, Edit to change its markdown, or New skill to write your own.
+  </Step>
+</Steps>
+
+## How it works
+
+- The agent's prompt carries a compact index of your added skills (slug plus one-liner) so it knows what is available without loading everything.
+- When a task matches, the agent calls `use_skill(slug)` to load the full playbook, then follows it.
+- Skills sit beside the Saved Plays (Workflow Recorder). A recorded play can become a skill later.
+
+## What you can ask
+
+The agent calls `use_skill` itself. You just ask for the task:
+
+- "draft a cold outreach to X"
+- "write me a proposal for Y"
+
+If the matching skill is added, the agent loads and follows it.
+
+## Limitations
+
+- Only added (enabled) skills are visible to the agent; un-added ones sit on the shelf.
+- Skills are per box, not shared across boxes, for now.
+- Each skill carries an optional agent-scope field (reserved for a future per-agent roster), unused today.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How is a skill different from a note?">
+    A note is content. A skill is an instruction the agent follows.
+  </Accordion>
+  <Accordion title="Where do they come from?">
+    A seeded starter pack (stop-slop, brand-voice, lead-outreach, proposal-sow, email-drip, infra-triage) plus any you create.
+  </Accordion>
+</AccordionGroup>

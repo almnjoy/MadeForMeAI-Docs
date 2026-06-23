@@ -1,0 +1,62 @@
+---
+title: "n8n Automations"
+description: "Route actions through your own n8n flows, send a templated email, read your calendar, and capture leads into Twenty."
+---
+
+The doing layer. Where the other features read APIs directly, this bundle routes actions through your n8n flows. Right now it covers three things: send a templated email, read your calendar (M365 / cal.com), and capture a lead into Twenty. One toggle says "my n8n is wired up and powers these."
+
+## What you need
+
+- An n8n instance reachable from Brain Map (your `N8N_BASE_URL`).
+- The flows themselves, built in n8n: a templated-email send (renders the branded template and sends via Microsoft Graph), a calendar read (M365 / cal.com), and a lead-capture (find-or-create in Twenty). For a new customer these are tweaked or rebuilt for that customer's email, CRM, and calendar.
+
+## Setup
+
+<Steps>
+  <Step title="Open the n8n Automations card">
+    Go to Admin (the marketplace) and click the n8n Automations card.
+  </Step>
+  <Step title="Set your n8n base URL">
+    Set your n8n base URL in the write-only box and Save.
+  </Step>
+  <Step title="Enable">
+    Flip Enable on.
+  </Step>
+</Steps>
+
+The catch that makes this different from the API features: the flows have to exist in your n8n. Brain Map calls webhooks; n8n does the work. The flow names and paths line up with the routes in your tenant config (`send-templated-email`, `capture-lead`, etc.).
+
+## How it works
+
+- For these three things, Brain Map does not call email, calendar, or CRM-write APIs itself. It POSTs to your n8n webhook and n8n runs the flow.
+- Email is approval-gated. The agent drafts an email and queues an approval card. Only when you approve does Brain Map hit the n8n `send-templated-email` webhook, which renders the branded template and sends via Graph.
+- Calendar reads your real M365 / cal.com events through the n8n calendar flow.
+- Lead capture posts a new lead to the n8n `capture-lead` flow, which find-or-creates it in Twenty (reading the pipeline is the Twenty CRM feature, direct API).
+
+## What you can ask
+
+- "draft a <template> email to <person>" (queues an approval, then n8n sends on approve)
+- "what's on my calendar" (upcoming M365 / cal.com events)
+- "capture this as a lead" (posts a new lead into Twenty via n8n)
+
+## Limitations
+
+- The bundle is the wiring, not the flows. Enabling it points Brain Map at your n8n; the flows must be built there. No n8n or no flows means these do nothing.
+- Per-customer. Each customer's flows differ (their email sender, CRM, calendar), so this isn't a paste-a-key feature.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Does it send email without asking?">
+    No. Email is approval-gated. The agent drafts, you approve, then n8n sends.
+  </Accordion>
+  <Accordion title="Why n8n instead of calling the APIs directly?">
+    Flexibility and per-customer wiring. n8n can reach almost anything, and each customer's email, CRM, and calendar setup is different. The read-only, every-customer-the-same things (pipeline, balances, metrics) are direct API.
+  </Accordion>
+  <Accordion title="What if I don't run n8n?">
+    Leave this off. The direct-API features (Twenty CRM read, Money, Infra, Meraki) don't need it.
+  </Accordion>
+  <Accordion title="Is the URL safe?">
+    The box is write-only, saved to your pod, never shown back, never in the repo.
+  </Accordion>
+</AccordionGroup>

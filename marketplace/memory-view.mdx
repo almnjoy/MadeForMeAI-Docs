@@ -1,0 +1,53 @@
+---
+title: "Memory View"
+description: "An Obsidian-style force graph of your notes, where each note is a node and each wikilink is an edge you can click to read or edit."
+---
+
+An Obsidian-style force graph of your notes. Each note is a node, each `[[wikilink]]` inside a note is an edge. Click a node to read or edit its markdown. It is the in-app view of your notes vault, the most on-brand surface for a product named Brain Map.
+
+## What you need
+
+Nothing to supply, it's built in. Notes come from the vault (or a local table). To make the graph interesting, write a few notes and link them with `[[Title]]`.
+
+## Setup
+
+<Steps>
+  <Step title="Enable the app">
+    Enable the Memory View app in the marketplace (Admin, then Apps). The Memory page and left-nav item appear.
+  </Step>
+  <Step title="Connect a vault (recommended)">
+    It reads notes from the Notes tool. For real two-way notes, also connect the WebDAV Vault app, otherwise notes fall back to a local database table.
+  </Step>
+</Steps>
+
+## How it works
+
+- Nodes are notes; a node with more links is bigger. Green means linked, gray means orphan, dashed means an unresolved `[[link]]` target (click it to create that note).
+- The controls panel (the sliders icon) has a Groups legend, Display options (node size, labels, show orphans), Forces (repel, link distance), and Fit to view.
+- The search box dims non-matching nodes. Click a node to open the markdown editor (edit, save, delete). There is a New note button top-left.
+- Rendered with react-force-graph (the same d3-force-on-canvas engine Obsidian's graph uses).
+
+## What you can ask
+
+The Memory page is a UI. The canvas agent works the same notes through the Notes tool:
+
+- "add a note for X"
+- "what links to Y"
+- "append this to my Z note"
+
+## Limitations
+
+- Top-level notes only for now (subfolders are not recursed yet).
+- The graph fetches each note body to draw edges, so a very large vault loads more slowly.
+- It is a page app: it does not add an agent tool of its own (that is the Notes tool).
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Where do the notes live?">
+    In the WebDAV Vault when connected (two-way with Obsidian), otherwise a local DB table.
+  </Accordion>
+  <Accordion title="Why is a node dashed?">
+    It is a `[[link]]` target with no note yet. Click it to create the note.
+  </Accordion>
+</AccordionGroup>

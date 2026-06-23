@@ -1,0 +1,71 @@
+---
+title: "Zapier"
+description: "Let the agent use your Zapier-connected apps, reads run instantly and writes are approval-gated, via the Zapier MCP server."
+---
+
+Let the agent use your Zapier-connected apps. Brain Map connects to your Zapier MCP server and discovers the actions you have enabled there, then exposes them to the agent. Read actions run immediately; write actions are approval-gated, so the agent queues them and they only fire after you approve. Whatever actions you add on the Zapier side show up here automatically, so you can wire up many without per-action setup in Brain Map.
+
+## What you need
+
+- A Zapier MCP server URL (Streamable HTTP) from the Connect tab. The URL carries its own token, so it is the credential. Rotate it any time with Zapier's Rotate token button.
+- The actions you want, added on the Apps tab of that server. This is the important part: Zapier MCP exposes the actions you add there, not your Zaps. Building a Zap does not make it show up here. Add the app action (Gmail Send Email, etc.) on the Apps tab.
+
+## Setup
+
+<Steps>
+  <Step title="Get your MCP server URL">
+    In Zapier, open your MCP Server (mcp.zapier.com). On the Connect tab, set the transport to Streamable HTTP and copy the server URL.
+  </Step>
+  <Step title="Add the actions">
+    On the Apps tab, click + Add tool, search the app (e.g. Gmail), pick the action (e.g. Send Email), connect the account, and save. Add as many as you want.
+  </Step>
+  <Step title="Open the Zapier card">
+    In Brain Map, go to Admin (marketplace) and open the Zapier card.
+  </Step>
+  <Step title="Paste the URL and enable">
+    Paste the Zapier MCP URL into its write-only box, Save, and flip Enable on. It applies on your next message. New actions appear within about a minute.
+  </Step>
+</Steps>
+
+## How it works
+
+- Brain Map is an MCP client to your Zapier MCP server. It reads the URL live (no restart) and handshakes the server to discover your enabled actions.
+- Zapier MCP uses a dynamic execution model, not one tool per action. The agent calls `list_enabled_zapier_actions` to see what you enabled, `execute_zapier_read_action` to run a read, and `execute_zapier_write_action` to run a write.
+- Brain Map runs the reads immediately and approval-gates the writes: a write queues a proposal and only fires through your approval. The agent never sends or creates anything on its own.
+- Credentials for the underlying apps (your Gmail, etc.) stay on Zapier's side. Brain Map only holds the MCP URL.
+
+## What you can ask
+
+Whatever actions you enabled on the Apps tab. For example, with Gmail added:
+
+- "find the latest email from <person>" (runs immediately)
+- "send an email via Zapier to <addr> with subject X and body Y" (queues an approval)
+- "create a draft reply to <thread>" (queued for approval)
+
+## Limitations
+
+- Only the actions you add on the Apps tab are available. Your Zaps are not exposed through MCP.
+- Writes are approval-gated by design to start. A per-action "allow always" toggle can be added later.
+- About a minute of lag when you add a new action.
+- One MCP URL per box. The URL is the credential; rotate it on the Zapier side if it leaks.
+- This is the MCP path. For hand-built flows you own end to end, n8n is the other lane.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="My Zap does not show up.">
+    Zapier MCP exposes the actions you add on the Apps tab, not Zaps. Add the app action there (e.g. Gmail Send Email) and it appears here within about 60 seconds.
+  </Accordion>
+  <Accordion title="How do I add more actions?">
+    On your Zapier MCP server's Apps tab: + Add tool, pick the app and action, connect, save. No Brain Map change needed.
+  </Accordion>
+  <Accordion title="Can the agent send things on its own?">
+    No. Write actions are queued for your approval and only fire after you approve. Reads run on their own.
+  </Accordion>
+  <Accordion title="Where does my token live?">
+    It is part of the MCP URL, saved write-only to your pod, never shown back, never in the repo. Rotate it on Zapier with Rotate token if needed.
+  </Accordion>
+  <Accordion title="Zapier or n8n?">
+    Both work. Zapier here is the MCP path (fast to wire many app actions); n8n is for flows you build and host yourself (the Automations feature).
+  </Accordion>
+</AccordionGroup>

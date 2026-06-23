@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" font-family="Poppins, Arial, sans-serif">
+  <!-- Orange filled circle -->
+  <circle cx="40" cy="40" r="36" fill="#f97316"/>
+  <!-- White inner circle -->
+  <circle cx="40" cy="40" r="28" fill="#ffffff"/>
+  <!-- Navy M mark -->
+  <path d="M 22,58 L 22,32 Q 22,18 32,18 Q 42,18 42,32 L 42,56"
+        fill="none" stroke="#1e3a8a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 42,32 Q 42,18 52,18 Q 62,18 62,32 L 62,62"
+        fill="none" stroke="#1e3a8a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Wordmark white for dark bg -->
+  <text x="88" y="46" font-size="28" font-weight="700">
+    <tspan fill="#ffffff">MadeForMe</tspan><tspan fill="#f97316">AI</tspan>
+  </text>
+</svg>

@@ -1,0 +1,72 @@
+---
+title: "Unified Inbox"
+description: "A carded stream of inbound leads and messages, plus the option to talk to your agent from Telegram and get replies."
+---
+
+Two things in one place. First, a carded stream of inbound leads and messages so inquiries stop scattering: Telegram inbound, Twenty CRM newest lead, and email, form, or SMS items you push from n8n or Zapier. Second, you can talk to your canvas agent from Telegram: allowlisted chats message your bot and the agent answers in chat, so you can drive it without logging into the platform. Replies and write actions stay approval-gated.
+
+## What you need
+
+A Telegram bot token (from @BotFather). Your chat id for the allowlist. Twenty CRM is optional.
+
+## Setup
+
+<Steps>
+  <Step title="Enable inbox capture">
+    Go to the marketplace and enable Unified Inbox. For Telegram, set `TELEGRAM_BOT_TOKEN`. The Twenty CRM newest-lead fold-in is optional. Email, form, and SMS items arrive when n8n or Zapier push to `add_inbox_item`.
+  </Step>
+  <Step title="Set the bot token for agent chat">
+    Set `TELEGRAM_BOT_TOKEN` (from @BotFather) on the card.
+  </Step>
+  <Step title="Find your chat id">
+    Message the bot once, then use the chat-id helper. Do this before any webhook is set, since the helper and a webhook cannot both be active.
+  </Step>
+  <Step title="Set the allowlist">
+    Set `TELEGRAM_ALLOWED_CHAT_IDS` (a comma list) to the chat ids allowed to drive the agent. This is the opt-in and the security boundary. Leave it blank for inbox-only (no agent).
+  </Step>
+  <Step title="Message the bot">
+    The agent gateway starts automatically (at boot, or within about 20 seconds of setting the allowlist) and long-polls Telegram. Message the bot and it replies.
+  </Step>
+</Steps>
+
+## How it works
+
+- Agent chat uses an outbound long-poll gateway (`gateways/telegram.js`). The box calls Telegram (`getUpdates`); there is no public endpoint and no Authentik or Caddy change. The webhook path (`/api/webhooks/telegram`) still exists for inbox capture but is dormant in poll mode.
+- An inbound message from an allowlisted chat is routed into the canvas agent with its own per-chat conversation history (`telegram:<chatId>`), and the agent's text reply is sent back. A non-allowlisted chat is ignored. There is a small per-chat rate limit.
+- Writes stay gated. If the agent proposes a write (send email, create lead, run a Zapier or Composio write), it is queued to the app's approvals queue and the chat reply says how many were queued; you approve in the app. Reads and answers run live.
+- Inbox tools: `list_inbox` shows stored items plus your newest CRM lead; `reply_inbox` queues an approval-gated reply (Telegram-sourced items reply via the bot); `add_inbox_item` lets n8n or Zapier push items in.
+
+## What you can ask
+
+From Telegram (allowlisted chat):
+
+- "what's my pipeline?" (agent answers in chat)
+- "and the newest lead?" (remembers the conversation, per-chat session)
+- "draft an email to <addr> about X" (queued for approval, you approve in the app)
+
+From the canvas, the inbox tools:
+
+- "what's in my inbox?" / "any new inquiries?" (lists items)
+- "reply to that Telegram message: ..." (approval-gated)
+
+## Limitations
+
+- Allowlist is required for agent chat. An empty `TELEGRAM_ALLOWED_CHAT_IDS` means inbox-only. Only allowlist chats you would hand the agent to (they get the operator's agent powers).
+- Text only in Telegram. Canvas tiles and visuals do not render there; the agent's written answer is what you get.
+- Writes are approval-gated and approved in the app for now.
+- One bot per box, single-process poll loop.
+- Old messages sent before the gateway was running are skipped (it starts from the latest update).
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I talk to my agent without logging into the web app?">
+    Yes. Set your chat id in `TELEGRAM_ALLOWED_CHAT_IDS`, message the bot, and the agent replies in chat.
+  </Accordion>
+  <Accordion title="Is this secure?">
+    It is outbound long-poll (no exposed endpoint), gated by the chat-id allowlist, and writes never auto-run. It does not touch the platform's Authentik login.
+  </Accordion>
+  <Accordion title="Why long-poll instead of a webhook?">
+    A webhook would need an Authentik or Caddy exception to be reachable. Long-poll avoids exposing anything, so it is the more secure default.
+  </Accordion>
+</AccordionGroup>
