@@ -7,7 +7,7 @@ Stores your notes as plain `.md` files in a WebDAV vault, two-way synced with Ob
 
 ## What you need
 
-A WebDAV endpoint plus credentials. On the MadeForMeAI cloud these are provisioned per box (`vault-<tenant>.madeformeai.com`, basic-auth, an isolated subfolder per tenant). Any S3/WebDAV or self-hosted endpoint works too.
+A WebDAV endpoint plus credentials. On the MadeForMeAI cloud these are provisioned per box (`vault-[tenant].madeformeai.com`, basic-auth, an isolated subfolder per tenant). Any S3/WebDAV or self-hosted endpoint works too.
 
 ## Setup
 
@@ -16,7 +16,7 @@ A WebDAV endpoint plus credentials. On the MadeForMeAI cloud these are provision
     Enable the WebDAV Vault app in the marketplace.
   </Step>
   <Step title="Add the secrets">
-    Add the three secrets (Admin, then Secrets, or the app's detail panel): `WEBDAV_URL` (your vault root, e.g. `https://vault-<tenant>.madeformeai.com`), `WEBDAV_USER`, and `WEBDAV_PASS`.
+    Add the three secrets (Admin, then Secrets, or the app's detail panel): `WEBDAV_URL` (your vault root, e.g. `https://vault-[tenant].madeformeai.com`), `WEBDAV_USER`, and `WEBDAV_PASS`.
   </Step>
   <Step title="Connect Obsidian (optional)">
     For two-way sync, install the Remotely Save plugin in Obsidian, set it to WebDAV with the same URL, user, and password, and sync.
@@ -55,7 +55,7 @@ The Memory graph shows how they link.
     No. It is a WebDAV server over your `.md` files. Obsidian (or any WebDAV client) syncs to the same files.
   </Accordion>
   <Accordion title="Where are my files?">
-    On the MadeForMeAI cloud: a per-box storage vault path (`/opt/docker/storage/vault/<tenant>/`).
+    On the MadeForMeAI cloud: a per-box storage vault path (`/opt/docker/storage/vault/[tenant]/`).
   </Accordion>
   <Accordion title="What if I turn it off?">
     Notes fall back to a local database table; the vault files stay put.

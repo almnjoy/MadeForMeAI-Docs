@@ -32,7 +32,7 @@ A Telegram bot token (from @BotFather). Your chat id for the allowlist. Twenty C
 ## How it works
 
 - Agent chat uses an outbound long-poll gateway (`gateways/telegram.js`). The box calls Telegram (`getUpdates`); there is no public endpoint and no Authentik or Caddy change. The webhook path (`/api/webhooks/telegram`) still exists for inbox capture but is dormant in poll mode.
-- An inbound message from an allowlisted chat is routed into the canvas agent with its own per-chat conversation history (`telegram:<chatId>`), and the agent's text reply is sent back. A non-allowlisted chat is ignored. There is a small per-chat rate limit.
+- An inbound message from an allowlisted chat is routed into the canvas agent with its own per-chat conversation history (`telegram:[chatId]`), and the agent's text reply is sent back. A non-allowlisted chat is ignored. There is a small per-chat rate limit.
 - Writes stay gated. If the agent proposes a write (send email, create lead, run a Zapier or Composio write), it is queued to the app's approvals queue and the chat reply says how many were queued; you approve in the app. Reads and answers run live.
 - Inbox tools: `list_inbox` shows stored items plus your newest CRM lead; `reply_inbox` queues an approval-gated reply (Telegram-sourced items reply via the bot); `add_inbox_item` lets n8n or Zapier push items in.
 
@@ -42,7 +42,7 @@ From Telegram (allowlisted chat):
 
 - "what's my pipeline?" (agent answers in chat)
 - "and the newest lead?" (remembers the conversation, per-chat session)
-- "draft an email to <addr> about X" (queued for approval, you approve in the app)
+- "draft an email to [addr] about X" (queued for approval, you approve in the app)
 
 From the canvas, the inbox tools:
 
