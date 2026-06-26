@@ -6,7 +6,13 @@ description: "Review Requests After a paid job, shoot, or milestone, draft an ap
 # Review Requests
 
 After a paid job, shoot, or milestone, draft an approval-gated ask for a Google or Yelp review with
-your review link. Tracks who was asked. The owned-reputation flywheel every persona needs.
+your review link. Tracks who was asked.
+
+<Note>
+This is a lightweight draft-and-track helper, not a polished send-it-for-you feature. The reliable
+way to actually deliver and time review asks is to wire it through your automation connectors (n8n,
+Zapier, or Composio). Use the agent to draft and queue the ask, then let a connector send it.
+</Note>
 
 ## HOW TO SETUP
 Marketplace -> Review Requests. Optionally set `REVIEW_URL` (your Google/Yelp review link) so asks
@@ -17,7 +23,8 @@ Your public review link (optional but recommended).
 
 ## HOW IT WORKS
 `request_review` drafts the message and queues an approval. On approve, the request is marked sent
-and returns the message + link to send through your channel (Telegram, n8n, or Zapier). Stored in the
+and returns the message + link. The agent does not send it for you. Hand the result to a connector
+(n8n, Zapier, or Composio) or your Telegram channel to deliver the SMS or email. Stored in the
 `review_requests` table.
 
 ## WHAT CAN BE CALLED VIA AI
@@ -25,10 +32,12 @@ and returns the message + link to send through your channel (Telegram, n8n, or Z
 - "Who have I asked for reviews?" -> list_review_requests
 
 ## LIMITATIONS
-- The plugin drafts and tracks; sending the SMS/email routes through your channel (no direct SMS
-  sender wired unless you use Telegram/n8n/Zapier).
-- No automatic "after paid invoice" trigger yet; pair with the AR watcher or a saved play + n8n
-  schedule to automate the timing.
+- This is not a heavily tested, first-class feature. It drafts and tracks only. Treat delivery as a
+  connector job.
+- Sending the SMS or email routes through your channel. There is no direct sender wired unless you
+  use Telegram, n8n, Zapier, or Composio.
+- No automatic "after paid invoice" trigger. Pair with the AR watcher or a saved play plus an n8n or
+  Zapier schedule to handle the timing.
 
 ## FAQ
 Q: Can it auto-send after a job? A: Draft + queue yes; automatic timing via an n8n schedule that

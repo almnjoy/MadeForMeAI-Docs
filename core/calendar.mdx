@@ -1,34 +1,37 @@
 ---
 title: "Calendar"
-description: "A simple calendar the agent can read and write for you."
+description: "Connect your real calendar through your automations so the agent can read and add events for you."
 ---
 
-A simple calendar the agent can read and write for you. Ask what is coming up and it lists your
-upcoming events. Tell it to add something and it puts an event on a date and time, with an optional
-location. Reading your events runs immediately. Adding an event is a write, so the agent queues it
-and it only goes on the calendar after you approve. This is the local, built-in calendar that lives
-on your box. Your real Outlook or Microsoft 365 calendar is a separate connection (the n8n
-Automations feature), not this one.
+Your calendar connects through your automations, not a calendar that lives only inside MindMap. Wire up n8n, Zapier, or Composio to your actual calendar (Outlook, Google, cal.com, or whatever you use) and the agent can list what is coming up and add events for you. Reading your events runs immediately. Adding an event is a write, so the agent queues it and it only goes on the calendar after you approve.
 
 ## HOW TO SETUP
 
-Nothing to set up. Calendar is on by default and needs no key. Open MindMap and ask the agent
-about your schedule and it works.
+Connect your calendar through an automation, then point MindMap at it.
 
-If you ever want to confirm it is on, open MindMap -> Admin (marketplace) -> the Calendar card.
-It is enabled out of the box.
+<Steps>
+  <Step title="Pick your automation">
+    Use n8n, Zapier, or Composio, whichever you already run.
+  </Step>
+  <Step title="Connect your calendar">
+    Authorize your real calendar (Outlook, Google, cal.com, or another) inside that tool.
+  </Step>
+  <Step title="Let the agent use it">
+    Once the automation is live, ask the agent about your schedule and it reads and adds events through that connection.
+  </Step>
+</Steps>
 
 ## WHAT USER NEEDS TO GET
 
-Nothing.
+- An automation account (n8n, Zapier, or Composio).
+- Access to the calendar you want to use (Outlook, Google, cal.com, etc.).
 
 ## HOW IT WORKS
 
 - The agent lists your upcoming events when you ask. This is a read, so it runs immediately.
 - Adding an event is a write. The agent queues a proposal with the date, time, title, and any
   location you gave, and it only fires after you approve. The agent never adds anything on its own.
-- Your events are stored locally on your box. They are not sent anywhere and not shown in the code.
-- There is no key for this feature, so there is nothing to rotate or paste.
+- The events live in your real calendar through the automation you connected, not inside MindMap.
 
 ## WHAT CAN BE CALLED VIA AI
 
@@ -42,24 +45,16 @@ The agent reads your events on its own and queues every new event for you to app
 
 ## LIMITATIONS
 
-- It is a local list. It does not sync to Outlook or Google. For Microsoft 365, use the n8n
-  Automations feature instead.
-- It does not send calendar invites to anyone.
-- It does not send reminders or notifications before an event.
-- It tracks single events with a time and an optional location. It is not a full scheduling tool
-  with attendees, recurring series, or availability checks.
+- It depends on the automation you connect. If that connection is down, the agent cannot read or add events.
+- What the agent can do depends on what your automation exposes (invites, reminders, recurring series, and availability checks vary by setup).
 
 ## FAQ
 
-**Does this update my real Outlook or Google calendar?** No. This is a separate local calendar on
-your box. Your Outlook or Microsoft 365 calendar connects through the n8n Automations feature, which
-is its own setup.
-
-**Will it remind me before a meeting?** No. It stores the event so you and the agent can see it, but
-it does not send reminders or push notifications.
+**Which calendars can I use?** Whatever your automation connects to, such as Outlook, Microsoft 365,
+Google, or cal.com. The agent works through that connection.
 
 **Can the agent add an event without asking me?** No. Reading your events runs on its own, but every
 new event queues for your approval and only goes on the calendar after you approve it.
 
-**Do I need to turn it on or add a key?** No. Calendar is on by default with no key. Just ask the
-agent about your schedule.
+**What do I need to set up?** An automation (n8n, Zapier, or Composio) connected to your real
+calendar. Once that is live, just ask the agent about your schedule.

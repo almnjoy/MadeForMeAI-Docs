@@ -17,8 +17,9 @@ single-user setup can fill just the allowlist and skip the separate notify id.
    **bot token** it gives you (looks like `8875xxxxxx:AAH...`).
 2. Open MindMap -> **Admin** (marketplace) -> the **Telegram** card.
 3. Paste the **Bot token** into its write-only box, hit **Save**.
-4. In Telegram, open **your** new bot and send it any message (e.g. `/start`). A bot cannot
-   message you first, so this step is what registers your chat.
+4. Get your chat id. Either message a chat-id bot (e.g. **@myidbot** or **@userinfobot**) and it
+   replies with your id, or open **your** new bot and send it any message (e.g. `/start`). A bot
+   cannot message you first, so messaging your bot is what registers your chat with it.
 5. Back on the card, the **Notify chat id** (`TELEGRAM_CHAT_ID`, where approved alerts are sent)
    is found for you by the setup helper, which reads the chats your bot has seen. Paste the chat id
    into its box and **Save**. You can leave this blank if you fill the allowlist below: a blank
@@ -34,10 +35,11 @@ It applies on your next message, no restart.
 
 - **A bot token** from @BotFather (`/newbot`).
 - **A notify chat id** (`TELEGRAM_CHAT_ID`), the destination for approved alerts. You do not have
-  to hunt for it: message the bot once, then the helper (`GET /api/admin/telegram/chat-ids`) lists
-  the chats the bot has seen with their ids. For a private chat it is a positive number; for a
-  group it is a negative number. You can skip this field if you fill the allowlist, since a blank
-  notify id falls back to your first allowed id.
+  to hunt for it: message a chat-id bot (e.g. @myidbot or @userinfobot) or message your own bot
+  once, then the setup helper (`GET /api/admin/telegram/chat-ids`) lists the chats your bot has
+  seen with their ids. For a private chat it is a positive number; for a group it is a negative
+  number. You can skip this field if you fill the allowlist, since a blank notify id falls back to
+  your first allowed id.
 - **Allowed user IDs** (`TELEGRAM_ALLOWED_CHAT_IDS`) for two-way chat. This is the same kind of id
   the helper shows you. Put one id to allow just yourself, or a comma-separated list for several
   people. Anyone not in this list cannot talk to the agent.
@@ -88,8 +90,9 @@ Telegram card and **Save**, then the agent answers you in chat. With that field 
 outbound only, so messaging it just registers your chat id.
 
 **What is the notify chat id and where do I get it?** It is the outbound destination for approved
-alerts. Message the bot once, then the setup helper lists it for you. Paste it into the Notify chat
-id box. If you fill the allowlist, you can leave this blank and it uses your first allowed id.
+alerts. Message a chat-id bot (e.g. @myidbot or @userinfobot), or message your own bot once and the
+setup helper lists it for you. Paste it into the Notify chat id box. If you fill the allowlist, you
+can leave this blank and it uses your first allowed id.
 
 **Can more than one person chat the bot?** Yes. Put each person's id in **Allowed user IDs** as a
 comma-separated list. Every id on the list can talk to the agent; ids not on it are ignored.

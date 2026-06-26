@@ -5,30 +5,34 @@ description: "Agent Browser A real, watchable Google Chrome browser running on a
 
 # Agent Browser
 
+<Warning>
+Agent Browser is in development and not yet available. The description below is what it will do once
+it ships. The feature is not live in your workspace today.
+</Warning>
+
 A real, watchable Google Chrome browser running on an isolated VM that the agent can drive (real
 Chrome stable via Patchright, not bundled Chromium, so it is far harder for sites to flag as a bot).
 Reads (open a page, screenshot it, pull its text and links) run immediately. Interactions (click,
 type) are approval-gated. The VM keeps a persistent profile so cookies and history accumulate.
 
-## HOW TO SETUP
-Marketplace -> Agent Browser. Paste two keys:
-- `BROWSER_VM_URL` (the control API, e.g. `http://10.20.30.110:8080`)
+## SETUP (PLANNED)
+When it ships, you will connect it from Marketplace -> Agent Browser with two keys:
+- `BROWSER_VM_URL` (the control API)
 - `BROWSER_VM_TOKEN` (the control API bearer token)
-On rocker both are already set, so the card shows Connected.
 
-## WHAT USER NEEDS TO GET
-A reachable browser VM control API (the llmchrome VM). For a new customer this is the managed/cloud
-browser story (Browserbase) or their own VM. Read-only endpoints needed: /navigate /extract
-/screenshot. Click/type need /click and /type on the VM (Phase 2, not built yet).
+## WHAT YOU WILL NEED
+A reachable browser VM control API. This will be a managed cloud browser or your own VM. Read-only
+endpoints needed: /navigate /extract /screenshot. Click/type will need /click and /type on the VM
+(a later phase, not built yet).
 
-## HOW IT WORKS
+## HOW IT WILL WORK
 `browse` calls /navigate then /extract then /screenshot and renders an image tile (the screenshot)
 plus a doc tile (the page text). The agent gets the title, status, first chunk of text, and the
 links. `browser_action` queues an approval; on approve it calls the VM write endpoint.
 
-## WHAT CAN BE CALLED VIA AI
-- "Open <url> and show me the page" -> browse
-- "Read what's on <url>" -> browse
+## WHAT YOU WILL BE ABLE TO ASK
+- "Open `<url>` and show me the page" -> browse
+- "Read what's on `<url>`" -> browse
 - "Click the Login button" / "type my email in the form" -> browser_action (approval-gated)
 
 ## LIMITATIONS

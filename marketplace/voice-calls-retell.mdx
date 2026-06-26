@@ -29,7 +29,7 @@ reads the result.
 ## WHAT CAN BE CALLED VIA AI
 - "Demo call my phone +1..." -> demo_call (no third-party consent needed)
 - "Call Sarah about her renewal, she consented" -> follow_up_call (needs voice_consent=true)
-- "How did call <id> go?" -> call_status
+- "How did call `<id>` go?" -> call_status
 - "List my Retell agents and numbers" -> list_voice_agents
 
 ## LIMITATIONS
@@ -37,20 +37,6 @@ reads the result.
 - follow_up_call is REFUSED on approve unless voice_consent is true (TCPA). Honor DNC + 8am-9pm
   callee-local + recording disclosure in two-party states.
 - Confirm Retell's webhook signature scheme before trusting it in production.
-
-## LIVE SETUP (2026-06-14, rocker)
-Wired and connected on your-tenant.madeformeai.com:
-- RETELL_FROM_NUMBER = +15178834473 (your existing Retell number).
-- Two agents were created via API:
-  - "MindMap Demo" (agent_e26c98d1463e5d539c7a373144, voice cartesia-Brian) = RETELL_AGENT_ID
-    (the default demo). Its call results webhook to MindMap /api/webhooks/retell.
-  - "The Wandering AI (RPG demo)" (agent_a995dab7ce7e344f88fb9c7b52, voice 11labs-Billy) =
-    RETELL_AGENT_ID_FUN. Its results webhook to your n8n https://n8n.quickitprojects.com/webhook/retell-post-call.
-- demo_call now takes fun=true to use the Wandering AI agent: say "demo call my phone +1..., the fun one".
-- RETELL_WEBHOOK_INSECURE=true is set for first-run testing (confirm Retell's signature scheme, then remove).
-- The API key was pasted in chat during setup; ROTATE it in the Retell dashboard.
-- To grow the RPG bit: edit the "The Wandering AI" agent's prompt in the Retell dashboard, or re-run
-  MindMap/retell-setup/make_agents.py with a tweaked RPG_PROMPT.
 
 ## FAQ
 Q: Will it dial without me? A: No. Every call is approval-gated; nothing dials until you approve.

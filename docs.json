@@ -3,8 +3,8 @@
   "name": "MindMap",
   "theme": "mint",
   "logo": {
-    "light": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MadeForMeAI-Logo-Redesign-scaled.png",
-    "dark": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MadeForMeAI-Logo-Redesign-scaled.png"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "favicon": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MiniLogo-e1781884807487.png",
   "colors": {

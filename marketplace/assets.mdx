@@ -4,20 +4,13 @@ description: "Object storage for files your agents generate: proposals, exports,
 ---
 
 Object storage for files your agents generate: proposals, exports, images, PDFs. Browse, preview,
-download, upload, delete. S3-compatible, so it runs on MinIO now and AWS S3 later with no code
-change.
+download, upload, delete.
 
-## HOW TO SETUP
+## SETUP
 
-1. Enable the **Assets** app in the marketplace.
-2. Add the secrets: `S3_ENDPOINT` (e.g. `https://s3.madeformeai.com`), `S3_ACCESS_KEY`,
-   `S3_SECRET_KEY`, `S3_BUCKET`.
-3. The Assets page + nav appear, and the agent gets `save_asset` / `list_assets`.
-
-## WHAT USER NEEDS TO GET
-
-An S3-compatible endpoint + access key/secret + a bucket. On the MadeForMeAI cloud this is
-provisioned per box on worker2 (a bucket + a bucket-scoped user per tenant).
+Assets is set up for you. Your storage is already provisioned and connected before you log in,
+so there are no keys or endpoints to enter. When it is on, the Assets page and nav appear, and the
+agent can `save_asset` and `list_assets`.
 
 ## HOW IT WORKS
 
@@ -42,10 +35,7 @@ provisioned per box on worker2 (a bucket + a bucket-scoped user per tenant).
 
 ## FAQ
 
-**Where are the files?** In your S3 bucket (MadeForMeAI cloud: worker2 MinIO, one bucket per box).
+**Where are the files?** In your own private storage, set up for you on the MadeForMeAI cloud.
 
-**Is the bucket public?** No. It is private; downloads use short-lived presigned URLs, and each
-tenant's key can see only its own bucket.
-
-**Can I see the bucket directly?** The MinIO console is internal by default. Ask to expose an
-`s3-console.*` route if you want the admin UI.
+**Is my storage private?** Yes. Downloads use short-lived links, and you can see only your own
+files.

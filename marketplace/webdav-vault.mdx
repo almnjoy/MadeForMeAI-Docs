@@ -7,29 +7,22 @@ Stores your notes as plain `.md` files in a WebDAV vault, two-way synced with Ob
 storage behind the Notes tool and the Memory graph. What you write in MindMap shows up in Obsidian
 and what you write in Obsidian shows up in MindMap.
 
-## HOW TO SETUP
+## SETUP
 
-1. Enable the **WebDAV Vault** app in the marketplace.
-2. Add the three secrets (Admin -> Secrets, or the app's detail panel): `WEBDAV_URL` (your vault
-   root, e.g. `https://vault-<tenant>.madeformeai.com`), `WEBDAV_USER`, `WEBDAV_PASS`.
-3. When connected, the Notes tool + Memory graph read/write the vault. When off, notes fall back
-   to a local table.
-4. For Obsidian two-way sync: install the **Remotely Save** plugin in Obsidian, set it to WebDAV
-   with the same URL + user + password, and sync.
+Your vault is set up for you. The address and login are provisioned and connected before you log
+in, so there are no keys to enter. When it is on, the Notes tool and Memory graph read and write
+the vault. When off, notes fall back to a local table.
 
-## WHAT USER NEEDS TO GET
-
-A WebDAV endpoint + credentials. On the MadeForMeAI cloud these are provisioned per box on worker2
-(`vault-<tenant>.madeformeai.com`, basic-auth, an isolated subfolder per tenant). Any S3/WebDAV or
-self-hosted endpoint works too.
+For Obsidian two-way sync, we give you the vault address, username, and password. Install the
+**Remotely Save** plugin in Obsidian, set it to WebDAV with those values, and sync.
 
 ## HOW IT WORKS
 
 - Notes are `.md` files in the vault root. The note title is the filename, so renaming the title
   renames the file.
-- The api speaks WebDAV (PROPFIND to list, GET/PUT/DELETE for files) over HTTPS with basic-auth.
-- Per-tenant isolation: each box has its own vault subdomain + credentials + subfolder, so there
-  is no leak between users.
+- The vault speaks WebDAV over HTTPS, so any WebDAV client (like Obsidian) can sync the same files.
+- Your vault is private to you: a separate address, login, and folder, so there is no leak between
+  users.
 
 ## WHAT CAN BE CALLED VIA AI
 
@@ -39,7 +32,8 @@ notes". The Memory graph shows how they link.
 ## LIMITATIONS
 
 - Top-level files only for now (subfolders not yet recursed).
-- Basic-auth, not SSO (Obsidian's WebDAV client cannot follow an SSO redirect).
+- The vault uses its own username and password, not your main sign-in. That is what lets Obsidian
+  connect.
 - Last-writer-wins on a clash (no merge). Editing the same file in Obsidian and MindMap at the
   same instant can overwrite one side.
 
@@ -48,6 +42,6 @@ notes". The Memory graph shows how they link.
 **Is this Obsidian?** No. It is a WebDAV server over your `.md` files. Obsidian (or any WebDAV
 client) syncs to the same files.
 
-**Where are my files?** On the MadeForMeAI cloud: worker2 `/opt/docker/storage/vault/<tenant>/`.
+**Where are my files?** In your own private vault folder on the MadeForMeAI cloud.
 
 **What if I turn it off?** Notes fall back to a local database table; the vault files stay put.

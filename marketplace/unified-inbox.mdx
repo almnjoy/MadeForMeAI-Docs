@@ -32,7 +32,7 @@ A Telegram bot token (from @BotFather). Your chat id for the allowlist. Twenty C
 ## HOW IT WORKS
 - **Agent chat uses an outbound long-poll gateway** (`gateways/telegram.js`), the standard
   channel-adapter pattern. The box calls Telegram (`getUpdates`); there is **no public endpoint and
-  no Authentik/Caddy change**. The webhook path (`/api/webhooks/telegram`) still exists for inbox
+  no login or proxy change needed**. The webhook path (`/api/webhooks/telegram`) still exists for inbox
   capture but is dormant in poll mode (no webhook is registered).
 - An inbound message from an **allowlisted** chat is routed into the canvas agent with its own
   per-chat conversation history (`telegram:<chatId>`), and the agent's text reply is sent back. A
@@ -48,7 +48,7 @@ A Telegram bot token (from @BotFather). Your chat id for the allowlist. Twenty C
 From Telegram (allowlisted chat):
 - "what's my pipeline?" -> agent answers in chat (read)
 - "and the newest lead?" -> remembers the conversation (per-chat session)
-- "draft an email to <addr> about X" -> queued for approval, you approve in the app
+- "draft an email to `<addr>` about X" -> queued for approval, you approve in the app
 
 From the canvas, the inbox tools:
 - "what's in my inbox?" / "any new inquiries?" -> list_inbox
@@ -69,7 +69,7 @@ Q: Can I talk to my agent without logging into the web app? A: Yes. Set your cha
 `TELEGRAM_ALLOWED_CHAT_IDS`, message the bot, and the agent replies in chat.
 
 Q: Is this secure? A: It is outbound long-poll (no exposed endpoint), gated by the chat-id
-allowlist, and writes never auto-run. It does not touch the platform's Authentik login.
+allowlist, and writes never auto-run. It does not touch the platform's sign-in.
 
-Q: Why long-poll instead of a webhook? A: A webhook would need an Authentik/Caddy exception to be
+Q: Why long-poll instead of a webhook? A: A webhook would need a login and reverse-proxy exception to be
 reachable. Long-poll avoids exposing anything, so it is the more secure default for self-hosted setups.

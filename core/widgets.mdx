@@ -7,25 +7,21 @@ Ask for a quick visual answer and the agent draws it as a tile instead of a para
 
 ## HOW TO SETUP
 
-1. Nothing to do for weather, stocks, logos, photos, and charts. Widgets are on by default and need no key.
-2. Maps are the one exception. To turn them on, get a **Google Maps API key** and add it.
-3. Open MindMap -> Admin (marketplace) -> the **Widgets** card (or the Secrets bucket for the key).
-4. Paste the key into the **GOOGLE_MAPS_KEY** box and **Save**. The box is write-only: once you save, the key is not shown back to you.
-5. The key applies on your next message, no restart.
+Nothing to do. Weather, stocks, logos, photos, and charts are on by default and need no key. Open MindMap and ask.
+
+<Note>Maps that need an API key are not user-configurable in the UI today. There is no in-app field for a Google Maps key. Weather, stocks, and logos work with no key.</Note>
 
 ## WHAT USER NEEDS TO GET
 
-- Nothing for weather, stocks, logos, photos, and charts.
-- A **Google Maps API key** only if you want maps. Create one in the Google Cloud console (APIs & Services -> Credentials), enable the Maps and Static Maps APIs on it, then paste it into MindMap.
+Nothing. Weather, stocks, logos, photos, and charts all work out of the box.
 
 ## HOW IT WORKS
 
 - You ask in plain language. The agent picks the right widget and renders a tile in your reply: a weather card, a quote with a sparkline, a logo, a photo, a map, or a chart.
 - Weather comes from Open-Meteo, quotes from Yahoo Finance, and logos from Clearbit. These are free public sources, so the agent reads them live each time you ask.
 - Charts are drawn by a renderer built into MindMap. The agent charts numbers you give it or numbers it just looked up. The chart is a snapshot of those numbers, not a feed that keeps updating.
-- Maps use your Google Maps key. With no key saved, map requests do nothing and the rest of the widgets still work.
+- Maps that need an API key are not set up in the UI today. Weather, stocks, logos, photos, and charts still work.
 - Every widget is a read, so it runs on its own with no approval prompt. None of them send, post, or change anything.
-- Your Google Maps key is saved write-only to your box. It is never shown back to the browser and never stored in the code. Edit it any time in Admin and it applies live.
 
 ## WHAT CAN BE CALLED VIA AI
 
@@ -36,22 +32,21 @@ All of these are reads and run immediately:
 - "how is the S&P doing": index quote and sparkline (read)
 - "show the Stripe logo": company logo tile (read)
 - "show a picture of the Chicago skyline": photo tile (read)
-- "map of 123 Main St": map tile, needs the Google Maps key (read)
 - "chart these monthly sales as a bar graph": chart tile from the numbers you give it (read)
 
 ## LIMITATIONS
 
 - Weather, stocks, and logos use free public sources, so expect the occasional gap, stale value, or short delay.
-- Maps need a Google Maps key. Without one, map requests do nothing.
+- Maps that need an API key are not configurable in the UI today.
 - Charts visualize numbers you hand the agent or numbers it looked up for you. A chart is not a live data feed and will not refresh on its own.
 - A logo lookup depends on the company being in Clearbit's set. A small or new company may not return one.
 - Stock quotes are for quick reference and can lag the real market. Do not trade off them.
 
 ## FAQ
 
-**Do I need to set anything up to use widgets?** No, except for maps. Weather, stocks, logos, photos, and charts are on by default with no key. Only maps need a Google Maps API key.
+**Do I need to set anything up to use widgets?** No. Weather, stocks, logos, photos, and charts are on by default with no key.
 
-**Why is my map not showing?** You need a Google Maps API key saved in Admin. Add it to the GOOGLE_MAPS_KEY box, confirm the Maps and Static Maps APIs are enabled on the key in Google Cloud, and try again.
+**Can I show maps?** Maps that need an API key are not configurable in the UI today. There is no in-app field for a Google Maps key.
 
 **Are the stock quotes real-time?** They are live reads from a free public source and meant for a quick glance. They can run a little behind the real market, so treat them as a reference and not a trading signal.
 
