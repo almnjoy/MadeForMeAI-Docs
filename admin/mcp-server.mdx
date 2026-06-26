@@ -1,0 +1,138 @@
+---
+title: "MCP Server"
+description: "(Streamable HTTP) Turn it around: instead of MindMap reaching out to other tools, this lets other tools reach into MindMap."
+---
+
+(Streamable HTTP)
+
+
+Turn it around: instead of MindMap reaching out to other tools, this lets other tools reach into
+MindMap. Flip on the MCP Server and an external MCP client (Claude Desktop, Cursor, or anything
+that speaks MCP) can call your agent's tools directly. The same reads and writes you get in the
+in-app chat are exposed over a single token-authenticated endpoint, so you can drive your CRM,
+inbox, calendar, and the rest from wherever you already work.
+
+This is the mirror image of the **Composio** and **Zapier** connectors. There, MindMap is the MCP
+*client* calling out to your connected apps. Here, MindMap is the MCP *server* and the outside
+client calls in. The endpoint is internet-reachable, so it is off by default and the bearer token
+is the only thing standing between the public internet and your tools.
+
+## HOW TO SETUP
+
+1. Open MindMap → **Admin** (the marketplace) → the **MCP Server** section.
+2. In the **token** box, set a strong `MCP_SERVER_TOKEN` (a long random string) and **Save**.
+   This is the password the outside client uses. Treat it like a password.
+3. Flip **Enable** on.
+4. The section shows your endpoint **URL** (`https://<your-host>/api/mcp`) and a copy-paste config
+   block for Claude Desktop and Cursor. Copy the one for your client.
+
+It applies on your next request, no restart. With no token set or the feature off, the endpoint
+returns 404. It looks like it does not exist.
+
+## WHAT USER NEEDS TO GET
+
+- **Nothing external.** No third-party account or key. You set the token yourself.
+- **An MCP client** that supports a remote server over Streamable HTTP with a bearer token:
+  Claude Desktop, Cursor, and most current MCP clients qualify.
+- **A reachable host.** The client connects to `https://<your-host>/api/mcp`, so your MindMap host
+  has to be reachable from wherever the client runs.
+
+## CONNECTING A CLIENT
+
+Use the copy-paste config from the Admin section. The exact JSON varies by client version, so when
+in doubt use the client's own "add MCP server" UI and point it at your URL with the bearer header.
+
+**Claude Desktop**, add a remote MCP server (Streamable HTTP):
+
+```json
+{
+  "mcpServers": {
+    "mindmap": {
+      "url": "https://your-host.example.com/api/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_MCP_SERVER_TOKEN"
+      }
+    }
+  }
+}
+```
+
+**Cursor**, the equivalent `mcpServers` entry:
+
+```json
+{
+  "mcpServers": {
+    "mindmap": {
+      "url": "https://your-host.example.com/api/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_MCP_SERVER_TOKEN"
+      }
+    }
+  }
+}
+```
+
+Replace `your-host.example.com` with your host and `YOUR_MCP_SERVER_TOKEN` with the token you set.
+Once connected, the client lists your tools and can call them in its own chat.
+
+## HOW IT WORKS
+
+- MindMap runs an **MCP server** at `POST /api/mcp` and registers your agent's enabled tools on it,
+  the same built-in tools the in-app agent has, gated by the same feature flags. A disabled
+  feature's tools are not exposed.
+- Every request must carry `Authorization: Bearer <your token>`. A missing or wrong token is
+  rejected. No token configured (or the feature off) returns 404.
+- **Reads run immediately and return their data.** Your pipeline, balances, calendar, inbox, and
+  the rest come straight back to the client.
+- **Writes are approval-gated.** A write tool (send email, capture a lead, and so on) does not
+  fire. It **queues an approval in MindMap** and the client gets back a "queued for approval" note.
+  You approve it in MindMap, the same as an in-app write. Trust rules apply exactly as they do
+  in-app: if a rule already auto-runs a write, it auto-runs here too, but nothing new is bypassed.
+- The token is read live from the marketplace key store (saved to your pod, never shown back,
+  never in the repo). Rotating it applies on the next request.
+
+## WHAT CAN BE CALLED VIA AI
+
+From the connected client, your agent's enabled tools. For example:
+
+- "what's in my pipeline?" / "show me today's calendar": reads, returned immediately
+- "draft and send a follow-up to <person>": queued for approval in MindMap, sends on approve
+- "capture this as a lead": queued for approval, runs on approve
+
+Reads come back to the client; writes wait for your approval in MindMap. Nothing goes out on its
+own outside an existing trust rule.
+
+## LIMITATIONS
+
+- **Off by default, off on customer boxes.** Enable it only when you need it. The endpoint is
+  internet-reachable.
+- **The token is the only gate.** Anyone with the URL and the token can call your tools. Use a
+  long random token, keep it secret, and rotate it from Admin if it leaks.
+- **Writes stay approval-gated.** The client cannot force a send; writes queue in MindMap and wait
+  for you (or an existing trust rule).
+- **Not everything is exposed.** `reveal_secret` is never available over MCP, and the external
+  connectors (Composio, Zapier) are not re-served through this endpoint. Connect those clients to
+  the source instead. Canvas-only tools are excluded too.
+- **Tools track your features.** A tool only appears over MCP if its feature is enabled in MindMap.
+
+## FAQ
+
+**Is this the same as the Composio/Zapier connectors?** No, it is the opposite direction. Those
+make MindMap a client of your other apps. This makes MindMap a server that other apps call.
+
+**Can a connected client send email or change data on its own?** No. Writes queue an approval in
+MindMap and only fire after you approve (or via a trust rule you already set up). Reads run on
+their own.
+
+**Is `reveal_secret` available to clients?** No. It is never exposed over MCP. The Composio and
+Zapier connector tools are not exposed either.
+
+**How is the endpoint protected?** A bearer token (`MCP_SERVER_TOKEN`) on every request. No token
+or the feature off and the endpoint returns 404. It looks absent.
+
+**Is my token safe?** The token box is write-only. The token is saved to your pod, never shown
+back to the browser, never in the repo. If it leaks, set a new one in the same box; it applies on
+the next request.
+
+**Should I leave it on?** Only when a client needs it. It is off by default and off on customer
+boxes. Turning it off makes the endpoint return 404 again.

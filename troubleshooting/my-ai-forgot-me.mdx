@@ -1,41 +1,47 @@
 ---
-title: My AI Forgot Everything
-description: Why this happens and how to fix it.
+title: "MindMap Forgot Me"
+description: "Why MindMap can seem to forget you, how memory works per tenant, and how to save a fact that sticks."
 ---
 
-If your AI seems to have no memory of you — like it's meeting you for the first time — here's what's going on and what to do.
+If MindMap acts like it's meeting you for the first time, its long-term memory probably wasn't wiped. Usually you're just looking at an empty chat, or you're on a different surface. Here's how to tell the difference and get back on track.
 
-## The most common cause: wrong URL
+## How MindMap memory works
 
-Make sure you're logged in at **your** URL: `yourname.madeformeai.com`
+Memory in MindMap is **per tenant**, shared across your whole team's workspace. It is not tied to one chat thread. Two things follow from that:
 
-If you accidentally went to a different address or a generic demo, you'd be talking to a different (blank) instance. Go back to your specific URL and check again.
+- Saved memories persist even after a conversation is gone.
+- An empty-looking chat does not mean lost memory. It means that thread has no history yet.
 
-## Second most common cause: Reset Agent was used
+## You cleared the chat
 
-The **Reset Agent** button in your dashboard permanently wipes all memory. If you or someone with access to your account clicked it, that's the cause. Memory cannot be restored after a reset.
+Clearing a chat (or starting a new one) wipes the visible conversation, not the saved memories behind it. The thread starts blank, so MindMap won't recap what you just discussed, but anything you told it to remember is still there.
 
-If you didn't do this, email support@madeformeai.com — someone may have accessed your account.
+Start typing and ask about a saved fact to confirm. If it knows, memory is intact.
 
-## What to do if memory feels thinner than expected
+## You're on a different surface or Space
 
-If it hasn't been a full wipe — your AI just seems to have forgotten specific things — re-tell it what it needs to know:
+MindMap has more than one place to talk to it: the canvas, the chat app, the pop-up widget, Telegram, and any Spaces your team set up. Each surface keeps its own conversation history, and a Space can run with its own persona and tools.
 
-_"Here's context about me that I want you to remember: [your name, your work, your goals, preferences, etc.]"_
+So if a chat looks empty, check that you're on the surface (or in the Space) where you were working. Switching back brings that conversation history with you. Shared tenant memory is available from every surface either way.
 
-Your AI will save everything you tell it. Think of it as topping up its knowledge about you.
+{/* MEDIA gif: switching between the chat app surface and a Space, showing each keeps its own conversation history | caption: "Each surface and Space keeps its own chat history; tenant memory is shared across all of them" */}
 
-## Rebuild faster with a single message
+## Save a memory that sticks
 
-Copy this, fill it in, and send it:
+To store something durable, tell MindMap plainly and ask it to remember:
+
+> Remember that I'm the ops lead, I prefer short replies, and our fiscal year starts in April.
+
+MindMap saves what you ask it to keep, and pulls it back on later messages from any surface. To top up after a blank thread, send one message with the essentials:
 
 ```
-Remember these things about me:
-- My name is [name]
-- I [what you do]
-- My main goals right now: [goals]
-- My preferences: [any relevant preferences]
-- Key people in my life or work: [names and context]
+Remember these about me:
+- My name and role: [name, role]
+- What I'm focused on right now: [current priorities]
+- How I like replies: [tone, length, format]
+- Key people or projects: [names and context]
 ```
 
-That single message can get you most of the way back to where you were.
+<Note>
+You can review and search what's been saved on the Memory page. If a fact is wrong or stale, tell MindMap to update it, the same way you saved it.
+</Note>

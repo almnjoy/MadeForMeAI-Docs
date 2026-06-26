@@ -1,41 +1,49 @@
 ---
-title: Can't Log In
-description: Step-by-step fix for login problems.
+title: "Can't Log In"
+description: "Fix Authentik sign-in problems in MindMap, including sign-in loops, group access, expired sessions, and the wrong tenant URL."
 ---
 
-Can't get into your AI? Here's how to get back in.
+MindMap signs you in through Authentik, your team's single sign-on. There's no separate MindMap password and no email login link. If you can't get in, work through these in order.
 
-## Step 1: Make sure you're at the right URL
+<Steps>
 
-Your AI lives at `yourname.madeformeai.com` — the name you chose when you signed up. Double-check you're going to the right address.
+  <Step title="Confirm you're at the right tenant URL">
+    MindMap lives at your team's own address (for example `your-team.madeformeai.com`). If you're on a different tenant's URL or a generic landing page, sign-in won't recognize you.
 
-If you're not sure what your name is, go to [madeformeai.com/dashboard](https://madeformeai.com/dashboard) — it shows your AI's URL once you're logged in.
+    Check the address bar against the link your admin gave you. If you're not sure of the exact URL, ask your admin for it directly.
+  </Step>
 
-## Step 2: Reset your password
+  <Step title="Sign out fully, then sign back in">
+    A stale session is the most common cause of a sign-in loop. Click your account menu and sign out, close the tab, then open the tenant URL fresh. Authentik will prompt you to authenticate again.
+  </Step>
 
-Go to [madeformeai.com/dashboard](https://madeformeai.com/dashboard) and click **Forgot password** (or use the Forgot password link on your AI's login page). Enter your email address and you'll receive a reset link.
+  <Step title="Try a private window">
+    Old cookies can trap you on the sign-in page even after you authenticate. Open an incognito or private window and sign in there. If that works, clear cookies for your tenant domain in your normal browser and try again.
+  </Step>
 
-<Warning>Check your spam folder. Emails come from `your-ai@madeformeai.com`. Add it to your contacts to prevent future filtering.</Warning>
+  <Step title="Ask your admin to check your group">
+    Access to MindMap is granted by group membership in Authentik. If you authenticate but still bounce back to the sign-in screen, or you see an "access denied" message, your account probably isn't in the group that has access yet.
 
-## Step 3: Try a different browser or device
+    Your admin can add you to the right group in Authentik. This is the fix for "it logs me in but won't let me in."
+  </Step>
 
-Sometimes a cached session causes login issues. Open an incognito/private window, or try a different browser entirely. If that works, clear your browser cookies for `madeformeai.com`.
+</Steps>
 
-## Step 4: Still not working?
+<Warning>
+If you authenticate, get into MindMap, and then get kicked back to sign-in after a while, your session expired. That's expected behavior. Sign in again and you'll pick up where you left off. Saved data and memory are not affected by a session expiring.
+</Warning>
 
-Reach out in [Discord](https://discord.gg/uEugVKA8PH) or email **support@madeformeai.com** from the address you used to sign up. Include:
+{/* MEDIA gif: capture the Authentik sign-in page redirecting into the MindMap tenant after authentication | caption: "Signing in through Authentik at your team's tenant URL" */}
 
-- The URL you're trying to access
-- What happens when you try to log in (error message, blank screen, redirect loop, etc.)
+## What's going on, by symptom
 
----
-
-## Common causes
-
-| Symptom | Likely cause | Fix |
+| What you see | Likely cause | What to do |
 |---|---|---|
-| Password rejected | Typed wrong, or account uses a different email | Try password reset |
-| Blank screen or spinning | Browser cache issue | Try incognito or clear cookies |
-| "No server available" | Your AI workspace is still starting up | Wait 2–3 minutes and refresh |
-| Redirect loop | Session conflict | Clear cookies and try again |
-| Subscription lapsed | Payment failed | Check billing at the dashboard or email billing-support@madeformeai.com |
+| You keep landing on the sign-in page | Stale session or old cookies | Sign out fully, then use a private window |
+| "Access denied" or you loop after authenticating | Your account isn't in an allowed group | Ask your admin to add you to the right group in Authentik |
+| You were in, now it sends you back to sign-in | Session expired | Sign in again, nothing is lost |
+| The page doesn't recognize you at all | Wrong tenant URL | Confirm the address with your admin |
+
+## Still locked out
+
+If none of the above gets you in, send your admin two details: the exact URL you're using and what happens when you try (a loop, an "access denied" screen, a blank page). Those two facts tell them whether to fix your group membership or the tenant address.

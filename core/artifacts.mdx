@@ -1,0 +1,53 @@
+---
+title: "Artifacts"
+description: "Ask the agent to make something, and it builds a downloadable artifact for you."
+---
+
+Ask the agent to make something, and it builds a downloadable artifact for you. An artifact is an SVG image or diagram, a Markdown document, or a self-contained HTML page or mini-app. Each one renders inline as a tile in the chat, expands to a side panel when you want a bigger view, and has a Download button. The agent generates the artifact and shows it to you right away. There is no separate approval step, because making a file in your own workspace does not send or change anything outside it.
+
+## HOW TO SETUP
+
+1. Open MindMap -> Admin (marketplace) -> the **Artifacts** card.
+2. Flip **Enable** on. It applies on your next message, no restart.
+
+No key, no account, nothing else to configure.
+
+## WHAT USER NEEDS TO GET
+
+Nothing. Artifacts is built in. No credentials, no external service.
+
+## HOW IT WORKS
+
+- Ask the agent to make, draw, design, or write a graphic, document, page, or small interactive UI, and it produces an artifact as a tile in the chat.
+- An **SVG** renders as an image inside the tile.
+- An **HTML** artifact runs inside a sandboxed frame. The frame cannot reach the app, your data, or your login. It runs on its own with no access to your workspace.
+- A **Markdown** artifact renders as a formatted document.
+- Click a tile to expand it into the side panel for a larger view.
+- Click **Download** to save the artifact to your device.
+- Nothing here is approval-gated, because the agent only builds a file and shows it to you. It does not send, post, or change anything elsewhere.
+
+## WHAT CAN BE CALLED VIA AI
+
+These all run immediately and produce a tile you can view and download:
+
+- "make an SVG flowchart of our onboarding"
+- "write a one-page project brief as markdown"
+- "build a small HTML tip calculator"
+- "design a simple SVG diagram of how our intake works"
+
+## LIMITATIONS
+
+- **Artifacts are generated drafts.** Read them and check the numbers, links, and logic before you rely on one or send it to anyone.
+- **No image generation here.** SVG is drawn as code, not a photo or a rendered picture. Generating an actual image needs a separate image model, which this feature does not include.
+- **HTML artifacts run sandboxed.** They cannot read anything from your workspace, your account, or your other tiles. An HTML mini-app starts blank with only the data the agent wrote into it.
+- **Artifacts are files, not connections.** An HTML calculator computes on its own; it cannot call your CRM, email, or any connected app.
+
+## FAQ
+
+**Is anything approval-gated here?** No. The agent builds the artifact and shows it to you right away. Approval gates exist for writes that leave your workspace, like sending an email or creating a record in another app. Making a file in your own chat does not touch anything outside it.
+
+**Can an HTML artifact see my data or log in as me?** No. It runs in a sandboxed frame that is cut off from the app, your data, and your session. It only has whatever content the agent wrote into it when it built the page.
+
+**Can it generate a real photo or AI image?** No. Artifacts covers SVG (vector graphics drawn as code), Markdown, and HTML. A real generated image needs a separate image model, which is not part of this feature.
+
+**Where do my artifacts go?** They stay in the chat as tiles. Use the Download button to save one to your device. Nothing is uploaded anywhere or shared until you do something with the downloaded file yourself.

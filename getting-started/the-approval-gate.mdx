@@ -1,0 +1,83 @@
+---
+title: "The Approval Gate"
+description: "How MindMap keeps you in control: reads run instantly, every write queues for your approval before it fires."
+---
+
+MindMap's agent can use every tool you connect: your CRM, email, calendar, code repos, the web, and more. The approval gate is what makes that safe. The agent looks things up on its own, but it never sends or changes anything until you click approve.
+
+## Reads run instantly
+
+A **read** is any action that only looks at data: listing, searching, fetching, opening a record, pulling a web page. The agent runs these the moment you ask. There is nothing to approve, because nothing is changing.
+
+Ask "what's on my calendar tomorrow" or "find the open deals in my CRM" and the answer comes straight back.
+
+## Every write queues
+
+A **write** changes something in the outside world: sending an email, posting a message, creating an issue, capturing a lead, updating a record. The agent does not run these. It builds the action, then hands it to you on an approval card and waits.
+
+Nothing fires on its own. If you close the tab before approving, the action never happens.
+
+<Note>This split is the whole design. The agent moves fast on the safe stuff and stops on anything that leaves a mark.</Note>
+
+## What the approval card shows
+
+When the agent proposes a write, you get a card with the full action laid out before you decide:
+
+- **What it will do**, named plainly (send email, create lead, post Telegram reply).
+- **Where it goes**: the recipient, channel, or record it will touch.
+- **The exact content**, so you can read the email body or the message text before it sends.
+
+Read it, then choose.
+
+{/* MEDIA gif: ask the agent to send a Telegram alert, the queued approval card appears showing the message, click Approve, the result tile confirms it sent | caption: "Ask for a write, review the queued card, approve, done." */}
+
+## Approve or reject
+
+Two buttons.
+
+<Steps>
+  <Step title="Approve">
+    The action fires. The agent reports back with the result (the email sent, the lead created) as a tile or a line in the conversation.
+  </Step>
+  <Step title="Reject">
+    Nothing happens. The action is dropped. Tell the agent what to change ("make it shorter," "send it to Jamie instead") and it builds a fresh card for you to review.
+  </Step>
+</Steps>
+
+## Pre-approve a repeated action with a Trust Rule
+
+If you have one write you do often and trust, clicking approve every time gets old. A **Trust Rule** lets you grant it once so the same narrow action runs by itself next time.
+
+<Steps>
+  <Step title="Tick 'Always allow this'">
+    On the approval card, check **Always allow this** before you click **Approve & Send**.
+  </Step>
+  <Step title="A narrow rule is created">
+    The rule matches the same action kind plus its key fields. A "send this welcome template to this address" rule only auto-runs for that template and that recipient. A different template or a different recipient still queues for approval.
+  </Step>
+  <Step title="Manage it under Admin → Trust">
+    Every rule is listed there. Disable it, delete it, or set a use limit or expiry for a time-boxed campaign. Disabling takes effect at once.
+  </Step>
+</Steps>
+
+Auto-runs still get logged. You can see them in **Admin → Actions**, marked `auto-sent` with the rule that allowed them, so nothing happens off the record.
+
+{/* MEDIA png: the Admin → Trust screen listing trust rules with their action kind, scope, and enable/disable controls | caption: "Admin → Trust: every grant-once rule, with disable and delete." */}
+
+<Warning>Keep Trust Rules narrow. An auto-approve rule lets the agent (and any scheduled job) act without you in the loop, so review your rules under Admin → Trust and delete the ones you no longer need.</Warning>
+
+## Secrets are never auto-approvable
+
+Revealing a stored key is the one action you can never grant away. `reveal_secret` is excluded from Trust Rules entirely, so no rule, scheduled job, or agent run can pull a key back out without you. Your keys stay write-only on your box.
+
+## FAQ
+
+**Will the agent ever send something without asking?** No. Reads run on their own, every write queues, and a write only fires after you approve it (or after a Trust Rule you created yourself matches it).
+
+**Can a scheduled job send email while I'm away?** Only if you made a Trust Rule that covers that exact action. Otherwise the job's write queues for your approval like any other.
+
+**Can the agent create its own Trust Rule?** No. Only you create rules, from the "Always allow" box on an approval card.
+
+---
+
+Next: [The Marketplace →](/getting-started/the-marketplace)

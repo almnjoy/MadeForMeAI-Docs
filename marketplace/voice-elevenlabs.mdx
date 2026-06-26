@@ -1,70 +1,71 @@
 ---
 title: "Voice (ElevenLabs)"
-description: "A premium read-aloud voice for the canvas using ElevenLabs, key-gated since it costs per character, with a free browser fallback."
+description: "A premium read-aloud voice for the canvas."
 ---
 
-A premium read-aloud voice for the canvas. With it on, the speaker button on a tile (and the agent's spoken replies) use an ElevenLabs voice instead of the browser's built-in one. It costs per character, so it is key-gated: turn it on and add your key to use it, leave it off and the free browser voice is the fallback. Nothing breaks either way; the voice just sounds better when it is on.
+A premium read-aloud voice for the canvas. With it on, the speaker button on a tile (and the
+agent's spoken replies) use an ElevenLabs voice instead of the browser's built-in one. It costs
+per character, so it is key-gated: turn it on and add your key to use it, leave it off and the free
+browser voice is used as the fallback. Nothing breaks either way, the voice just sounds better when
+it is on.
 
-## What you need
+## HOW TO SETUP
 
-- An ElevenLabs API key (`ELEVENLABS_API_KEY`). This is the only required field, and it carries the cost, so treat it like any paid credential.
-- Optional Voice ID (`ELEVENLABS_VOICE_ID`) to pick the voice. Default is a deep narrative voice (Oliver Silk). Grab a voice id from the ElevenLabs voice library.
-- Optional Model (`ELEVENLABS_MODEL`), default `eleven_turbo_v2_5`.
+1. In ElevenLabs, create an **API key** (Profile → API Keys).
+2. In MindMap, go to **Admin** (marketplace) and open the **Voice (ElevenLabs)** card.
+3. Paste the **ElevenLabs API key** into its write-only box and **Save**.
+4. Optional: paste a **Voice ID** (any voice from your ElevenLabs library) and a **Model**. Both
+   have sensible defaults, so you can skip them.
+5. Flip **Enable** on.
 
-## Setup
+It applies on your next read-aloud. No restart.
 
-<Steps>
-  <Step title="Create an API key">
-    In ElevenLabs, create an API key (Profile, then API Keys).
-  </Step>
-  <Step title="Open the Voice card">
-    In Brain Map, go to Admin (marketplace) and open the Voice (ElevenLabs) card.
-  </Step>
-  <Step title="Paste the key">
-    Paste the ElevenLabs API key into its write-only box and Save. Optionally paste a Voice ID and a Model; both have sensible defaults.
-  </Step>
-  <Step title="Enable">
-    Flip Enable on. It applies on your next read-aloud, no restart.
-  </Step>
-</Steps>
+## WHAT USER NEEDS TO GET
 
-## How it works
+- **An ElevenLabs API key** (`ELEVENLABS_API_KEY`). This is the only required field, and it is what
+  carries the cost, so treat it like any paid credential.
+- Optional **Voice ID** (`ELEVENLABS_VOICE_ID`) to pick the voice. Default is a deep narrative
+  voice (Oliver Silk). Grab a voice id from the ElevenLabs voice library.
+- Optional **Model** (`ELEVENLABS_MODEL`), default `eleven_turbo_v2_5`.
 
-- The read-aloud button calls `/api/tts`. When Voice is on and a key is set, Brain Map synthesizes the text with ElevenLabs and plays the premium audio.
-- When it is off or unkeyed, `/api/tts` returns a 503 and the browser falls back to its own free voice. Read-aloud always works; the Voice plugin only upgrades how it sounds.
-- The key, voice id, and model are read live from the marketplace key store (saved to your pod, never shown back, never in the repo).
+## HOW IT WORKS
+
+- The read-aloud button calls `/api/tts`. When the Voice feature is on AND a key is set, MindMap
+  synthesizes the text with ElevenLabs and plays the premium audio.
+- When it is off or unkeyed, `/api/tts` returns a 503 and the browser falls back to its own
+  free voice. So read-aloud always works; the Voice plugin only upgrades how it sounds.
+- The key, voice id, and model are read **live** from the marketplace key store (saved to your pod,
+  never shown back, never in the repo). Editing them applies on the next read-aloud.
 - It is read-only and costs per character (that is why it is gated, not on by default).
 
-## What you can ask
+## WHAT CAN BE CALLED VIA AI
 
 This is not an agent tool, it is a canvas capability:
 
-- Click the speaker icon on a tile to hear it read aloud in the premium voice.
+- Click the **speaker** icon on a tile to hear it read aloud in the premium voice.
 - The agent's spoken responses use the premium voice when the plugin is on.
 
-## Limitations
+## LIMITATIONS
 
-- Costs per character. That is why it is key-gated and off by default. Watch usage on your ElevenLabs account.
-- Upgrades read-aloud only. It does not change what the agent decides or does, just how spoken text sounds.
-- 5,000 characters per call (longer text is trimmed for synthesis).
-- Falls back, never fails. With the plugin off or no key, you still get the free browser voice.
+- **Costs per character.** That is the whole reason it is key-gated and off by default. Watch usage
+  on your ElevenLabs account.
+- **Upgrades read-aloud only.** It does not change what the agent decides or does, just how spoken
+  text sounds.
+- **5,000 characters per call** (longer text is trimmed for synthesis).
+- **Falls back, never fails.** With the plugin off or no key, you still get the free browser voice.
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="Why is it off by default?">
-    It costs money per character. Keep it off until you add a key and turn it on.
-  </Accordion>
-  <Accordion title="How do I change the voice?">
-    Paste a Voice ID from your ElevenLabs library into the Voice ID box. Leave it blank for the default.
-  </Accordion>
-  <Accordion title="What happens with no key?">
-    Read-aloud uses the free browser voice. Nothing breaks.
-  </Accordion>
-  <Accordion title="Is my key safe?">
-    The key box is write-only. The key is saved to your pod, never shown back or returned to the browser, and never in the repo.
-  </Accordion>
-  <Accordion title="Does it read everything automatically?">
-    No. It only speaks when you click the speaker on a tile or when the agent replies with speech. It is on-demand.
-  </Accordion>
-</AccordionGroup>
+**Why is it off by default?** It costs money per character. Keep it off until you add a key and turn
+it on.
+
+**How do I change the voice?** Paste a Voice ID from your ElevenLabs library into the Voice ID box.
+Leave it blank for the default.
+
+**What happens with no key?** Read-aloud uses the free browser voice. Nothing breaks.
+
+**Is my key safe?** The key box is write-only. The key is saved to your pod, never shown back or
+returned to the browser, and never in the repo.
+
+**Does it read everything automatically?** No. It only speaks when you click the speaker on a tile
+or when the agent replies with speech. It is on-demand.

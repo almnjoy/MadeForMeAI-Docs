@@ -1,0 +1,100 @@
+---
+title: "Spaces"
+description: "Focused workspaces that scope your agent's persona, model, tools, and history per job."
+---
+
+A Space is a focused workspace over your one agent. Open one and you drop into Chat tuned for a single job: a persona that fits the work answers you, only the tools that job needs are reachable, a few starting prompts sit ready, and the conversation keeps its own history apart from every other Space.
+
+<Note>Spaces are off by default. Turn them on first: open Admin (the marketplace), find the Spaces card, and flip Enable on. It applies on your next message, no restart, no key to paste.</Note>
+
+## What a Space scopes
+
+One agent, scoped four ways. Open a Space and these come with it.
+
+<CardGroup cols={2}>
+  <Card title="Persona" icon="user">
+    How the agent answers in this Space. A Front Desk persona greets and schedules; a Money persona talks numbers.
+  </Card>
+  <Card title="Model" icon="microchip">
+    Which model runs the Space. Pin a faster one for quick replies or a stronger one for hard work.
+  </Card>
+  <Card title="Tools" icon="wrench">
+    An allowlist of what the agent can reach here. Only the tools you pin to the Space are available inside it.
+  </Card>
+  <Card title="History" icon="clock-rotate-left">
+    Its own conversation, separate from other Spaces and from the main Chat tab.
+  </Card>
+</CardGroup>
+
+The agent also seeds the Space with the skills that fit the job and a few starting-prompt chips, so you click into the work instead of staring at a blank box.
+
+## The per-Space tool allowlist is the point
+
+Most setups let you scope a persona or some files. A Space scopes the actual tools the agent can reach. Inside a Quote and Invoice Space, the agent can draft quotes and invoices and nothing else. A tool left off that Space's allowlist will not run there, even if it is enabled elsewhere in your box. Switch to a Space that allows it, or use the main Chat.
+
+That narrowing is the differentiator. You are pinning what the agent can touch for a given job, not just how it talks.
+
+## Six templates ship with it
+
+Pick **New Space from template** and MindMap creates the Space with its persona, model, tool allowlist, starting prompts, and seeded skills already set. Edit any of them after.
+
+{/* MEDIA screenshot: the Spaces page showing the six template cards in a grid (Front Desk, Money Dashboard, Local Marketing, Quote and Invoice, Reputation, Knowledge Brief) | caption: "Start from a template, then make it yours." */}
+
+<CardGroup cols={2}>
+  <Card title="Front Desk" icon="bell-concierge">
+    Intake, scheduling, and first replies.
+  </Card>
+  <Card title="Money Dashboard" icon="coins">
+    Revenue and balance questions.
+  </Card>
+  <Card title="Local Marketing" icon="bullhorn">
+    Posts, listings, and outreach.
+  </Card>
+  <Card title="Quote and Invoice" icon="file-invoice-dollar">
+    Estimates and billing docs.
+  </Card>
+  <Card title="Reputation" icon="star">
+    Reviews and review requests.
+  </Card>
+  <Card title="Knowledge Brief" icon="book-open">
+    Research and summaries.
+  </Card>
+</CardGroup>
+
+## Same agent, same approval gate
+
+A Space narrows what the agent can touch. It does not loosen what it can do without asking. The approval gate is identical to everywhere else in MindMap: reads run immediately, writes queue for your approval.
+
+Inside a Quote and Invoice Space:
+
+- _"Draft a quote for the Acme job."_ Runs right away (read), drops a document.
+- _"Turn that into an invoice and send it."_ Queues for your approval (write).
+
+<Warning>A Space cannot send or change anything on its own. It scopes the agent down, it never bypasses your approvals.</Warning>
+
+## Good to know
+
+- **Off by default.** Enable it from the Spaces card when you want it.
+- **A Space scopes, it does not bypass.** The approval gate still governs every write.
+- **The allowlist still needs the source.** Pinning a tool to a Space does not connect it. The tool still needs its own marketplace card set up to work (a CRM lookup needs Twenty, a balance tile needs Stripe or Plaid).
+- **Memory is shared, for now.** Each Space has its own persona, model, tools, and history. The agent's memory is still shared across every Space. Per-Space memory comes later.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="What makes a Space different from just switching persona?">
+    A Space scopes the tools too, not only the persona and model. Most setups scope a persona or some files. Here you also pin which tools the agent can reach inside that Space.
+  </Accordion>
+  <Accordion title="Does a Space have its own chat history?">
+    Yes. Each Space keeps its own conversation, separate from other Spaces and from the main Chat tab.
+  </Accordion>
+  <Accordion title="Can a Space skip my approvals?">
+    No. The approval gate is the same in every Space. Reads run, writes queue for you.
+  </Accordion>
+  <Accordion title="Does each Space remember its own facts?">
+    Not yet. Persona, model, tools, and history are per-Space. Memory is shared across all Spaces for now.
+  </Accordion>
+  <Accordion title="How do I start one?">
+    Open the Spaces page and pick New Space from template. The template sets the persona, model, tool allowlist, starting prompts, and turns on its seeded skills.
+  </Accordion>
+</AccordionGroup>

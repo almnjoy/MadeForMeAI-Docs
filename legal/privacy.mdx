@@ -3,38 +3,44 @@ title: Privacy Policy
 description: What we collect, what we don't, and how your data is handled.
 ---
 
+<Note>
+  This policy is a starting template. Have your own legal counsel review it before you rely on it.
+</Note>
+
 **Last updated: May 2026**
 
-MadeForMeAI is built on a simple principle: your data is yours. Here's exactly what that means.
+MindMap is built on a simple principle: your data is yours. Here is exactly what that means.
 
 ## What we collect
 
-**Account information** — your email address and the username you chose when you signed up. This is used to manage your account and contact you about your subscription.
+**Account information** is the email address and identity your administrator provisions through Authentik single sign-on. We use it to manage access and contact you about your tenant.
 
-**Billing information** — processed by Stripe. We do not store your card number. Stripe handles all payment processing securely.
-
-**Usage metadata** — basic technical logs (server uptime, error rates, response times). This does not include the content of your conversations.
+**Usage metadata** is basic technical logs (server uptime, error rates, response times). It does not include the content of your conversations.
 
 ## What we do NOT collect
 
 - The content of your conversations with your AI
-- Files you upload into your AI
-- Data from connected apps (Gmail, Google Drive, etc.)
-- Anything that would allow us to identify what you said or asked
+- Files you upload into your workspace
+- Data from connected apps (Gmail, Google Drive, and the like)
+- Anything that would let us identify what you said or asked
 
-Your AI's memory and conversations are stored in your private instance. We do not have access to them, we do not read them, and we do not use them to train AI models.
+Your AI's memory and conversations stay in your tenant. We do not read them, and we do not use them to train AI models.
 
-## Your data stays in your instance
+## Your data stays in your tenant
 
-Your AI runs in a private container dedicated to you. Your conversations, memory, and files are stored within that container. They are not shared with other users, not processed by us, and not used for any purpose outside of running your personal AI.
+MindMap runs each tenant in its own dedicated environment. Your conversations, memory, and files stay within that environment. They are not shared with other tenants, not processed by us, and not used for any purpose outside of running your workspace.
+
+## Connectors and approvals
+
+You enable connectors yourself in the Admin marketplace, across four buckets: Apps, Tools, Skills, and Secrets. MindMap reads from a connected app only when you ask it to. Any action that writes back to a connected app queues for your approval before it runs. Credentials you add as Secrets stay in your tenant.
 
 ## Third-party AI providers
 
-Your AI uses language models from third-party providers (Anthropic, OpenAI, or OpenRouter depending on your plan). When you send a message, it is processed by that provider's API. Each provider has their own privacy policy governing how they handle API inputs. We recommend reviewing their policies if this is important to you.
+Your AI uses language models from third-party providers (Anthropic, OpenAI, or OpenRouter, depending on how your tenant is configured). When you send a message, that provider's API processes it. Each provider has its own privacy policy governing how it handles API inputs. We recommend reviewing their policies if this matters to you.
 
 ## Data deletion
 
-If you cancel your account, your data is held for 30 days and then permanently deleted — including all conversations, memory, and files. If you want it deleted sooner, email support@madeformeai.com.
+If your tenant is closed, your data is held for 30 days and then permanently deleted, including all conversations, memory, and files. To have it deleted sooner, email support@madeformeai.com.
 
 ## Contact
 

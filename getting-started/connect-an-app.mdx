@@ -1,0 +1,57 @@
+---
+title: "Connect an App"
+description: "Enable connectors from the Admin marketplace so MindMap can reach the tools you already use."
+---
+
+MindMap reaches your other tools through connectors. You turn them on in the **Admin marketplace**, not by chatting with a setup wizard. Add a key or a URL to a connector card, save it, and the agent can use that tool right away.
+
+{/* MEDIA image: an App card in the Admin marketplace, expanded to show its setup fields (API key, URL) and a Save button | caption: "Each App card has its own setup fields. Fill them in and Save." */}
+
+## The marketplace has four buckets
+
+Open **Admin**, then **Marketplace**. Connectors and tools are sorted into four buckets:
+
+<CardGroup cols={2}>
+  <Card title="Apps">
+    Surfaces and big integrations you switch on, like Chat, the Morning Brief, or a connector hub.
+  </Card>
+  <Card title="Tools">
+    Individual capabilities the agent can call, like web search or a specific service.
+  </Card>
+  <Card title="Skills">
+    Multi-step flows the agent runs on request, like Deep Research or Lead Outreach.
+  </Card>
+  <Card title="Secrets">
+    The keys and tokens your connectors need, stored once and reused.
+  </Card>
+</CardGroup>
+
+## Turn on a connector
+
+<Steps>
+  <Step title="Open the Admin marketplace">
+    Go to **Admin**, then **Marketplace**, then the **Apps** bucket.
+  </Step>
+  <Step title="Pick a card">
+    Find the connector you want and open its card. The card lists what the connector unlocks and the fields it needs.
+  </Step>
+  <Step title="Add its key or URL">
+    Paste the API key, token, or URL the connector asks for. A card that needs a value shows a "needs key" state until you fill it in.
+  </Step>
+  <Step title="Save">
+    Click **Save**. The connector switches on and the agent can use it on your next message.
+  </Step>
+</Steps>
+
+## One connector, many services
+
+You do not wire up every service one at a time. A connector hub like **Composio** or **Zapier** brings a long list of services behind a single key. Add the hub once, and the agent can reach the services it covers. That keeps the marketplace short and your setup quick.
+
+## Reads run now, writes wait for you
+
+This is the rule for every connector:
+
+- **Reads run instantly.** Ask the agent to look something up, list, or search, and it does so on the spot.
+- **Writes queue for approval.** Anything that changes data, sends a message, or creates a record gets proposed to you first. You see exactly what it will do, then approve or reject it. Nothing leaves MindMap until you say yes.
+
+<Note>Reads are safe to let run. Writes always pause at the approval gate, so a connector cannot send or change anything without your sign-off.</Note>

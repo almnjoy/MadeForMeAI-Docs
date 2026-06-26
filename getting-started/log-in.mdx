@@ -1,0 +1,43 @@
+---
+title: "Log In"
+description: "Sign in to MindMap through your organization's Authentik single sign-on at your tenant URL."
+---
+
+MindMap signs you in through Authentik, your organization's single sign-on. There is no separate MindMap password to remember. You use the same login your team uses for everything else.
+
+{/* MEDIA gif: open the tenant URL, get redirected to the Authentik sign-in page, sign in, land on the Chat surface | caption: "Open your tenant URL, sign in through Authentik, and land on Chat." */}
+
+## Sign in
+
+<Steps>
+  <Step title="Open your tenant URL">
+    Go to the address your administrator gave you. It is a single web address for your workspace, like `your-team.example.com`. Bookmark it so you can get back fast.
+  </Step>
+  <Step title="Sign in through Authentik">
+    MindMap sends you to the Authentik sign-in page. Enter your organization credentials there. If your org uses a passkey, a code, or another second factor, Authentik handles it.
+  </Step>
+  <Step title="Land on Chat">
+    After Authentik confirms you, it sends you back to MindMap. You land on the Chat surface, ready to go.
+  </Step>
+</Steps>
+
+## Staying signed in
+
+Once you sign in on a device, your browser keeps the session. You will not sign in again on that device until the session expires or you sign out. Your conversations, memory, and files live in the cloud, so a new browser or a new device shows the same workspace after you sign in.
+
+<Note>On a shared or public computer, sign out when you finish.</Note>
+
+## Sign out
+
+Use the **Sign out** button in the header. It clears your MindMap session and sends you through the Authentik sign-out so you are not left signed in to your org's SSO.
+
+## Stuck on the sign-in screen?
+
+If you sign in and the page bounces you straight back to the Authentik login, work through these:
+
+- **Clear the loop.** Close the tab, open a fresh one, and go to your tenant URL again. A stale half-finished session sometimes causes the bounce.
+- **Allow cookies.** MindMap and Authentik need cookies to hold your session. Private or incognito windows and strict cookie blockers can break the handoff. Try a normal window.
+- **Check the address.** Confirm you are using the exact tenant URL from your administrator, not an old bookmark.
+- **Confirm your access.** If Authentik rejects your credentials or says you have no access, your account may not be added to MindMap yet. Ask your administrator to grant you access in Authentik.
+
+<Warning>If you are signed in to a different Authentik account in the same browser (for example, a personal one), sign out of that first. The wrong identity can leave you stuck at the door.</Warning>

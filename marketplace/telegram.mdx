@@ -1,73 +1,104 @@
 ---
-title: "Telegram Alerts"
-description: "An approval-gated outbound alert channel, the agent queues a Telegram message and it sends to your chat after you approve."
+title: "Telegram"
+description: "An approval-gated alert channel, plus a two-way chat path."
 ---
 
-An approval-gated alert channel. The agent can queue a Telegram message (an alert, reminder, or note), you approve it, and it sends to your chat through a bot. This plugin (the `telegram` feature) is outbound notify only. To talk to the agent from Telegram and get replies, use the Unified Inbox app's gateway instead. One toggle, one bot token, one chat id.
+An approval-gated alert channel, plus a two-way chat path. The agent can queue a Telegram message
+(an alert, reminder, or note), you approve it, and it sends to your chat through a bot. Outbound
+alerts go to your **notify chat id**. To talk TO the agent from Telegram and get replies, add your
+user id to the **Allowed user IDs** field on the same card: that opens the inbound gateway so the
+agent answers you in chat. The card has three fields: a bot token, a notify chat id, and the
+allowlist. Leave the notify chat id blank and it falls back to your first allowed id, so a
+single-user setup can fill just the allowlist and skip the separate notify id.
 
-## What you need
+## HOW TO SETUP
 
-- A bot token from @BotFather (`/newbot`).
-- A chat id, the destination. You do not have to hunt for it: message the bot once, then the helper (`GET /api/admin/telegram/chat-ids`) lists the chats the bot has seen with their ids. A private chat is a positive number; a group is a negative number.
+1. In Telegram, message **@BotFather**, send `/newbot`, follow the prompts, and copy the
+   **bot token** it gives you (looks like `8875xxxxxx:AAH...`).
+2. Open MindMap -> **Admin** (marketplace) -> the **Telegram** card.
+3. Paste the **Bot token** into its write-only box, hit **Save**.
+4. In Telegram, open **your** new bot and send it any message (e.g. `/start`). A bot cannot
+   message you first, so this step is what registers your chat.
+5. Back on the card, the **Notify chat id** (`TELEGRAM_CHAT_ID`, where approved alerts are sent)
+   is found for you by the setup helper, which reads the chats your bot has seen. Paste the chat id
+   into its box and **Save**. You can leave this blank if you fill the allowlist below: a blank
+   notify id falls back to your first allowed id.
+6. To chat with the agent from Telegram, paste your user id into the **Allowed user IDs** field
+   (`TELEGRAM_ALLOWED_CHAT_IDS`) and **Save**. Use a comma-separated list for more than one person.
+   Only ids in this list can talk to the agent and get replies.
+7. Flip **Enable** on.
 
-## Setup
+It applies on your next message, no restart.
 
-<Steps>
-  <Step title="Create a bot">
-    In Telegram, message @BotFather, send `/newbot`, follow the prompts, and copy the bot token (looks like `8875xxxxxx:AAH...`).
-  </Step>
-  <Step title="Save the token">
-    Open Admin (marketplace), then the Telegram card. Paste the Bot token into its write-only box and Save.
-  </Step>
-  <Step title="Register your chat">
-    In Telegram, open your new bot and send it any message (e.g. `/start`). A bot cannot message you first, so this registers your chat.
-  </Step>
-  <Step title="Save the chat id">
-    Back on the card, the Chat id is found for you by the setup helper. Paste the chat id into its box and Save.
-  </Step>
-  <Step title="Enable">
-    Flip Enable on. It applies on your next message, no restart.
-  </Step>
-</Steps>
+## WHAT USER NEEDS TO GET
 
-## How it works
+- **A bot token** from @BotFather (`/newbot`).
+- **A notify chat id** (`TELEGRAM_CHAT_ID`), the destination for approved alerts. You do not have
+  to hunt for it: message the bot once, then the helper (`GET /api/admin/telegram/chat-ids`) lists
+  the chats the bot has seen with their ids. For a private chat it is a positive number; for a
+  group it is a negative number. You can skip this field if you fill the allowlist, since a blank
+  notify id falls back to your first allowed id.
+- **Allowed user IDs** (`TELEGRAM_ALLOWED_CHAT_IDS`) for two-way chat. This is the same kind of id
+  the helper shows you. Put one id to allow just yourself, or a comma-separated list for several
+  people. Anyone not in this list cannot talk to the agent.
 
-- The agent tool `notify_telegram` queues a message as an approval. Nothing sends yet.
-- On approve, the `send_telegram` action calls the Telegram Bot API `sendMessage` with your token and chat id. Messages render as HTML, up to 4000 characters.
-- Token and chat id are read live via the marketplace key store (saved to your pod, never shown back, never in the repo).
-- It is send-only. The bot has no responder, so it will not reply to messages you send it. That silence is normal.
+## HOW IT WORKS
 
-## What you can ask
+- **Outbound notify:** the agent tool `notify_telegram` **queues** a message as an approval.
+  Nothing sends yet. On approve, the `send_telegram` action calls the Telegram Bot API
+  `sendMessage` with your token and your notify chat id. Messages render as HTML, up to 4000
+  characters.
+- **Inbound two-way:** when you add ids to **Allowed user IDs** (`TELEGRAM_ALLOWED_CHAT_IDS`), the
+  inbound gateway turns on. Allowed users can message the bot, the agent runs your request, and it
+  replies in the chat. Ids that are not on the list are ignored. Writes the agent proposes from a
+  Telegram conversation are still approval-gated, same as everywhere else.
+- The **notify chat id** falls back to your **first allowed id** when you leave the notify field
+  blank. So a one-person setup can fill only the allowlist and still get outbound alerts.
+- Token, notify chat id, and allowlist are read **live** via the marketplace key store (saved to
+  your box, never shown back, never in the repo). Editing them applies on the next message, no
+  restart.
 
-- "send a telegram that the backup finished" (queues an approval, sends on approve)
-- "telegram me a reminder to call the vendor at 3" (same, queued)
-- any "notify / alert / ping my telegram" phrasing
+## WHAT CAN BE CALLED VIA AI
 
-Every send waits for your approval first.
+- "send a telegram that the backup finished": queues an approval, sends on approve (write)
+- "telegram me a reminder to call the vendor at 3": same, queued (write)
+- any "notify / alert / ping my telegram" phrasing: queued (write)
 
-## Limitations
+From inside Telegram, an allowed user can also just chat the bot ("what's on my calendar today?",
+"draft a reply to that email") and the agent answers there. Reads run immediately; any write it
+proposes still waits for your approval. Nothing goes out on its own.
 
-- Outbound only. The bot does not answer messages or run commands. It is an alert sink.
-- Message the bot first. Telegram will not give you a chat id until the bot has seen a message from you.
-- One chat id at a time per box (the default destination). You can target a group by using the group's chat id.
-- 4000 character cap, HTML parse mode.
+## LIMITATIONS
+
+- **Two-way chat needs the allowlist.** With **Allowed user IDs** empty, the bot is outbound only
+  and will not answer messages you send it. That silence is normal until you add your id.
+- **Message the bot first.** Telegram will not give you a chat id until the bot has seen a
+  message from you (bots cannot start a conversation).
+- **One notify chat id** per box (the default outbound destination). You can target a group by
+  using the group's chat id instead.
+- **Allowlist is exact ids.** Only the ids you list can talk to the agent. There is no username or
+  pattern matching, so a new person needs their id added by hand.
+- **4000 character cap** on outbound sends, HTML parse mode.
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="The bot does not reply when I message it. Is it broken?">
-    This plugin is send-only, so it does not echo replies. If you want the bot to actually answer you, set that up under the Unified Inbox app: add your chat id to `TELEGRAM_ALLOWED_CHAT_IDS` and the agent gateway will reply. Without that, messaging the bot is only to register your chat id.
-  </Accordion>
-  <Accordion title="What is the chat id and where do I get it?">
-    It is the destination chat. Message the bot once, then the setup helper lists it for you. Paste it into the Chat id box.
-  </Accordion>
-  <Accordion title="Can it send to a group?">
-    Yes. Add the bot to the group, send a message there, and the helper shows the group's (negative) chat id. Use that as the chat id.
-  </Accordion>
-  <Accordion title="Is my token safe?">
-    The key box is write-only. The token is saved to your pod, never shown back or returned to the browser, and never in the repo.
-  </Accordion>
-  <Accordion title="My token leaked / I pasted it somewhere.">
-    Message @BotFather, `/revoke`, get a fresh token, and paste the new one in the same box. It applies live.
-  </Accordion>
-</AccordionGroup>
+**The bot does not reply when I message it. Is it broken?** No, the inbound gateway is off until
+you add your id. Paste your user id into **Allowed user IDs** (`TELEGRAM_ALLOWED_CHAT_IDS`) on the
+Telegram card and **Save**, then the agent answers you in chat. With that field empty the bot is
+outbound only, so messaging it just registers your chat id.
+
+**What is the notify chat id and where do I get it?** It is the outbound destination for approved
+alerts. Message the bot once, then the setup helper lists it for you. Paste it into the Notify chat
+id box. If you fill the allowlist, you can leave this blank and it uses your first allowed id.
+
+**Can more than one person chat the bot?** Yes. Put each person's id in **Allowed user IDs** as a
+comma-separated list. Every id on the list can talk to the agent; ids not on it are ignored.
+
+**Can it send to a group?** Yes. Add the bot to the group, send a message there, and the helper
+shows the group's (negative) chat id. Use that as the notify chat id.
+
+**Is my token safe?** The key box is write-only. The token is saved to your box, never shown
+back or returned to the browser, and never in the repo.
+
+**My token leaked / I pasted it somewhere.** Message @BotFather, `/revoke`, get a fresh token,
+and paste the new one in the same box. It applies live.

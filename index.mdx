@@ -1,74 +1,47 @@
 ---
-title: MadeForMeAI - Your AI, made for you
-description: Not another chat box to figure out. I build it for you, around how you actually work.
+title: "MindMap"
+description: "One AI workspace with two surfaces, every tool a node or toggle, and every write held for your approval."
 ---
 
-Your own AI. With an IT expert in your corner.
+MindMap is one AI workspace where your agent can use every tool you connect: your CRM, email, calendar, code repos, the web, and more. You work two ways. **Canvas** lays answers out as tiles you can drag, arrange, and save into dashboards. **Chat** is a plain linear thread, the default on phones. Same agent, same keys, same memory behind both.
 
-Not another chat box to figure out. I build it for you, around how you actually work, and stick around when you get stuck. The AI is the easy part. The setup is where everyone gets stuck, so I do the wiring.
+Every tool is a node you can see or a toggle you flip. Reads run the moment you ask. Every write queues for your approval and only fires after you click approve.
+
+{/* MEDIA gif: the Chat surface answering one prompt, with a tile rendered inline below the answer | caption: "Ask a question, get an answer plus a tile you can keep." */}
 
 <CardGroup cols={2}>
-  <Card title="Get started in 2 minutes" icon="rocket" href="/quickstart">
-    Pick a name, choose a plan, and you're in. No installs, no setup, no tech skills needed.
+  <Card title="What is MindMap" icon="circle-info" href="/getting-started/what-is-mindmap">
+    The workspace, the two surfaces, and how the agent uses your tools.
   </Card>
-  <Card title="Three ways I can set you up" icon="layer-group" href="/setups/choosing">
-    Standard, Brain Map, or Business-in-a-box. Pick the one that fits.
+  <Card title="Your first chat" icon="message" href="/getting-started/first-chat">
+    Log in, ask something, and watch the approval gate hold a write.
   </Card>
-  <Card title="What is Brain Map?" icon="diagram-project" href="/setups/brain-map">
-    Your business on one canvas, with every tool the agent uses made visible.
+  <Card title="Build a dashboard" icon="table-cells" href="/getting-started/build-a-dashboard">
+    Turn Canvas answers into tiles and save them as a view you return to.
   </Card>
-  <Card title="Explore the Marketplace" icon="store" href="/marketplace/overview">
-    21 apps the agent can use: network, money, CRM, voice, browser, and more.
-  </Card>
-</CardGroup>
-
----
-
-## How it works
-
-Three steps. Under 2 minutes.
-
-<Steps>
-  <Step title="Pick a name for your AI">
-    Go to [madeformeai.com/early-access](https://madeformeai.com/early-access) and choose a name. Your AI will live at `yourname.madeformeai.com`. That's your space, nobody else's.
-  </Step>
-  <Step title="Choose your plan and check out">
-    BYOK, Standard, or Power. No commitment. Cancel anytime. Most people start with Standard.
-  </Step>
-  <Step title="Check your email and log in">
-    You'll get a welcome email with your login token within a couple minutes. Paste it at your AI's URL and you're in.
-  </Step>
-  <Step title="Just start talking">
-    No tutorial. No setup wizard. No learning curve. Just say what you need and your AI handles it.
-  </Step>
-</Steps>
-
----
-
-## Three ways I can set you up
-
-<CardGroup cols={3}>
-  <Card title="Standard" href="/setups/standard">
-    **Your own personal AI.** AI included, personal memory, web search, and real tool use. Set up and explained by me.
-  </Card>
-  <Card title="Brain Map" href="/setups/brain-map">
-    **Your business on one canvas.** Every tool the agent uses becomes a node you can see. White-label and isolated to you.
-  </Card>
-  <Card title="Business-in-a-box" href="/setups/business-in-a-box">
-    **Your whole company, wired up.** A branded site, CRM, docs, and a team of role-scoped agents.
+  <Card title="The marketplace" icon="store" href="/getting-started/the-marketplace">
+    Apps, Tools, Skills, and Secrets. Flip a feature on and add its key.
   </Card>
 </CardGroup>
+
+## See it in 90 seconds
+
+<iframe
+  width="100%"
+  style={{ aspectRatio: "16 / 9", borderRadius: "8px" }}
+  src="https://www.youtube.com/embed/L4ERokeYAvI"
+  title="MindMap"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+## Approval-first by design
+
+The agent reads on its own: it lists, searches, fetches, and looks things up the moment you ask. Every write is different. Send an email, post a message, create an issue, change a record, and the agent queues the action and shows it to you first. Nothing sends or changes until you approve it. If there is one write you repeat and trust, a Trust Rule pre-approves that narrow case so you stop clicking for it.
 
 <Note>
-Not sure which fits? **Standard** is right for most people, and you can move up later. Still not sure? [Join the Discord](https://discord.gg/uEugVKA8PH) and just ask.
+You sign in through Authentik SSO at your tenant URL. There is no separate account to create.
 </Note>
 
----
-
-## Who this is for
-
-You don't need to be technical. You don't need to know what a "prompt" is.
-
-If you can send a text message, you can use this. That's the whole point. I handle all the complicated parts so you don't have to. You just get the assistant.
-
-> "AI isn't confusing. The tools are. This is the fix."
+Ready? Open Admin, turn on one feature, and [ask your first question](/getting-started/first-chat).

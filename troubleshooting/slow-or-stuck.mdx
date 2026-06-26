@@ -1,38 +1,65 @@
 ---
-title: AI Is Slow or Stuck
-description: What to do when your AI isn't responding or feels sluggish.
+title: "Slow or Stuck"
+description: "Tell a normal MindMap pause from a real hang, handle long tool calls and approval waits, and learn how to stop a run."
 ---
 
-## It's paused with a "tool call" message
+A MindMap pause usually means it's working, not broken. The trick is telling a normal pause apart from a genuine hang. Work down this page in order.
 
-This is normal. Your AI is doing something — searching the web, reading a file, creating something. It's not stuck, it's working. Give it 10–30 seconds.
+## It paused on a tool call
 
-[What are tool calls? →](/understanding/tool-calls)
+When MindMap searches the web, reads a calendar, or opens a connector, it shows a tool-call chip and runs that step in the background. This is the most common "it stopped" moment, and it's normal. Reads finish on their own and the answer follows.
 
-## It's been more than a minute with no response
+Give a tool call 10 to 30 seconds. A web search or a slow connector can run longer than a plain reply, so a single chip sitting for a bit is fine.
 
-1. **Refresh the page** and resend your message. Long tasks occasionally time out — refreshing usually resolves it.
-2. **Check your internet connection** — your AI is in the cloud, so a slow or dropped connection can cause this.
-3. **Try a simpler message first** — if you sent a very complex request, break it into smaller steps.
+[What tool calls are](/understanding/tool-calls)
 
-## Responses feel slow in general
+## It's waiting on your approval
 
-A few things affect speed:
+MindMap queues every write (sending mail, creating a record, posting to a connected app) instead of running it. If it looks done but nothing happened, check the approvals panel: there may be a proposed action waiting for your **Approve** or **Reject**.
 
-- **Model choice** — The default "Smart Assistant (DeepSeek)" model is fast for most tasks. If you've switched to a different model, try switching back.
-- **Internet speed** — AI responses stream over your connection. A slow connection means slow delivery.
-- **Time of day** — Peak usage times can occasionally cause higher response times across AI services globally.
+Nothing leaves your workspace until you approve it, so a stalled write is often just a pending approval you haven't acted on yet.
 
-## It stopped mid-response
+{/* MEDIA gif: a queued write action appearing in the approvals panel with Approve and Reject buttons | caption: "Writes wait in the approvals panel until you approve them" */}
 
-If the response cut off partway through, say: _"Continue"_ or _"Keep going"_ and it will pick up where it left off.
+## How to stop a run
 
-## Complete unresponsiveness (no reaction at all)
+If MindMap is mid-run and you want it to halt:
 
-If the chat is completely frozen — typing does nothing, no response:
+- Use the **Stop** control on the active message to cancel the current run.
+- If a write is queued, **Reject** it in the approvals panel so it never runs.
 
-1. Hard refresh the page (Ctrl+Shift+R on Windows, Cmd+Shift+R on Mac)
-2. Clear your browser cache if the hard refresh doesn't help
-3. Try a different browser
+Stopping a run cancels the in-progress work. It doesn't undo anything already approved and carried out.
 
-If none of that works, check the [Discord](https://discord.gg/uEugVKA8PH) to see if there's a known outage or maintenance window.
+## It's been over a minute with nothing
+
+If it's clearly past a normal tool call and there's no pending approval:
+
+<Steps>
+  <Step title="Refresh and resend">
+    Reload the page and send your message again. A long task can occasionally drop its stream; resending picks it back up.
+  </Step>
+  <Step title="Check your connection">
+    MindMap runs in the cloud and streams replies to your browser. A slow or dropped connection looks like a slow assistant.
+  </Step>
+  <Step title="Break up a big request">
+    A single sprawling request takes longer and stalls more easily. Split it into smaller steps and send the first one.
+  </Step>
+</Steps>
+
+## It stopped mid-reply
+
+If a response cut off partway, type "continue" or "keep going" and MindMap resumes from where it left off.
+
+## Nothing responds at all
+
+If the chat is fully frozen (typing does nothing, no chip, no reply):
+
+1. Hard refresh the page (Ctrl+Shift+R on Windows, Cmd+Shift+R on Mac).
+2. Clear your browser cache if the hard refresh doesn't help.
+3. Try a different browser.
+
+<Note>
+If replies feel slow across the board, an admin can switch the model in Admin > Agent. The model switcher changes which model MindMap runs per surface, which can trade speed for depth. That's an admin setting, not something you change per message.
+</Note>
+
+If none of this clears it, use the in-app feedback button or tell your admin what you saw (a stuck chip, a pending approval, or a fully frozen chat) so they can check the tenant.

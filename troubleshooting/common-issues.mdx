@@ -1,75 +1,70 @@
 ---
-title: Common Issues
-description: Quick fixes for the most common problems people run into.
+title: "Common Issues"
+description: "Quick fixes for the problems people hit most often in MindMap, from login to the approval gate."
 ---
+
+Most questions about MindMap fall into a handful of buckets. Start here, then follow the link for the full walkthrough if you need it.
 
 <AccordionGroup>
 
   <Accordion title="I can't log in">
-    **Check your password first** — go to `yourname.madeformeai.com` and try logging in. If it fails, use the "Forgot password" option on the login page to request a reset link.
+    MindMap signs you in through Authentik (single sign-on) at your team's URL. You don't set a separate MindMap password.
 
-    **Still not working?** Email support@madeformeai.com from the address you signed up with. We'll verify your identity and get you back in.
+    If you keep landing back on the sign-in page, your session may have expired, or your account may not be in the group that has access yet. Sign out fully, close the tab, and sign in again. If that still bounces you, ask your admin to confirm your account is in the right group.
 
-    [Full login troubleshooting →](/troubleshooting/cant-log-in)
+    [Full login troubleshooting](/troubleshooting/cant-log-in)
   </Accordion>
 
-  <Accordion title="My AI forgot who I am">
-    This usually means one of two things:
+  <Accordion title="MindMap paused on a 'tool call' and stopped typing">
+    That pause is normal. When MindMap reads a calendar, searches the web, or opens a file, it shows a tool-call chip and works in the background for a few seconds. Reads run on their own and come straight back with the result.
 
-    1. **You accidentally used a different URL** — make sure you're at `yourname.madeformeai.com` and not a different URL
-    2. **The Reset Agent button was used** — this permanently wipes memory. If you didn't do this yourself, email support@madeformeai.com
+    Give it 10 to 30 seconds. If it sits far longer than that, see [Slow or Stuck](/troubleshooting/slow-or-stuck).
 
-    If memory seems thinner than expected (not a full wipe), just remind your AI: _"Here's some context about me: [your details]."_ It will save everything you tell it.
-
-    [More on memory →](/troubleshooting/my-ai-forgot-me)
+    [What tool calls are](/understanding/tool-calls)
   </Accordion>
 
-  <Accordion title="My AI is slow or not responding">
-    **Wait a moment** — if it's using a tool (searching the web, reading a file), it may just be working. Give it 15-30 seconds.
+  <Accordion title="MindMap said it queued something and is 'waiting for approval'">
+    Also normal, and it's the point of the product. Every read happens instantly. Every write (sending an email, creating a record, posting to a connected app) gets queued instead of run, so nothing leaves your workspace until you say yes.
 
-    **Try refreshing the page** and sending your message again.
+    Open the approvals panel, review the proposed action, and click **Approve** or **Reject**. Once you approve it, MindMap carries it out and reports back.
 
-    **Check your internet connection** — your AI is in the cloud, so a slow connection can affect response speed.
-
-    If it's consistently slow or completely unresponsive, check the [Discord](https://discord.gg/uEugVKA8PH) to see if there's a known issue.
-
-    [More troubleshooting →](/troubleshooting/slow-or-stuck)
+    <Note>If you trust a specific action enough to skip the prompt, an admin can add a trust rule for it in the marketplace. Until then, writes always wait for you.</Note>
   </Accordion>
 
-  <Accordion title="I didn't get a welcome email after signing up">
-    Check your **spam or junk folder** first. The email comes from `your-ai@madeformeai.com`.
+  <Accordion title="A feature or app isn't showing up">
+    MindMap ships with features turned off until your admin enables them. Apps, Tools, Skills, and Secrets all live in the Admin marketplace, split into those four buckets.
 
-    If it's not there, email billing-support@madeformeai.com with your name and the email you used to sign up. We'll get it sorted.
+    If a connector or page you expected is missing, it's probably switched off. Ask your admin to open the marketplace and enable it for your tenant.
   </Accordion>
 
-  <Accordion title="It said something about a 'tool call' and paused — is that normal?">
-    Yes, completely normal. When your AI does something active — like searching the web or creating a file — it pauses briefly and shows you what it's doing. Give it a moment. It'll come back with the result.
+  <Accordion title="A connector says it 'needs a key' or won't run">
+    Connectors that talk to outside services (Gmail, a CRM, GitHub, and the like) need a credential saved in the **Secrets** bucket of the marketplace. If the key is missing, expired, or was rotated on the other side, the connector shows as needing setup and its tools won't run.
 
-    [What are tool calls? →](/understanding/tool-calls)
+    An admin can add or update the key under Admin > Marketplace > Secrets. After saving it, the connector's tools become available on your next message.
   </Accordion>
 
-  <Accordion title="My AI can't see my computer files">
-    Your AI runs in the cloud, not on your computer. It can't access your local files by default. To work with a file, upload it directly into the chat using the attachment button.
+  <Accordion title="MindMap can't see my computer's files">
+    MindMap runs in the cloud, not on your machine, so it can't reach local files on its own. Upload a file straight into the chat with the attachment button, or connect a cloud source (like Google Drive) from the marketplace and point MindMap at it there.
 
-    For files stored in Google Drive, [connect Google Drive →](/connect/google-drive) and your AI can access them from there.
-
-    [Full explanation →](/understanding/cloud-not-local)
+    [Why cloud, not local](/understanding/cloud-not-local)
   </Accordion>
 
-  <Accordion title="An app connection stopped working">
-    App connections can occasionally drop (especially after token refreshes or password changes on the connected account).
+  <Accordion title="MindMap acts like it forgot who I am">
+    Memory in MindMap is shared across your whole tenant, but it isn't tied to a single chat. If you cleared a chat or moved to a different surface or Space, the conversation history looks empty even though saved memories are intact.
 
-    Tell your Setup Assistant: _"My [WhatsApp/Gmail/etc.] isn't working — can you reconnect it?"_ It will run a diagnostic and walk you through a fix.
+    To store something durable, tell MindMap plainly: "Remember that..." and it saves the fact for next time.
+
+    [More on memory](/troubleshooting/my-ai-forgot-me)
   </Accordion>
 
-  <Accordion title="I want to start completely fresh">
-    Use the **Reset Agent** option in your account dashboard. This permanently wipes all memory, files, and conversation history. Your subscription stays active.
+  <Accordion title="MindMap is slow or unresponsive">
+    First check whether it's mid tool call or waiting on your approval (both look like a stall but aren't). A long web search or a slow connector call can also take a while.
 
-    **This cannot be undone.** Only use it if you genuinely want a blank slate.
+    If it's genuinely frozen, refresh the page and resend. The full checklist, including how to stop a run, is here:
+
+    [Slow or Stuck](/troubleshooting/slow-or-stuck)
   </Accordion>
 
 </AccordionGroup>
 
----
-
-Still stuck? The fastest help is in the [Discord community](https://discord.gg/uEugVKA8PH). You can also email support@madeformeai.com.
+Still stuck? Use the in-app feedback button, or reach your admin, who can check the marketplace, secrets, and group access for your tenant.

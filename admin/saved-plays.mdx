@@ -1,0 +1,41 @@
+---
+title: "Saved Plays"
+description: "Saved Plays (Workflow Recorder) Save an approved multi-step sequence as a named, reusable play and recall it in one line."
+---
+
+# Saved Plays (Workflow Recorder)
+
+Save an approved multi-step sequence as a named, reusable play and recall it in one line. A play
+replays each step through its normal approval gate, so a saved play never bypasses approval. A
+differentiator (capture intent), not an integration.
+
+## HOW TO SETUP
+Marketplace -> Saved Plays. No key required. Plays live in the `workflows` table (per tenant).
+
+## WHAT USER NEEDS TO GET
+Nothing external.
+
+## HOW IT WORKS
+`save_workflow` stores a named, ordered list of plain-language steps. `run_workflow` recalls a play
+and returns its steps so the agent performs them in order this turn. Each underlying write still hits
+its own approval gate.
+
+## WHAT CAN BE CALLED VIA AI
+- "Save this as a play called Monday-AR: run ar_review over 30 days, then nudge the 3 oldest" ->
+  save_workflow
+- "Run my Monday-AR play" -> run_workflow
+- "What plays do I have?" -> list_workflows
+
+## CRON / SCHEDULING
+There is no always-on timer in the api. To run a play on a schedule, add an n8n Schedule trigger that
+POSTs `{"message":"run my Monday-AR play"}` to `https://your-tenant.madeformeai.com/api/canvas`. That
+keeps scheduling in your existing automation layer and still routes every write through approval.
+
+## LIMITATIONS
+- Steps are instructions the agent executes, not a hard-coded macro engine. Good for repeatable
+  routines, not for unattended bulk automation.
+- No branching/conditionals yet (keep plays linear).
+
+## FAQ
+Q: Can a play run unattended overnight? A: It can be triggered on a schedule, but any write in it
+still queues an approval, so it will wait for your tap unless the steps are all reads.

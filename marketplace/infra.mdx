@@ -1,75 +1,116 @@
 ---
-title: "Infra Monitoring"
-description: "Query your Prometheus metrics, Loki logs, and Grafana dashboards from chat, plus agent health snapshots and helpdesk cases."
+title: "Infrastructure Monitoring"
+description: "the infra-health agent files (direct) One bundle for the operator's own monitoring stack."
 ---
 
-<Note>
-Brain Map operator feature. Configured per account, not self-serve. It does not appear in the customer marketplace; it is enabled per box out of band.
-</Note>
+the infra-health agent files (direct)
 
-One bundle for the operator's own monitoring stack. It combines infra metrics (PromQL queries against Prometheus, LogQL queries against Loki, and saved Grafana dashboards rendered as tiles) with infra agents (the health snapshots and helpdesk cases the monitoring agents produce: node status, container checks, recent warnings, open incidents).
 
-## What you need
+One bundle for the operator's own monitoring stack. It combines two things that used to be
+separate features:
 
-- A Prometheus URL scraping node_exporter (`PROM_URL`).
-- A Loki URL for logs (`LOKI_URL`).
-- A Grafana base URL plus the dashboards you want to render (uid + slug + key, optional `params`) in the tenant config `infra.dashboards`.
-- The node list for the OPS_CENTER cards (`infra.nodes`): label plus PromQL selector per node.
-- For the agent snapshots and cases: the infra-health files mounted into the container (synced from wherever the agents write them if the box is not the writer).
+- **Infra metrics**: PromQL queries against Prometheus, LogQL queries against Loki, and saved
+  Grafana dashboards rendered as tiles.
+- **Infra agents**: the infra-health snapshots and helpdesk cases the T1/T2 monitoring agents
+  produce (node status, container checks, recent warnings, open incidents).
 
-## Setup
+This is a **hidden-tier** plugin: it does not appear in the marketplace for customers. It is
+operator/custom, enabled per box out of band. The Infra page itself is built per customer.
 
-<Steps>
-  <Step title="Turn on the feature flag">
-    Set `features.infra: true` in that box's tenant config (e.g. `tenant.demo.json`) or flip it in the settings table.
-  </Step>
-  <Step title="Point it at the stack">
-    Set `PROM_URL`, `LOKI_URL`, the Grafana base (`infra.grafanaBase`), and the saved dashboards list (`infra.dashboards`) via env or tenant config.
-  </Step>
-  <Step title="Configure the node cards">
-    Set `infra.nodes` as a list of `{ key, label, selector }` where `selector` is a brace-less PromQL label set, for example `instance="controlnode",job="integrations/unix"`. The cards run CPU/MEM/DISK/LOAD against each selector. An empty list falls back to neutral placeholders.
-  </Step>
-  <Step title="Set dashboard params">
-    Each `infra.dashboards` entry may carry a `params` string of Grafana template vars appended to the embed URL, for example `var-instance=10.20.10.201`. The embed drops full kiosk mode so the variable dropdowns stay usable.
-  </Step>
-  <Step title="Mount the infra-health directory">
-    For the agents side, mount the infra-health directory (the agents' `latest.md`, hourly snapshots, and `helpdesk/cases/`) at `/infra-health` in the api container.
-  </Step>
-</Steps>
+## HOW TO SETUP
 
-For cross-site Grafana embedding (app and Grafana on different domains), Grafana needs `allow_embedding=true` plus either anonymous Viewer access or a same-site session, and the app's CSP must permit it (`frame-src 'self' https:` in `apps/web/nginx.conf`). A missing `frame-src` makes the browser block the frame.
+This one is not self-serve from the marketplace. To turn it on for a box:
 
-## How it works
+1. Set the feature flag on: `features.infra: true` in that box's tenant config (rocker and the
+   devzone MindMap dev box have this in `tenant.demo.json`), or flip it in the settings table.
+2. Point it at the stack via env / tenant config: `PROM_URL`, `LOKI_URL`, the Grafana base
+   (`infra.grafanaBase`), and the saved dashboards list (`infra.dashboards`).
+3. Set the OPS_CENTER node cards via `infra.nodes`: a list of `{ key, label, selector }` where
+   `selector` is a brace-less PromQL label set, e.g.
+   `instance="controlnode",job="integrations/unix"`. The cards run CPU/MEM/DISK/LOAD against
+   each selector. If `infra.nodes` is empty the code falls back to neutral placeholders.
+4. Each `infra.dashboards` entry may carry a `params` string of Grafana template vars appended
+   to the embed URL, e.g. `var-instance=10.20.10.201` (Proxmox) or
+   `var-ds_prometheus=<uid>&var-job=integrations%2Funix` (Node Exporter Full). The embed drops
+   full `kiosk` so the dashboard's variable dropdowns stay usable in the frame.
+5. For the agents side, mount the infra-health directory (the agents' `latest.md` + hourly
+   snapshots + `helpdesk/cases/`) at `/infra-health` in the api container.
 
-- `query_metric` runs an instant PromQL query. Only node_exporter host metrics are scraped (CPU, memory, disk, load, network, up). There are no container or application metrics, so the agent says so rather than invent one.
-- `query_logs` runs a LogQL selector against Loki (labels: host, container, namespace, service_name, job), newest first.
-- `show_dashboard` renders a saved Grafana dashboard as an embedded tile.
-- `infra_health` reads the latest agent snapshot, `infra_cases` lists recent helpdesk cases, and `read_infra_file` opens a specific snapshot or case file by name.
-- Everything here is read-only.
+**Embedding Grafana cross-site** (when the app and Grafana are on different domains): Grafana
+needs `allow_embedding=true` AND either anonymous Viewer access or a same-site session, and the
+app's own CSP must permit it (`frame-src 'self' https:` in `apps/web/nginx.conf`). A missing
+`frame-src` falls back to `default-src 'self'` and the browser blocks the frame with
+"This content is blocked".
 
-## What you can ask
+On your own box (`MARKETPLACE_OWNER=true`), the Infra card shows in the marketplace under
+**Hidden · owner only** when you load it; on a customer box it never appears.
 
-- "what is CPU on node-1" / "memory free on node-2"
-- "any errors in the app logs in the last hour"
-- "show the node overview dashboard"
-- "how is the infra" / "what do the agents report"
-- "any open cases" / "recent incidents"
+### devzone MindMap dev box wiring (2026-06-22)
+- `PROM_URL`/`LOKI_URL` = the homelab stack on `10.20.20.110` (9090 / 3100), reached over
+  Twingate. The api must be on the the shared docker network docker network for that egress (and for
+  searxng); this is pinned in `compose.demo-mirror.yml` so a recreate keeps it.
+- `infra.nodes` = node-1 Devzone (`instance="controlnode"`) + node-2 Production Worker-2
+  (`instance="Production-Worker-2"`), both `job="integrations/unix"` (Grafana Alloy).
+- `infra.dashboards` = Node Exporter Full (`rYdddlPWk`) + Proxmox (`Dp7Cd57Zza`).
+- The infra-health files live on rocker's vault, not on devzone, so a `*/10min` cron
+  (`/usr/local/bin/sync-infra-health.sh`) rrsync-pulls them read-only from rocker into
+  `/srv/your-instance/infra-health`, mounted into the api.
+- LIVE_LOGS labels: `{host="devzone"}` works; `{host="prod-worker-2"}` is empty until worker2
+  ships logs to the homelab Loki.
 
-## Limitations
+## WHAT USER NEEDS TO GET
 
-- node_exporter metrics only. No container or application metrics; asking for one that does not exist gets a plain "not available", not a guess.
-- Dashboards must be in the tenant config (uid + slug + key). An unknown key returns the list of valid ones.
-- The agents side needs the mount. Without the infra-health directory mounted, the health and cases tools have nothing to read.
-- Hidden and not self-serve. Enabled per box by the operator, not from the customer marketplace.
-- The Infra page is custom per customer. The metric and log tools are generic; the page is not.
+- **A Prometheus URL** scraping node_exporter (`PROM_URL`).
+- **A Loki URL** for logs (`LOKI_URL`).
+- **A Grafana base URL** plus the dashboards you want to render (uid + slug + key, optional
+  `params`), in the tenant config `infra.dashboards`.
+- **The node list** for the OPS_CENTER cards (`infra.nodes`): label + PromQL selector per node.
+- For the agent snapshots/cases: the **infra-health files** mounted into the container (synced
+  from wherever the agents write them if the box is not the writer, e.g. the devzone cron).
+
+## HOW IT WORKS
+
+- `query_metric` runs an instant PromQL query. Only **node_exporter host metrics** are scraped
+  (CPU, memory, disk, load, network, up). There are no container/cAdvisor or application
+  metrics, so the agent is told to say so rather than invent a metric name.
+- `query_logs` runs a LogQL selector against Loki (labels: host, container, namespace,
+  service_name, job), newest lines first.
+- `show_dashboard` renders one of the saved Grafana dashboards as an embedded tile.
+- `infra_health` reads the latest agent snapshot; `infra_cases` lists recent helpdesk cases;
+  `read_infra_file` opens a specific snapshot or case file by name.
+- Everything here is **read-only**. The Infra page and the `/api/infra/*` endpoints stay in the
+  app; this plugin is the agent-tools side.
+
+## WHAT CAN BE CALLED VIA AI
+
+- "what is CPU on node-1" / "memory free on node-2": PromQL metric
+- "any errors in the app logs in the last hour": Loki logs
+- "show the node overview dashboard": Grafana tile
+- "how is the infra" / "what do the agents report": latest health snapshot
+- "any open cases" / "recent incidents": agent helpdesk cases
+
+## LIMITATIONS
+
+- **node_exporter metrics only.** No container or application metrics. Asking for one that does
+  not exist gets a plain "not available", not a guess.
+- **Dashboards must be in the tenant config** (uid + slug + key). An unknown key returns the
+  list of valid ones.
+- **The agents side needs the mount.** Without the infra-health directory mounted, the
+  health/cases tools have nothing to read.
+- **Hidden / not self-serve.** It is enabled per box by you, not from the customer marketplace.
+- **The Infra page is custom per customer.** The metric/log tools are generic; the page is not.
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="Why is Infra hidden?">
-    It is operator/custom for now. The page is built per customer and the tools point at your own stack, so it is not a turn-key marketplace add-on yet.
-  </Accordion>
-  <Accordion title="Does it change anything?">
-    No. Every tool is read-only: metrics, logs, dashboards, snapshots, and case files.
-  </Accordion>
-</AccordionGroup>
+**Why is Infra hidden?** It is operator/custom for now. The page is built per customer and the
+tools point at your own stack, so it is not a turn-key marketplace add-on yet.
+
+**How do I enable it for a specific user?** Set `features.infra: true` and the PROM/LOKI/Grafana
+config on that user's box, plus the infra-health mount for the agents side. They still will not
+see a marketplace card unless their box is the owner console.
+
+**Does it change anything?** No. Every tool is read-only: metrics, logs, dashboards, snapshots,
+and case files.
+
+**Can I see the Infra card on my own box?** Yes, on the owner box it appears under "Hidden ·
+owner only" in the marketplace.

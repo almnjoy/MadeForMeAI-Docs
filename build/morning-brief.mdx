@@ -1,0 +1,57 @@
+---
+title: "Morning Brief"
+description: "A short daily standup that sits at the top of your Overview."
+---
+
+A short daily standup that sits at the top of your Overview. It reads what you have connected and writes a plain-language summary of what matters today. Sections can include your sales pipeline, your newest lead, cash from Stripe, bank balances from Plaid, tasks, your calendar, and saved files. Add custom sources and the agent summarizes those each morning too. A section with no data behind it is skipped, so you only see what you actually have.
+
+## HOW TO SETUP
+
+1. Open MindMap -> Admin (marketplace) -> the **Morning Brief** card.
+2. Flip **Enable** on. It applies on your next message, no restart.
+3. Go to your Overview. The brief shows at the top, built from whatever you have connected.
+4. Hit **Regenerate** any time to refresh it.
+
+The brief uses your existing connections, so there is no key or URL to enter for the brief itself. The more apps you connect (CRM, Money, calendar, files), the more sections it can show.
+
+## WHAT USER NEEDS TO GET
+
+Nothing for the brief itself. The sections it can show depend on which apps you have connected. For example, the cash line needs Stripe, the bank line needs Plaid, and the pipeline line needs your CRM. Connect those in the marketplace and the matching sections appear; skip them and those sections stay hidden.
+
+## HOW IT WORKS
+
+- The brief is generated on demand, not streamed live. It is a snapshot from the moment you generate it. Hit **Regenerate** to rebuild it with current data.
+- It pulls only from apps you have connected and turned on. Each section maps to a data source, and a source with nothing to report is dropped from the output.
+- You shape it by talking to the agent in plain language: set a greeting, pick which sections show and in what order, add a closing note, or add custom sources.
+- Custom sources are read-only summaries. The agent reads the source and writes a short paragraph for the brief. It does not change anything in the source.
+- Any change the agent makes to your brief setup is saved to your box. Your preferences for greeting, section order, and custom sources persist between generations.
+- Keys for the underlying apps (Stripe, Plaid, your CRM) are saved write-only to your box, never shown back to the browser, never in the code. Edit them in Admin and they apply live.
+
+## WHAT CAN BE CALLED VIA AI
+
+You customize the brief by asking the agent. These change your brief setup, which is saved to your box:
+
+- "lead my morning brief with a greeting and put tasks first"
+- "add a custom brief source that summarizes my unread email"
+- "summarize my open GitHub issues in the brief each morning"
+- "add a closing note that reminds me to log my hours"
+- "reset my morning brief to default"
+
+The brief content itself is read-only. It reads your connected data and writes a summary; it does not send, change, or delete anything in the underlying apps.
+
+## LIMITATIONS
+
+- It summarizes only what you have connected and turned on. A section with no data behind it is skipped, and a source you have not connected will not appear no matter how you phrase it.
+- Custom sources are capped at a few, so pick the ones that matter for your morning.
+- It is a once-a-generation snapshot, not a live dashboard. The Canvas and the individual pages are the live views; the brief is the morning glance.
+- It does not act on what it finds. It will tell you a deal went cold or a balance is low, but it will not email anyone or move money. Use the agent for that, where writes are queued for your approval.
+
+## FAQ
+
+**How fresh is the brief?** It reflects the moment you last generated it. Hit Regenerate to pull current numbers; otherwise it holds the snapshot from its last run.
+
+**Why is a section missing?** That source has no data, or the app behind it is not connected and enabled. Connect the app in the marketplace (Stripe for cash, Plaid for bank balances, your CRM for pipeline) and regenerate, and the section appears.
+
+**Can I change the order or wording?** Yes, just ask the agent. Set a greeting, reorder sections, add a closing note, or add custom sources, all in plain language. "reset my morning brief to default" undoes your changes.
+
+**Will the brief do anything besides summarize?** No. It reads your connected data and writes a summary. It never sends, changes, or deletes anything. Actions stay with the agent, where every write is queued for your approval.

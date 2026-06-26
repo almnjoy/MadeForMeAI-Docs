@@ -1,62 +1,58 @@
 ---
 title: "Voice Calls (Retell)"
-description: "Outbound AI phone calls, a demo call to your own number and approval-gated follow-ups behind a TCPA consent gate."
+description: "Voice Calls (Retell) Outbound AI phone calls."
 ---
 
-Outbound AI phone calls. A demo call to your own number, and approval-gated follow-up calls to contacts behind a TCPA voice-consent gate. Call summary, sentiment, and transcript stream back from Retell webhooks. Inbound capture stays in your existing n8n Retell flows.
+# Voice Calls (Retell)
 
-## What you need
+Outbound AI phone calls. A demo call to your own number, and approval-gated follow-up calls to
+contacts behind a TCPA voice-consent gate. Call summary, sentiment, and transcript stream back from
+Retell webhooks. Inbound capture stays in your existing n8n RETELL flows.
 
+## HOW TO SETUP
+1. Create a Retell account. Get the API key, buy/assign a phone number, create ONE outbound agent.
+2. Marketplace -> Voice Calls. Paste `RETELL_API_KEY`, `RETELL_FROM_NUMBER` (E.164, e.g. +1303...),
+   `RETELL_AGENT_ID`.
+3. In the Retell dashboard set the call webhook to `https://your-tenant.madeformeai.com/api/webhooks/retell`.
+4. First-run only: set `RETELL_WEBHOOK_INSECURE=true` in the api .env until you confirm Retell's
+   signature scheme, then remove it so signatures are enforced.
+
+## WHAT USER NEEDS TO GET
 A Retell account, an API key, a phone number, and one outbound agent id.
 
-## Setup
+## HOW IT WORKS
+`demo_call`/`follow_up_call` queue an approval. On approve, the action calls Retell create-phone-call
+with dynamic variables (person + topic) and metadata (intent + CRM id). Retell webhooks
+(call_started/ended/analyzed) hit /api/webhooks/retell and update the voice_calls table. `call_status`
+reads the result.
 
-<Steps>
-  <Step title="Set up Retell">
-    Create a Retell account. Get the API key, buy or assign a phone number, and create one outbound agent.
-  </Step>
-  <Step title="Paste your credentials">
-    Marketplace, then Voice Calls. Paste `RETELL_API_KEY`, `RETELL_FROM_NUMBER` (E.164, e.g. +1303...), and `RETELL_AGENT_ID`.
-  </Step>
-  <Step title="Set the webhook">
-    In the Retell dashboard, set the call webhook to your Brain Map Retell webhook endpoint (`/api/webhooks/retell`).
-  </Step>
-  <Step title="First-run signature check">
-    First-run only: set `RETELL_WEBHOOK_INSECURE=true` in the api .env until you confirm Retell's signature scheme, then remove it so signatures are enforced.
-  </Step>
-</Steps>
+## WHAT CAN BE CALLED VIA AI
+- "Demo call my phone +1..." -> demo_call (no third-party consent needed)
+- "Call Sarah about her renewal, she consented" -> follow_up_call (needs voice_consent=true)
+- "How did call <id> go?" -> call_status
+- "List my Retell agents and numbers" -> list_voice_agents
 
-## How it works
-
-`demo_call` and `follow_up_call` queue an approval. On approve, the action calls Retell create-phone-call with dynamic variables (person plus topic) and metadata (intent plus CRM id). Retell webhooks (call_started / ended / analyzed) hit the Retell webhook endpoint and update the `voice_calls` table. `call_status` reads the result.
-
-## What you can ask
-
-- "Demo call my phone +1..." (no third-party consent needed)
-- "Call Sarah about her renewal, she consented" (needs `voice_consent=true`)
-- "How did call [id] go?" (reads the result)
-- "List my Retell agents and numbers"
-
-## Limitations
-
-<Note>
-Every call is approval-gated; nothing dials until you approve. `follow_up_call` is refused on approve unless `voice_consent` is true (TCPA).
-</Note>
-
+## LIMITATIONS
 - Outbound only here; inbound is your n8n flows.
-- Honor DNC, the 8am to 9pm callee-local window, and recording disclosure in two-party states.
+- follow_up_call is REFUSED on approve unless voice_consent is true (TCPA). Honor DNC + 8am-9pm
+  callee-local + recording disclosure in two-party states.
 - Confirm Retell's webhook signature scheme before trusting it in production.
 
-## FAQ
+## LIVE SETUP (2026-06-14, rocker)
+Wired and connected on your-tenant.madeformeai.com:
+- RETELL_FROM_NUMBER = +15178834473 (your existing Retell number).
+- Two agents were created via API:
+  - "MindMap Demo" (agent_e26c98d1463e5d539c7a373144, voice cartesia-Brian) = RETELL_AGENT_ID
+    (the default demo). Its call results webhook to MindMap /api/webhooks/retell.
+  - "The Wandering AI (RPG demo)" (agent_a995dab7ce7e344f88fb9c7b52, voice 11labs-Billy) =
+    RETELL_AGENT_ID_FUN. Its results webhook to your n8n https://n8n.quickitprojects.com/webhook/retell-post-call.
+- demo_call now takes fun=true to use the Wandering AI agent: say "demo call my phone +1..., the fun one".
+- RETELL_WEBHOOK_INSECURE=true is set for first-run testing (confirm Retell's signature scheme, then remove).
+- The API key was pasted in chat during setup; ROTATE it in the Retell dashboard.
+- To grow the RPG bit: edit the "The Wandering AI" agent's prompt in the Retell dashboard, or re-run
+  MindMap/retell-setup/make_agents.py with a tweaked RPG_PROMPT.
 
-<AccordionGroup>
-  <Accordion title="Will it dial without me?">
-    No. Every call is approval-gated; nothing dials until you approve.
-  </Accordion>
-  <Accordion title="TCPA risk on the demo?">
-    None. The demo calls your own consented number.
-  </Accordion>
-  <Accordion title="Standard vs fun agent?">
-    demo_call uses the standard demo agent by default; pass `fun=true` (or say "the fun one") for the alternate agent if one is configured (`RETELL_AGENT_ID_FUN`).
-  </Accordion>
-</AccordionGroup>
+## FAQ
+Q: Will it dial without me? A: No. Every call is approval-gated; nothing dials until you approve.
+Q: TCPA risk on the demo? A: None, the demo calls your own consented number.
+Q: Standard vs fun agent? A: demo_call uses the standard MindMap Demo agent by default; pass fun=true (or say "the fun one") for the Wandering AI RPG agent.

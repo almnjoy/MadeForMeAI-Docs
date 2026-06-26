@@ -1,52 +1,51 @@
 ---
 title: "Assets"
-description: "S3-compatible object storage for files your agents generate, browse, preview, download, upload, and delete."
+description: "Object storage for files your agents generate: proposals, exports, images, PDFs."
 ---
 
-Object storage for files your agents generate: proposals, exports, images, PDFs. Browse, preview, download, upload, and delete. It is S3-compatible, so it runs on MinIO now and AWS S3 later with no code change.
+Object storage for files your agents generate: proposals, exports, images, PDFs. Browse, preview,
+download, upload, delete. S3-compatible, so it runs on MinIO now and AWS S3 later with no code
+change.
 
-## What you need
+## HOW TO SETUP
 
-An S3-compatible endpoint plus access key and secret and a bucket. On the MadeForMeAI cloud this is provisioned per box (a bucket plus a bucket-scoped user per tenant).
+1. Enable the **Assets** app in the marketplace.
+2. Add the secrets: `S3_ENDPOINT` (e.g. `https://s3.madeformeai.com`), `S3_ACCESS_KEY`,
+   `S3_SECRET_KEY`, `S3_BUCKET`.
+3. The Assets page + nav appear, and the agent gets `save_asset` / `list_assets`.
 
-## Setup
+## WHAT USER NEEDS TO GET
 
-<Steps>
-  <Step title="Enable the app">
-    Enable the Assets app in the marketplace.
-  </Step>
-  <Step title="Add the secrets">
-    Add `S3_ENDPOINT` (e.g. `https://s3.madeformeai.com`), `S3_ACCESS_KEY`, `S3_SECRET_KEY`, and `S3_BUCKET`. The Assets page and nav appear, and the agent gets `save_asset` and `list_assets`.
-  </Step>
-</Steps>
+An S3-compatible endpoint + access key/secret + a bucket. On the MadeForMeAI cloud this is
+provisioned per box on worker2 (a bucket + a bucket-scoped user per tenant).
 
-## How it works
+## HOW IT WORKS
 
-- The Assets page lists objects with size, source (agent or upload), and date. Click a file to preview (images render inline) or download.
-- Downloads use a short-lived presigned URL straight from storage, so big files do not stream through the app.
-- Upload via the page (pick a file) or have the agent `save_asset` a generated document. Each file carries provenance metadata (which agent or skill made it).
+- The Assets page lists objects with size, source (agent or upload), and date. Click a file to
+  preview (images render inline) or download.
+- Downloads use a short-lived presigned URL straight from storage, so big files do not stream
+  through the app.
+- Upload via the page (pick a file) or have the agent `save_asset` a generated document. Each file
+  carries provenance metadata (which agent/skill made it).
 
-## What you can ask
+## WHAT CAN BE CALLED VIA AI
 
-- "save this as an asset" / "export this proposal to a file" (saves it)
-- "what files do I have in Assets" (lists them)
+- "save this as an asset" / "export this proposal to a file" -> `save_asset`
+- "what files do I have in Assets" -> `list_assets`
 
-## Limitations
+## LIMITATIONS
 
 - Web upload is a single file up to 25 MB (no multipart or folder upload yet).
 - Top-level keys; no folder browser yet.
-- The agent saves text and markdown content; binary outputs (images, PDFs) come from whatever feature generates them, then land here.
+- The agent saves text/markdown content; binary outputs (images, PDFs) come from whatever feature
+  generates them, then land here.
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="Where are the files?">
-    In your S3 bucket (on the MadeForMeAI cloud, a per-box MinIO bucket).
-  </Accordion>
-  <Accordion title="Is the bucket public?">
-    No. It is private; downloads use short-lived presigned URLs, and each tenant's key can see only its own bucket.
-  </Accordion>
-  <Accordion title="Can I see the bucket directly?">
-    The MinIO console is internal by default. Ask to expose an `s3-console.*` route if you want the admin UI.
-  </Accordion>
-</AccordionGroup>
+**Where are the files?** In your S3 bucket (MadeForMeAI cloud: worker2 MinIO, one bucket per box).
+
+**Is the bucket public?** No. It is private; downloads use short-lived presigned URLs, and each
+tenant's key can see only its own bucket.
+
+**Can I see the bucket directly?** The MinIO console is internal by default. Ask to expose an
+`s3-console.*` route if you want the admin UI.

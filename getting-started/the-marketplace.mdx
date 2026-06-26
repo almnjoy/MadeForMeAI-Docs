@@ -1,0 +1,94 @@
+---
+title: "The Marketplace"
+description: "Where you turn MindMap features on: the four marketplace buckets, how to enable an item, and when it takes effect."
+---
+
+The marketplace is where you decide what your agent can use. Every connection, ability, skill, and key lives here as a toggle. Turn on what you need, add a key when an item asks for one, and your agent can use it on your next message.
+
+## Where it lives
+
+The marketplace is in **Admin**. Open Admin and you land in it. Everything is grouped into four buckets along the top.
+
+{/* MEDIA png: the Admin marketplace with the four bucket tabs (Apps, Tools, Skills, Secrets) across the top and a grid of feature cards below | caption: "The marketplace in Admin: Apps, Tools, Skills, Secrets." */}
+
+## The four buckets
+
+<CardGroup cols={2}>
+  <Card title="Apps" icon="plug">
+    Connections to outside services: Composio, Telegram, Money, and more. Most need a key or a URL. Each App has its own card with setup steps.
+  </Card>
+  <Card title="Tools" icon="wrench">
+    The agent's built-in abilities: web search, notes, widgets, and similar. Most need no key.
+  </Card>
+  <Card title="Skills" icon="list-check">
+    Reusable playbooks the agent can run, like Deep Research or Lead Outreach.
+  </Card>
+  <Card title="Secrets" icon="key">
+    Your keys, stored write-only. Add and edit them here.
+  </Card>
+</CardGroup>
+
+## An item that is off still shows
+
+Every feature appears in the marketplace whether it is on or off. A toggle that is off is not hidden. It sits there doing nothing until you enable it, so you can see the full menu of what MindMap offers and switch things on when you are ready.
+
+<Note>Seeing a feature in the list does not mean it is active. Check the toggle. If a card says it needs a key, it stays inert until you add one.</Note>
+
+## Enable, add a key, save
+
+Wiring up a feature is three steps.
+
+<Steps>
+  <Step title="Flip Enable on">
+    Open the feature's card and turn **Enable** on.
+  </Step>
+  <Step title="Paste its key or URL">
+    If the card asks for a key or a URL, paste it in. Keys save write-only, so the browser never shows a key back to you after you save it.
+  </Step>
+  <Step title="Save">
+    Click Save. No restart, no reload.
+  </Step>
+</Steps>
+
+{/* MEDIA gif: open an App card, flip Enable on, paste an API key into the field, click Save, the card shows it is now connected | caption: "Enable an App, paste its key, Save." */}
+
+## It applies on your next message
+
+The change takes hold the moment you save it. Your next message to the agent (on the Canvas or in Chat) can use whatever you just turned on. Nothing to restart.
+
+So the flow is: enable a feature, add its key, save, then go ask the agent something that uses it.
+
+<Warning>If you change or rotate a key, paste the new one in the same card and save. The change applies live, and a stale key is the usual reason a connected App suddenly returns errors.</Warning>
+
+## Start here
+
+<Steps>
+  <Step title="Open Admin">
+    Find the marketplace and its four buckets.
+  </Step>
+  <Step title="Turn on two features you'll actually use">
+    A web-search Tool and one App you already have an account for is a good start.
+  </Step>
+  <Step title="Add each key, then Save">
+    Paste the key or URL where the card asks for it.
+  </Step>
+  <Step title="Ask the agent something that uses them">
+    Go to the Canvas or Chat and put what you connected to work.
+  </Step>
+</Steps>
+
+Remember the approval gate while you test: reads come straight back, and any write the agent proposes waits on a card for your approval. See [The Approval Gate](/getting-started/the-approval-gate).
+
+## FAQ
+
+**Where do I turn things on?** In Admin, in the marketplace. Each feature is a toggle under Apps, Tools, Skills, or Secrets. Flip Enable, add a key if the card asks, and Save.
+
+**Why does a feature show if it's off?** So you can see everything MindMap offers. An off toggle does nothing until you enable it.
+
+**When does my change take effect?** On your next message. No restart.
+
+**Where do my keys live?** Write-only on your box, never shown back to the browser, never in our code. Edit them in Admin and they apply live. If one leaks, rotate it on the service that issued it and paste the new one in.
+
+---
+
+Next: [Connect an App →](/getting-started/connect-an-app)

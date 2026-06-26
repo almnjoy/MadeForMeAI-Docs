@@ -1,0 +1,96 @@
+---
+title: "Dashboards"
+description: "Live tile pages your agent builds by prompt."
+---
+
+Live tile pages your agent builds by prompt. Ask for a dashboard and the agent assembles a set of
+linked tiles (a KPI card, a chart, a table, a doc) and lays them out as one page. It never writes
+code. It picks from a fixed catalog of safe tile types, so what it builds is always a tile MindMap
+already knows how to render. A tile can hold static values the agent filled in, or bind to a live
+source so it re-fetches its data every time you open the page. Every build and edit goes through the
+approval gate, the same as any other write.
+
+## HOW TO SETUP
+
+1. Open MindMap -> Admin (the marketplace) -> the Dashboards card.
+2. Flip Enable on. It applies on your next message, no restart.
+3. Open the Dashboards page, or ask the agent to build you one.
+
+No key. Nothing to paste. Dashboards run on the agent you already have.
+
+## WHAT USER NEEDS TO GET
+
+Nothing. Dashboards use your existing agent and whatever tools you have connected. For a tile to
+pull live numbers, the source behind it has to be set up in its own marketplace card first (Stripe
+or Plaid for the Money tiles, Twenty for pipeline tiles, and so on). Without that source, the agent
+fills the tile with static values instead.
+
+## HOW IT WORKS
+
+- You ask, the agent builds. It picks tile types from a safe catalog (KPI cards, charts, tables,
+  docs, citations) and arranges them into one page. It does not generate code, it fills in a spec
+  the renderer already understands.
+- **`create_dashboard`** builds a whole page in one shot: several linked tiles (often a KPI plus a
+  chart plus a table) created together and queued as a single approval. You approve once and the
+  page lands.
+- **`add_tile` / `edit_tile` / `remove_tile`** change an existing dashboard. Each names the
+  dashboard it edits (the Money page is named `money`), so you can say "add a KPI to the money page"
+  and the agent edits that one.
+- **`list_dashboards`** shows what you have. **`show_dashboard`** opens one.
+- **Live data vs static.** A tile can bind to a live source (Stripe balance, Plaid net worth, cash,
+  or credit, pipeline by stage, recent transactions) and re-fetch on every view, so the number is
+  current each time you look. Or the agent can fill the tile with static values it gathered when it
+  built the page. Live tiles stay fresh, static tiles are a snapshot.
+- **Every build and edit is approval-gated.** `create_dashboard`, `add_tile`, `edit_tile`, and
+  `remove_tile` all queue a proposal and only run after you approve. Reading a dashboard you already
+  have runs on its own.
+
+## WHERE TO SEE THEM
+
+- The **Dashboards page** is a directory of your boards. Browse them, open one, switch between them.
+- The **Money page** renders its own live `money` board, pulling Stripe and Plaid numbers on each
+  view. Editing "the money page" by prompt edits that board.
+
+## WHAT CAN BE CALLED VIA AI
+
+- "build me a dashboard of this week's leads, revenue, and top opportunities": queues one approval,
+  drops a linked page on approve
+- "add a KPI for my newest credit card balance to the money page": queues an `add_tile` approval
+- "change the revenue chart on my sales board to a bar chart": queues an `edit_tile` approval
+- "show me my dashboards" / "open the money board": reads, run on their own
+
+Builds and edits queue for approval. Opening and listing run immediately.
+
+## TILE FEEDBACK
+
+Each tile has a thumbs up and thumbs down. Tap one to mark whether the tile was useful. The vote
+goes to the audit log so you can see later what landed and what missed.
+
+## LIMITATIONS
+
+- **Off by default.** Enable it from the Dashboards card when you want it.
+- **Live tiles need their source.** A Stripe tile needs Stripe set up, a pipeline tile needs Twenty,
+  and so on. No source means the tile holds static values, not a live feed.
+- **Safe catalog only.** The agent builds from the tile types MindMap ships (KPI, chart, table, doc,
+  citation). It cannot invent a new tile type or write custom code, by design.
+- **Edits are approval-gated.** The agent cannot rearrange or wipe a board on its own. Every change
+  queues for you first.
+
+## FAQ
+
+**Does the agent write code to build these?** No. It fills in a spec from a fixed catalog of tile
+types. What it builds is always a tile the app already knows how to render.
+
+**Will the numbers update on their own?** A tile bound to a live source re-fetches every time you
+open the page. A static tile holds the values from when it was built. Ask for live tiles if you want
+them current.
+
+**Can the agent change my dashboard without asking?** No. Building and editing both queue for your
+approval. Only opening and listing run on their own.
+
+**What is the difference between the Dashboards page and the Money page?** The Dashboards page is a
+directory of every board you build. The Money page is one specific live board (`money`) that
+renders your Stripe and Plaid numbers and refreshes on each view.
+
+**Is this the same as the Canvas?** No. The Canvas is a free-form board you arrange by hand.
+Dashboards are agent-built tile pages from the catalog. Both render the same kinds of tiles.

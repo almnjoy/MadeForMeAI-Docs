@@ -1,0 +1,54 @@
+---
+title: "Feedback"
+description: "Send a bug report or a feature request without leaving your work."
+---
+
+Send a bug report or a feature request without leaving your work. When your workspace operator has set a feedback form, a **Feedback** button shows up at the top right of the header. Click it and the form opens right inside the app, so you stay where you were. You fill it out, submit, and the answers go straight to that form. There is nothing to install and no key to enter on your side.
+
+## HOW TO SETUP
+
+For most users there is nothing to set up. If you see the Feedback button, you are ready: click it and use the form.
+
+For the workspace operator:
+
+1. Pick or build a form (any embeddable form works, such as a Microsoft Form). Get its share or embed link.
+2. Open MindMap -> Admin (marketplace) -> the **Feedback** card.
+3. Set **FEEDBACK_FORM_URL** to your form's link and **Save**. The key box is write-only.
+4. Leave **FEEDBACK_FORM_URL** unset if you want to hide the button.
+
+It applies on your next message, no restart. Once the link is set, the button appears for everyone on that box.
+
+## WHAT USER NEEDS TO GET
+
+For users, nothing.
+
+For the operator, a form link. Any embeddable form works, such as a Microsoft Form. A Microsoft Forms share link works as-is and shows embedded.
+
+## HOW IT WORKS
+
+- The Feedback button reads **FEEDBACK_FORM_URL** from your box's key store. If a link is set, the button shows; if it is blank, the button is hidden.
+- Clicking the button opens the form embedded in the app. You do not leave your current view.
+- Your answers submit straight to the operator's form. MindMap does not store or read them; the form does.
+- This is a plain link feature, so the agent and the approval gate are not involved here. Nothing queues and nothing fires.
+- The form URL is saved write-only to your box, never shown back to the browser, and never in the code. The operator edits it in Admin and it applies live, no restart.
+
+## WHAT CAN BE CALLED VIA AI
+
+Nothing. Feedback is a header button, not an agent tool. There are no AI prompts for it. To send feedback, click the button and fill out the form.
+
+## LIMITATIONS
+
+- The button only shows when the operator has set a form. With no **FEEDBACK_FORM_URL**, there is no button.
+- It embeds whatever form the operator set. MindMap does not build, host, or change the form's fields.
+- The agent cannot read, summarize, or act on what you submit. Submissions land in the operator's form, not back in MindMap.
+- One form per box. The button points at the single **FEEDBACK_FORM_URL** for that box.
+
+## FAQ
+
+**I do not see a Feedback button.** Your operator has not set a feedback form on this box yet. Once they set **FEEDBACK_FORM_URL** in Admin, the button shows for everyone, and it applies on the next message with no restart.
+
+**Where does my feedback go?** Straight to the form the operator configured, for example a Microsoft Form. MindMap shows the form embedded but does not store or read your answers.
+
+**Can I use any form?** Yes, any embeddable form works, including a Microsoft Form. A Microsoft Forms share link works as-is and renders embedded inside the app.
+
+**Is the form link a secret on my box?** The operator's **FEEDBACK_FORM_URL** is saved write-only, never shown back to the browser, and never in the repo. Edit it in Admin and it applies live.

@@ -1,60 +1,56 @@
 ---
-title: FAQ
-description: Questions people actually ask — answered plainly.
+title: "FAQ"
+description: "Questions people actually ask about MindMap, answered plainly."
 ---
 
 <AccordionGroup>
 
   <Accordion title="Do I need to know anything about AI to use this?">
-    Nope. Zero. If you can text someone or send an email, you can use this. Just type what you need like you're talking to a person. There's nothing technical to set up or figure out.
+    No. If you can text a friend or send an email, you can use MindMap. Type what you need in plain words, like you are talking to a person. Nothing technical to set up or figure out.
   </Accordion>
 
-  <Accordion title="Is this the same as ChatGPT?">
-    No — and that difference is exactly the point. ChatGPT has hundreds of millions of users, forgets everything the second you close the tab, and is built for everyone in general. MadeForMeAI is yours specifically. It remembers you, knows your context, and nobody else shares it with you. Think of it less like a search engine and more like a personal assistant who actually knows who you are.
+  <Accordion title="Is MindMap a search engine or an assistant?">
+    An assistant. A search engine hands you a list of links and forgets you the moment you close the tab. MindMap is your own agent. It remembers your context, uses the tools you connect, and does the work, not the looking-up. Ask it to draft an email or pull your pipeline and it acts, instead of pointing you at ten blue links.
   </Accordion>
 
-  <Accordion title="Is my stuff private?">
-    Yes, completely. Your conversations, your files, and anything you share with your AI stay locked to you. Nothing you say gets shared with anyone, used to train AI models, or read by us. It's your private space.
-  </Accordion>
-
-  <Accordion title="How does it learn about me?">
-    By talking with you. The more you use it, the more it understands how you think, what you care about, and how you like things done. You can also just tell it things directly — "my name is Sarah, I run a bakery, and I'm terrible at writing emails" — and it will remember all of that going forward.
+  <Accordion title="Does it remember me?">
+    Yes. The more you use MindMap, the more it understands how you work and what you care about. You can also tell it things directly, like "my name is Sarah, I run a bakery, and I hate writing emails," and it keeps that going forward. Your memory is yours and stays with your workspace.
   </Accordion>
 
   <Accordion title="It paused and said something about a 'tool' — is that normal?">
-    Yes, completely normal. When your AI is doing something active — like searching the web, creating a file, or looking something up — it may briefly pause and show you what it's doing. That's it actually working, not broken. Give it a few seconds and it'll come back with the result. [Learn more about tool calls →](/understanding/tool-calls)
+    Yes. When the agent does something active (searching the web, reading your CRM, drafting a file) it shows you the tool it is using. That is the work happening, not a bug. Give it a few seconds and the result comes back. [More on tool calls →](/understanding/tool-calls)
   </Accordion>
 
-  <Accordion title="Why can't my AI see files on my computer?">
-    Your AI runs in the cloud, not on your computer. It can't browse your desktop, your Downloads folder, or your local files — unless you upload them into the chat directly. This trips a lot of people up at first. [Here's a simple explanation →](/understanding/cloud-not-local)
+  <Accordion title="What is the approval gate?">
+    MindMap splits everything into reads and writes. Reads (listing, searching, fetching, looking something up) run the moment you ask. Writes (sending an email, posting a message, creating a record, changing data) queue for your approval. The agent shows you the exact action and waits. Nothing leaves your workspace or changes until you click approve.
+  </Accordion>
+
+  <Accordion title="Can it send things without asking me?">
+    No. Every write queues for your approval first. The agent never sends, deletes, or changes anything on its own. If there is one specific action you repeat and trust, you can set a Trust Rule that pre-approves a narrow version of it, so you stop clicking approve for that one case. You set that up yourself, and it stays narrow.
+  </Accordion>
+
+  <Accordion title="How do I add an app?">
+    In the Admin marketplace. Open the App's card, flip Enable on, paste any key or URL it needs, and Save. It works on your next message, no restart. The marketplace has four buckets: Apps (outside services like your CRM or Telegram), Tools (built-in abilities like web search), Skills (reusable playbooks), and Secrets (your keys). [Marketplace overview →](/marketplace/overview)
+  </Accordion>
+
+  <Accordion title="Is my data private?">
+    Yes. Your conversations, files, and memory stay in your own workspace. Nothing you share gets used to train models or read by us. Your keys are stored write-only, never shown back to the browser after you save them, and never sitting in our code.
+  </Accordion>
+
+  <Accordion title="Where does MindMap run, in the cloud or on my computer?">
+    In the cloud. The agent cannot see your desktop, Downloads folder, or local files unless you upload them into the chat. This trips people up at first. If you want the agent to work with a file, drop it into the conversation. [Why cloud, not local →](/understanding/cloud-not-local)
+  </Accordion>
+
+  <Accordion title="Can I use it on my phone?">
+    Yes. MindMap works in your phone's browser, no app to download. Chat is the default view on phones. Open your tenant URL in Safari or Chrome and add it to your home screen so it opens like a real app. [Install on your phone →](/getting-started/add-to-phone)
+  </Accordion>
+
+  <Accordion title="How do I log in?">
+    Through your organization's single sign-on at your MindMap tenant URL. You sign in with the account your administrator set up. No separate password to manage for MindMap itself.
   </Accordion>
 
   <Accordion title="What can it actually do?">
-    Draft and send emails, write documents, search the web and summarize what it finds, plan your week or your business launch, help you think through a decision, answer questions, analyze files you upload, keep notes, set reminders, and a lot more. Once you connect your apps (like WhatsApp or Google Drive), it can do even more. [See real examples →](/understanding/what-it-can-do)
-  </Accordion>
-
-  <Accordion title="Can I talk to it on my phone?">
-    Yes. Your AI works great in your phone's browser — no app needed. Open Safari or Chrome, go to your AI's URL, and it works. You can also add it to your home screen so it opens like a real app. [Here's how →](/getting-started/add-to-phone)
-  </Accordion>
-
-  <Accordion title="What is BYOK?">
-    BYOK stands for Bring Your Own Key. If you already pay for OpenAI, Anthropic, or OpenRouter separately, you can use your own API key with MadeForMeAI on the $15/month BYOK plan. You pay your AI provider directly for usage, and we just run your private setup. [More on BYOK →](/byok/setup)
-  </Accordion>
-
-  <Accordion title="Can I cancel anytime?">
-    Yes. No contracts, no cancellation fees, no forms to fill out. Email billing-support@madeformeai.com and it's done. Your data is held for 30 days after cancellation in case you change your mind, then permanently deleted.
-  </Accordion>
-
-  <Accordion title="What happens to my data if I cancel?">
-    Everything — conversations, files, memory — is kept for 30 days. If you come back within 30 days we can restore it all. After 30 days it's gone permanently.
-  </Accordion>
-
-  <Accordion title="Can I use my own domain?">
-    Not yet. Custom domain support (like `ai.yourcompany.com`) is on the roadmap. Right now your AI lives at `yourname.madeformeai.com`.
-  </Accordion>
-
-  <Accordion title="How do I get help?">
-    The fastest way is the [Discord community](https://discord.gg/uEugVKA8PH) — there are real people there including Dustin. You can also email support@madeformeai.com.
+    Draft emails, write documents, search the web and summarize what it finds, read your CRM and move deals, plan a week or a launch, analyze files you upload, keep notes, and run saved playbooks. The reach grows with the apps you connect in the marketplace. Reads run instantly; anything that sends or changes waits for your approval. [See examples →](/understanding/what-it-can-do)
   </Accordion>
 
 </AccordionGroup>

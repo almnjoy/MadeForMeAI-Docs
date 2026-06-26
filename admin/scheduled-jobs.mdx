@@ -1,0 +1,53 @@
+---
+title: "Scheduled Jobs"
+description: "Run an agent instruction on a schedule: once, daily, weekly, or every N days."
+---
+
+Run an agent instruction on a schedule: once, daily, weekly, or every N days. The job runs your
+prompt through the agent and routes any writes through your Trust Rules: a write auto-runs only where
+a rule allows it, otherwise it queues for approval. Owner-only and off by default.
+
+## HOW TO SETUP
+
+1. **Admin -> Apps -> Scheduled Jobs -> enable** (this App is hidden and only reveals on the owner box).
+2. A **Jobs** item appears in the sidebar. Open it and click **New job**.
+3. Give it a title, the agent instruction (e.g. "Email a summary of today's pipeline to me@x.com"),
+   and a schedule (once / daily / weekly / interval, with an optional max-runs or end date).
+4. To let scheduled writes go out unattended, add a matching **Trust Rule** (Admin -> Trust), e.g.
+   approve one send with "Always allow this", or set a campaign rule with a use-count. Without a rule,
+   each scheduled write queues for your approval.
+
+## HOW IT WORKS
+
+- A single in-process loop checks for due jobs each minute (boxes are single-instance, so no extra
+  coordination). It runs the job's prompt, dispatches proposals through Trust Rules, records the
+  result, and advances `next_run_at` (or completes a one-time / capped job).
+- Schedules: `once` (a date/time), `daily` / `weekly` (a time, weekly also a weekday), `interval`
+  (every N days at a time). Optional `maxRuns` and `endsAt` stop a recurring job.
+- **Run now** runs the job immediately without disturbing its schedule. **Pause** stops it; **Delete**
+  removes it.
+- Gated on the `cron` feature; the loop is idle unless cron is enabled (so customer boxes never run
+  unattended agents).
+
+## WHAT CAN BE CALLED VIA AI
+
+The job's prompt is whatever you want the agent to do at run time (reads, summaries, drafting, and
+writes that your Trust Rules permit). The agent does not create or schedule jobs itself.
+
+## LIMITATIONS
+
+- Owner-only for now; not exposed to customer boxes.
+- Schedule presets only (once / daily / weekly / interval); no full cron expressions yet.
+- A scheduled write with no matching Trust Rule queues rather than sending; check Approvals.
+- Each run is a model call (token cost); use sensible frequency and `maxRuns` for campaigns.
+
+## FAQ
+
+**"Email X tomorrow morning."** New job, type Once, set the date/time, prompt = the email task. Add a
+Trust Rule for that send if you want it to go without approval.
+
+**"One email a day for 30 days."** New job, Daily at a time, `maxRuns` 30; pair with a Trust Rule
+(optionally a 30-use rule) so each day's send auto-runs.
+
+**Why didn't my scheduled email send?** Likely no Trust Rule matched, so it queued in Approvals.
+Add a rule (Admin -> Trust) and it will send on the next run.

@@ -1,44 +1,56 @@
 ---
-title: "It Paused — What's a Tool Call?"
-description: Why your AI sometimes pauses mid-response and shows you what it's doing.
+title: "It Paused. What's a Tool Call?"
+description: "Why MindMap sometimes pauses mid-response to show you what it is doing, and why that is a good sign."
 ---
 
-Sometimes when you ask your AI something, it doesn't just immediately reply. Instead, it pauses for a moment and shows you something like:
+Sometimes you ask MindMap something and it doesn't reply right away. It pauses for a moment and shows you something like:
 
-> _Searching the web…_
-> _Reading file…_
-> _Creating document…_
+> _Searching the web..._
+> _Reading file..._
+> _Creating document..._
 
-This is called a **tool call** — and it means your AI is actually doing something, not just talking.
+That's a **tool call**. It means MindMap is doing something, not just talking.
 
-## This is a good thing
+## This is a good sign
 
-When your AI uses a tool, it's taking action. It searched the web. It opened a file. It sent an email. It's not just generating text — it's doing real work.
+When MindMap uses a tool, it's taking action. It searched the web. It opened a file. It drafted an email. It's doing real work instead of generating text from memory.
 
-Think of it like watching someone type at a keyboard. The pause is them working, not them being stuck.
+Picture watching someone type at a keyboard. The pause is them working, not them stuck.
 
 ## How long does it take?
 
-Usually a few seconds. Complex tasks (like searching multiple sources, or working with a large file) might take 10–30 seconds. That's normal.
+Usually a few seconds. A bigger job, like searching several sources or working through a large file, might take 10 to 30 seconds. That's normal.
 
-If it's been more than a minute and nothing has happened, try refreshing the page and asking again.
+If a minute passes and nothing has happened, refresh the page and ask again.
 
 ## What kinds of tools does it use?
 
-- **Web search** — searching the internet for current information
-- **File reading** — opening a document you uploaded or one in your connected storage
-- **Email** — reading or sending email through your connected Gmail
-- **File creation** — writing a document, spreadsheet, or note to your workspace
-- **Calendar** — checking or adding events if you've connected Google Calendar
+- **Web search** finds current information on the internet
+- **File reading** opens a document you uploaded or one in your connected storage
+- **Email** reads or sends mail through a connected email account
+- **File creation** writes a document, spreadsheet, or note to your workspace
+- **Calendar** checks or adds events when a calendar connector is on
 
-## It asked me to approve something — do I have to?
+## Reads vs. writes, and the approval gate
 
-Sometimes your AI will ask for your confirmation before doing something significant — like sending an email or making a change. This is a safety feature, not a bug.
+There are two kinds of tool calls, and MindMap treats them differently.
 
-Just read what it's about to do, and if it looks right, tell it to go ahead: _"Yes, send it"_ or _"looks good, do it."_
+**Reads run instantly.** Searching the web, reading a file, checking your inbox: nothing changes outside MindMap, so it goes ahead.
 
-If you don't want it to proceed, just say _"no"_ or _"stop"_ — or describe what you'd rather it do instead.
+**Writes wait for you.** Sending an email, creating a file, changing an event: MindMap pauses and shows you exactly what it's about to do before it does it.
+
+<Note>
+The approval gate is core to MindMap. Every action that changes something queues for your review first. Nothing leaves your hands without you saying yes.
+</Note>
+
+## It asked me to approve something. Do I have to?
+
+Yes, that's the gate doing its job. Read what MindMap is about to do, and if it looks right, tell it to go ahead: _"Yes, send it"_ or _"looks good, do it."_
+
+If you don't want it to proceed, say _"no"_ or _"stop,"_ or describe what you'd rather it do instead.
+
+{/* MEDIA gif: agent proposing to send an email, the approval card showing the draft, user approving | caption: "Writes queue for approval. You see the action before it runs." */}
 
 ## It's not broken
 
-The most common reaction people have when they first see a tool call is thinking something went wrong. It didn't. Your AI is working exactly as it should. Give it a moment.
+The first time people see a tool call, they often think something went wrong. It didn't. MindMap is working the way it should. Give it a moment.

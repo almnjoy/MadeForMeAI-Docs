@@ -1,0 +1,64 @@
+---
+title: "Your First Chat"
+description: "Open Chat, ask in plain language, watch tool-call chips and the approval pause, and use follow-up chips to keep going."
+---
+
+Chat is the fastest way to start. Sign in at your tenant URL, open the Chat tab, and type. On a phone, Chat is already the surface you land on.
+
+{/* MEDIA gif: user types a question, a tool-call chip appears and the run pauses, then the answer streams in word by word with a result card | caption: "Ask, watch the tools run, read the answer as it streams." */}
+
+## Ask in plain language
+
+You do not need commands or special prompts. Plain sentences work. Give the agent something specific to do and it will run with it.
+
+Try one of these:
+
+- _"What's my newest lead?"_
+- _"Chart last quarter's revenue."_
+- _"Make a one-page brief on this client: [paste a name or notes]."_
+- _"Summarize my unread email from this week."_
+
+The vaguer the ask, the vaguer the answer. "Help me with my business" gives you little. "Draft a follow-up email to the client who went quiet two weeks ago" gives you something you can use.
+
+## Tool-call chips and the pause
+
+As the agent works, small chips appear under the reply showing which tools it used. This is the agent showing its work, not a loading spinner.
+
+Watch for the pause. MindMap runs on an approval gate:
+
+- **Your first read runs instantly.** Ask _"what's my newest lead?"_ and the agent looks it up and answers. Nothing to approve.
+- **Your first write stops and waits.** Ask _"draft and send a follow-up to them"_ and the agent prepares the action, then queues it. You see exactly what it wants to do before anything happens.
+
+<Warning>
+The agent never sends or changes anything on its own. Every write waits for you to approve it. Reads run on their own.
+</Warning>
+
+Approve the queued action and it fires. Reject it and nothing happens. When you trust an action type enough to skip the prompt, set a Trust Rule so it runs by itself next time.
+
+## Follow-up chips
+
+After a reply, the agent suggests a likely next step as a chip you can click instead of typing. Ask for last quarter's revenue, and a chip might offer to chart it or compare it to the quarter before. Click the chip, or ignore it and type your own thing.
+
+Results render as inline cards. A chart, a document, a search, a lookup. Click a card to open it in a wider side panel.
+
+## Clear and persist
+
+Your conversation stays put when you move to the Canvas or another tab and come back.
+
+- **Persist:** Chat history is saved in the browser you are using. Leave and return, and it is still there.
+- **Clear:** Wipes the current conversation. This is permanent, with no undo.
+
+<Note>
+History is per browser. Open Chat on another device or in a different browser and you start fresh. There is no synced cross-device history.
+</Note>
+
+## What to try next
+
+<CardGroup cols={2}>
+  <Card title="See the same agent on a canvas" icon="diagram-project" href="/getting-started/what-is-mindmap">
+    Chat and Canvas are two surfaces over one agent.
+  </Card>
+  <Card title="Turn on more tools" icon="store" href="/marketplace/overview">
+    Wire up a CRM, email, or voice from the marketplace.
+  </Card>
+</CardGroup>

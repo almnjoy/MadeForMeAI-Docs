@@ -1,0 +1,94 @@
+---
+title: "Build a Dashboard"
+description: "Ask MindMap for a dashboard in plain language and it assembles a live tile board you approve once."
+---
+
+A dashboard in MindMap is a page of tiles your agent builds from a plain-language ask. Say "build me a sales dashboard" and it lays out a board: a KPI card, a chart, a table, maybe a short doc. You approve once, and the whole board lands.
+
+<Note>Dashboards are off by default. Turn them on first: open Admin (the marketplace), find the Dashboards card, and flip Enable on. It applies on your next message, no restart, no key to paste.</Note>
+
+## Ask for it in plain words
+
+Open the Chat tab and describe the board you want. You do not need a special syntax.
+
+> _"Build me a dashboard of this week's leads, revenue, and top opportunities."_
+
+> _"Make me a board showing my cash balance, this month's income, and recent transactions."_
+
+The agent reads your ask, picks the tiles that fit, and arranges them into one page.
+
+{/* MEDIA gif: type "build me a sales dashboard" in Chat -> an approval card appears -> click Approve -> the tiles populate into a board | caption: "One ask, one approval, a full board." */}
+
+## What it can build
+
+The agent picks from a fixed catalog of tile types MindMap already knows how to render. It never writes code. It fills in a spec, so whatever it builds is always a tile the app can draw.
+
+<CardGroup cols={2}>
+  <Card title="KPI card" icon="gauge">
+    A single headline number. Revenue this month, cash on hand, open deals.
+  </Card>
+  <Card title="Chart" icon="chart-line">
+    A line or bar chart over time. Revenue by week, pipeline by stage.
+  </Card>
+  <Card title="Table" icon="table">
+    Rows of records. Recent transactions, top opportunities, latest leads.
+  </Card>
+  <Card title="Doc" icon="file-lines">
+    A short written summary or brief the agent drops onto the board.
+  </Card>
+</CardGroup>
+
+## One approval makes the whole board
+
+Building a dashboard is a write, so it runs through the same approval gate as everything else in MindMap. The difference is that a whole board queues as a single proposal. You review one approval card, click Approve, and the linked tiles all land together.
+
+Reading a board you already have runs on its own. Building or editing one always waits for you.
+
+<Warning>The agent cannot create, change, or wipe a board without your approval. Every build and every edit queues first.</Warning>
+
+## Edit by prompt
+
+Once a board exists, change it by asking. Each edit names the board it touches, so point at the one you mean.
+
+- _"Add a KPI for my newest credit card balance to the money page."_ Queues an add-tile approval.
+- _"Change the revenue chart on my sales board to a bar chart."_ Queues an edit-tile approval.
+- _"Remove the table from the leads board."_ Queues a remove-tile approval.
+- _"Show me my dashboards."_ Reads, runs right away.
+
+## Live data versus a snapshot
+
+A tile can hold static values the agent filled in when it built the page, or it can bind to a live source and re-fetch every time you open the board.
+
+Live tiles stay current. A Stripe balance, a Plaid net worth, pipeline by stage, recent transactions: each refreshes on view. For a tile to pull live numbers, the source behind it has to be set up in its own marketplace card first (Stripe or Plaid for money tiles, Twenty for pipeline tiles). Without that source, the agent fills the tile with static values instead. Ask for live tiles when you want them current.
+
+## The Money page is a live board
+
+The Money page is itself a dashboard. It renders the `money` board, pulling your Stripe and Plaid numbers on each view, so the figures are fresh every time you open it. Editing "the money page" by prompt edits that board, the same way you would edit any other.
+
+## Tile feedback
+
+Every tile has a thumbs up and a thumbs down. Tap one to mark whether the tile was useful. The vote goes to the audit log, so you can look back later and see what landed and what missed.
+
+## Good to know
+
+- **Off by default.** Enable it from the Dashboards card when you want it.
+- **Live tiles need their source.** No connected source means the tile holds static values, not a live feed.
+- **Safe catalog only.** The agent builds from the tile types MindMap ships. It cannot invent a new tile type or write custom code, by design.
+- **Edits are gated.** Building and editing both queue for your approval. Only opening and listing run on their own.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Does the agent write code to build these?">
+    No. It fills in a spec from a fixed catalog of tile types. What it builds is always a tile the app already knows how to render.
+  </Accordion>
+  <Accordion title="Will the numbers update on their own?">
+    A tile bound to a live source re-fetches every time you open the page. A static tile holds the values from when it was built. Ask for live tiles if you want them current.
+  </Accordion>
+  <Accordion title="Can the agent change my dashboard without asking?">
+    No. Building and editing both queue for your approval. Only opening and listing run on their own.
+  </Accordion>
+  <Accordion title="Is a dashboard the same as the Canvas?">
+    No. The Canvas is a free-form board you arrange by hand. A dashboard is an agent-built tile page from the catalog. Both render the same kinds of tiles.
+  </Accordion>
+</AccordionGroup>

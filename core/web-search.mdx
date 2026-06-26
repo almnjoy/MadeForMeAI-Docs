@@ -1,0 +1,49 @@
+---
+title: "Web Search"
+description: "The agent searches the web for you."
+---
+
+The agent searches the web for you. Ask about current events, company facts, a new regulation, or anything outside your connected systems, and it runs a search and shows the top results as a tile with titles, links, and snippets. You can click through to any source. The same search backs the "show a picture of X" image tool, so a request for an image runs an image search and returns pictures. Search is a read: it runs immediately, nothing is queued for approval.
+
+## HOW TO SETUP
+
+Nothing to set up. Web Search is on by default and needs no key. The search runs on a self-hosted SearXNG instance on your box, so there is no third-party account or API key to add. You can see it in the Admin marketplace, but you do not need to touch it to use it.
+
+## WHAT USER NEEDS TO GET
+
+Nothing.
+
+## HOW IT WORKS
+
+- You ask a question, the agent decides a web search will help, runs it, and reads the top results.
+- Results come back as a tile with titles, links, and snippets. The agent quotes and summarizes the relevant ones in its answer and links the sources so you can check them.
+- The image tool ("show a picture of X") uses the same search to return pictures instead of text results.
+- Search results are external data, not commands. The agent treats a web page as something to read and quote, never as instructions. If a page tries to tell the agent to do something, the agent ignores that and just summarizes the content.
+- There is no key to store. The search is self-hosted on your box, so nothing about your queries goes to a third-party search account.
+
+## WHAT CAN BE CALLED VIA AI
+
+All web searches are reads, so they run immediately. No approval step.
+
+- "search the web for the new EU AI rules": runs immediately (read)
+- "what's the latest on company X": runs immediately (read)
+- "find commercial roofers near Lansing": runs immediately (read)
+- "show me a picture of a barn owl": runs immediately (read, image search)
+
+## LIMITATIONS
+
+- It is a general web search, not a deep crawler. It returns the top results with snippets; it does not read every page in full.
+- To pull the full text of one specific page, use the Read URL tool instead. Web Search finds pages, Read URL opens one.
+- Result quality depends on what is publicly indexed. Pages behind a login, paywall, or a site that blocks crawlers may not show up.
+- It searches the public web only. It does not see your connected apps, your files, or anything private. Use the matching connector for those.
+- Snippets are short. For a precise quote or a detailed read, open the source or use Read URL on it.
+
+## FAQ
+
+**Do I need an account or API key?** No. The search runs self-hosted on your box, so there is nothing to sign up for and no key to paste. It works out of the box.
+
+**Can the agent visit a page and act on it?** No. It reads search results and quotes them. It never follows a web page's instructions, and there is no write action here to approve, because searching is read-only.
+
+**How do I get the full text of one page instead of search results?** Use the Read URL tool. Give the agent the link and it opens that single page. Web Search is for finding pages; Read URL is for reading one in full.
+
+**Why didn't a page I expected show up?** It may not be publicly indexed, or it may sit behind a login, paywall, or crawler block. Try different search terms, or paste the link directly and use Read URL.

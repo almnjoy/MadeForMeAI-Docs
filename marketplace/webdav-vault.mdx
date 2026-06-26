@@ -1,63 +1,53 @@
 ---
 title: "WebDAV Vault"
-description: "Store your notes as plain .md files in a WebDAV vault, two-way synced with Obsidian, behind the Notes tool and Memory graph."
+description: "Stores your notes as plain .md files in a WebDAV vault, two-way synced with Obsidian."
 ---
 
-Stores your notes as plain `.md` files in a WebDAV vault, two-way synced with Obsidian. It is the storage behind the Notes tool and the Memory graph. What you write in Brain Map shows up in Obsidian, and what you write in Obsidian shows up in Brain Map.
+Stores your notes as plain `.md` files in a WebDAV vault, two-way synced with Obsidian. It is the
+storage behind the Notes tool and the Memory graph. What you write in MindMap shows up in Obsidian
+and what you write in Obsidian shows up in MindMap.
 
-## What you need
+## HOW TO SETUP
 
-A WebDAV endpoint plus credentials. On the MadeForMeAI cloud these are provisioned per box (`vault-[tenant].madeformeai.com`, basic-auth, an isolated subfolder per tenant). Any S3/WebDAV or self-hosted endpoint works too.
+1. Enable the **WebDAV Vault** app in the marketplace.
+2. Add the three secrets (Admin -> Secrets, or the app's detail panel): `WEBDAV_URL` (your vault
+   root, e.g. `https://vault-<tenant>.madeformeai.com`), `WEBDAV_USER`, `WEBDAV_PASS`.
+3. When connected, the Notes tool + Memory graph read/write the vault. When off, notes fall back
+   to a local table.
+4. For Obsidian two-way sync: install the **Remotely Save** plugin in Obsidian, set it to WebDAV
+   with the same URL + user + password, and sync.
 
-## Setup
+## WHAT USER NEEDS TO GET
 
-<Steps>
-  <Step title="Enable the app">
-    Enable the WebDAV Vault app in the marketplace.
-  </Step>
-  <Step title="Add the secrets">
-    Add the three secrets (Admin, then Secrets, or the app's detail panel): `WEBDAV_URL` (your vault root, e.g. `https://vault-[tenant].madeformeai.com`), `WEBDAV_USER`, and `WEBDAV_PASS`.
-  </Step>
-  <Step title="Connect Obsidian (optional)">
-    For two-way sync, install the Remotely Save plugin in Obsidian, set it to WebDAV with the same URL, user, and password, and sync.
-  </Step>
-</Steps>
+A WebDAV endpoint + credentials. On the MadeForMeAI cloud these are provisioned per box on worker2
+(`vault-<tenant>.madeformeai.com`, basic-auth, an isolated subfolder per tenant). Any S3/WebDAV or
+self-hosted endpoint works too.
 
-When connected, the Notes tool and Memory graph read and write the vault. When off, notes fall back to a local table.
+## HOW IT WORKS
 
-## How it works
-
-- Notes are `.md` files in the vault root. The note title is the filename, so renaming the title renames the file.
+- Notes are `.md` files in the vault root. The note title is the filename, so renaming the title
+  renames the file.
 - The api speaks WebDAV (PROPFIND to list, GET/PUT/DELETE for files) over HTTPS with basic-auth.
-- Per-tenant isolation: each box has its own vault subdomain, credentials, and subfolder, so there is no leak between users.
+- Per-tenant isolation: each box has its own vault subdomain + credentials + subfolder, so there
+  is no leak between users.
 
-## What you can ask
+## WHAT CAN BE CALLED VIA AI
 
-Through the Notes tool:
+Through the Notes tool: "save a note titled X", "read my Y note", "append this to Z", "list my
+notes". The Memory graph shows how they link.
 
-- "save a note titled X"
-- "read my Y note"
-- "append this to Z"
-- "list my notes"
-
-The Memory graph shows how they link.
-
-## Limitations
+## LIMITATIONS
 
 - Top-level files only for now (subfolders not yet recursed).
 - Basic-auth, not SSO (Obsidian's WebDAV client cannot follow an SSO redirect).
-- Last-writer-wins on a clash (no merge). Editing the same file in Obsidian and Brain Map at the same instant can overwrite one side.
+- Last-writer-wins on a clash (no merge). Editing the same file in Obsidian and MindMap at the
+  same instant can overwrite one side.
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="Is this Obsidian?">
-    No. It is a WebDAV server over your `.md` files. Obsidian (or any WebDAV client) syncs to the same files.
-  </Accordion>
-  <Accordion title="Where are my files?">
-    On the MadeForMeAI cloud: a per-box storage vault path (`/opt/docker/storage/vault/[tenant]/`).
-  </Accordion>
-  <Accordion title="What if I turn it off?">
-    Notes fall back to a local database table; the vault files stay put.
-  </Accordion>
-</AccordionGroup>
+**Is this Obsidian?** No. It is a WebDAV server over your `.md` files. Obsidian (or any WebDAV
+client) syncs to the same files.
+
+**Where are my files?** On the MadeForMeAI cloud: worker2 `/opt/docker/storage/vault/<tenant>/`.
+
+**What if I turn it off?** Notes fall back to a local database table; the vault files stay put.

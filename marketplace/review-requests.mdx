@@ -1,43 +1,35 @@
 ---
 title: "Review Requests"
-description: "After a paid job or milestone, draft an approval-gated ask for a Google or Yelp review and track who you asked."
+description: "Review Requests After a paid job, shoot, or milestone, draft an approval-gated ask for a Google or Yelp review with your review link."
 ---
 
-After a paid job, shoot, or milestone, draft an approval-gated ask for a Google or Yelp review with your review link. It tracks who has been asked, so your owned-reputation flywheel keeps turning.
+# Review Requests
 
-## What you need
+After a paid job, shoot, or milestone, draft an approval-gated ask for a Google or Yelp review with
+your review link. Tracks who was asked. The owned-reputation flywheel every persona needs.
 
+## HOW TO SETUP
+Marketplace -> Review Requests. Optionally set `REVIEW_URL` (your Google/Yelp review link) so asks
+prefill it. No key required.
+
+## WHAT USER NEEDS TO GET
 Your public review link (optional but recommended).
 
-## Setup
+## HOW IT WORKS
+`request_review` drafts the message and queues an approval. On approve, the request is marked sent
+and returns the message + link to send through your channel (Telegram, n8n, or Zapier). Stored in the
+`review_requests` table.
 
-<Steps>
-  <Step title="Open the Review Requests card">
-    Go to the marketplace and enable Review Requests. No key required.
-  </Step>
-  <Step title="Set your review link (optional)">
-    Set `REVIEW_URL` to your Google or Yelp review link so asks prefill it.
-  </Step>
-</Steps>
+## WHAT CAN BE CALLED VIA AI
+- "Ask Acme for a review, text 303..." -> request_review (approval-gated)
+- "Who have I asked for reviews?" -> list_review_requests
 
-## How it works
-
-`request_review` drafts the message and queues an approval. On approve, the request is marked sent and returns the message plus link to send through your channel (Telegram, n8n, or Zapier). Records are stored in the `review_requests` table.
-
-## What you can ask
-
-- "Ask Acme for a review, text 303..." (drafts an approval-gated request)
-- "Who have I asked for reviews?" (lists past requests)
-
-## Limitations
-
-- The plugin drafts and tracks; sending the SMS or email routes through your channel. There is no direct SMS sender wired unless you use Telegram, n8n, or Zapier.
-- No automatic "after paid invoice" trigger yet. Pair it with the AR watcher or a saved play plus an n8n schedule to automate the timing.
+## LIMITATIONS
+- The plugin drafts and tracks; sending the SMS/email routes through your channel (no direct SMS
+  sender wired unless you use Telegram/n8n/Zapier).
+- No automatic "after paid invoice" trigger yet; pair with the AR watcher or a saved play + n8n
+  schedule to automate the timing.
 
 ## FAQ
-
-<AccordionGroup>
-  <Accordion title="Can it auto-send after a job?">
-    Draft and queue, yes. For automatic timing, use an n8n schedule that asks the agent to run the review play.
-  </Accordion>
-</AccordionGroup>
+Q: Can it auto-send after a job? A: Draft + queue yes; automatic timing via an n8n schedule that
+asks the agent to run the review play.

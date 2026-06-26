@@ -1,0 +1,82 @@
+---
+title: "Connector Rich Tiles"
+description: "Connectors: rich result tiles When the agent reads from a connected app through Composio or Zapier, the result now renders as a structured tile instead of..."
+---
+
+# Connectors: rich result tiles
+
+
+
+When the agent reads from a connected app through Composio or Zapier, the result now renders as a
+structured tile instead of a wall of JSON. A list of records becomes a table. A single count or total
+becomes a big number. Anything that does not fit either shape still renders as the readable JSON tree
+you had before. Nothing about writes changed: they still queue for your approval.
+
+## HOW TO SETUP
+
+There is nothing to turn on for the rich tiles. They are part of the read path for both connectors.
+
+To use a connector at all:
+
+1. Connect **Composio** or **Zapier** as covered in their own guides (create the MCP server, enable
+   the apps and actions you want, copy the **MCP URL**).
+2. In MindMap, open **Admin** (marketplace), find the **Composio** or **Zapier** card, paste the
+   **MCP URL** into its box, and **Save**.
+3. Flip **Enable** on.
+
+Both connectors ship OFF by default. You enable the one you want.
+
+## WHAT CHANGED
+
+Reads used to land as one raw JSON block in a connector tile. Now the agent parses the result and
+picks the best fit:
+
+- **A list of records** (contacts, issues, invoices, rows) renders as a **table** with columns and
+  rows. Long lists show the first 50.
+- **A single number** (a count, a total, an amount) renders as a **KPI** tile: one large value with a
+  label.
+- **Everything else** renders as the **JSON tree** tile, the same readable view you had before.
+
+The tile lands on the canvas and in the chat side panel, same as any other tile. You can resize it,
+keep it, or clear it.
+
+## WHAT STAYS THE SAME
+
+- **Writes still queue for approval.** Send an email, create a record, update a deal: the agent
+  queues a proposal and it only fires after you approve. The rich tiles touch reads only.
+- **Reads still run on their own.** Names with GET, LIST, FETCH, SEARCH, and similar verbs run live.
+- **Your app credentials stay on the connector side.** MindMap holds the MCP URL, nothing more.
+
+## HEADLINE APPS
+
+Composio and Zapier cover thousands of apps between them. These are the ones most people reach for
+first, and they all render through the rich tiles on read:
+
+- **Slack** post and read messages, manage your workspace
+- **Notion** read and write pages, query databases
+- **HubSpot** look up contacts and deals, log activity
+- **QuickBooks** read invoices and customers, draft new invoices for approval
+- **Airtable** read and update bases, find and append records
+- **Google Workspace** Gmail, Calendar, Drive, and Sheets
+- **Stripe** read customers, charges, and subscriptions
+
+You decide which apps to connect on the Composio or Zapier side. MindMap shows whatever your
+endpoint exposes.
+
+## EXAMPLES
+
+- "list my open HubSpot deals" returns a table of deals (read, runs now).
+- "how many GitHub issues are open in <repo>" returns a KPI number (read, runs now).
+- "create a Notion page titled X" queues an approval and runs after you approve (write).
+
+## FAQ
+
+**Do I need to enable rich tiles?** No. They are part of the read path for both connectors.
+
+**A read came back as raw JSON, not a table.** The result did not fit a table or a number, so it fell
+back to the JSON tree. That is the safe default and it is working as intended.
+
+**Did writes change?** No. Writes still queue for your approval before they run.
+
+**Composio or Zapier?** Both work the same way here. Composio is the developer lane with OAuth per
+app; Zapier is the no-code lane. Use either or both. See their guides for setup.

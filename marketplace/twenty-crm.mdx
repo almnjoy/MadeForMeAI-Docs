@@ -1,67 +1,81 @@
 ---
 title: "Twenty CRM"
-description: "Read your Twenty CRM pipeline from chat and move deals between stages, plus a drag-and-drop Sales kanban page."
+description: "Read your Twenty CRM pipeline from the MindMap chat and move deals between stages, plus a Sales pipeline kanban page you drag cards on."
 ---
 
-Read your Twenty CRM pipeline from the Brain Map chat and move deals between stages, plus a Sales pipeline kanban page you drag cards on. One toggle gives you both the agent tools and the page. It talks straight to Twenty's API, with no automation layer in between. Creating leads and sending email are a different bundle (n8n Automations); this one is your live pipeline, read and move-stage.
+Read your Twenty CRM pipeline from the MindMap chat and move deals between stages, plus a
+**Sales pipeline kanban page** you drag cards on. One toggle gives you both the agent tools
+and the page. It talks straight to Twenty's API, no automation layer in between. Creating
+leads and sending email are a different bundle (n8n Automations), this one is your live
+pipeline, read and move-stage.
 
-## What you need
+## HOW TO SETUP
 
-- A Twenty API key. In Twenty: Settings, then API and Webhooks, then generate an API key. It's a long token (a JWT).
-- Your Twenty API URL. The base URL of your Twenty instance, for example `https://crm.yourcompany.com` (self-hosted) or your Twenty Cloud workspace URL. Brain Map calls `[url]/graphql`.
+1. Open MindMap, go to **Admin** (the marketplace).
+2. Click the **Twenty CRM** card.
+3. Paste your **Twenty API URL** and **Twenty API key** into the write-only boxes and hit
+   **Save** on each.
+4. Flip **Enable** on.
 
-No connector, no agent, no dashboard to build.
+It applies on your next message, no restart. Enabling it also turns on the **Sales** page in
+the left nav.
 
-## Setup
+## WHAT USER NEEDS TO GET
 
-<Steps>
-  <Step title="Open the Twenty CRM card">
-    Go to Admin (the marketplace) and click the Twenty CRM card.
-  </Step>
-  <Step title="Add your credentials">
-    Paste your Twenty API URL and Twenty API key into the write-only boxes and hit Save on each.
-  </Step>
-  <Step title="Enable">
-    Flip Enable on. It applies on your next message, no restart, and turns on the Sales page in the left nav.
-  </Step>
-</Steps>
+- **A Twenty API key.** In Twenty: Settings → **API & Webhooks** → generate an API key. It's a
+  long token (a JWT).
+- **Your Twenty API URL.** The base URL of your Twenty instance, e.g.
+  `https://crm.yourcompany.com` (self-hosted) or your Twenty Cloud workspace URL. MindMap
+  calls `<url>/graphql`.
 
-## How it works
+That's it. No connector, no agent, no dashboard to build.
 
-- Brain Map calls Twenty's GraphQL API directly with your key, which stays in your pod.
-- It reads Twenty's standard objects: Opportunities (name, stage, amount, dates), the People who are points of contact, and Companies.
-- Stages are auto-detected. It reads your workspace's stage names; you don't configure anything.
-- The Sales page is Brain Map's own kanban. It reads your pipeline and, when you drag a card to a new column, writes that stage change straight to Twenty (a GraphQL mutation). The agent can do the same move, but the agent's version waits for your approval first.
-- No n8n anywhere in this feature.
+## HOW IT WORKS
 
-## What you can ask
+- MindMap calls Twenty's **GraphQL API** directly with your key. The key stays in your pod,
+  never in the browser or the repo.
+- It reads Twenty's **standard objects**: Opportunities (name, stage, amount, dates), the
+  People who are points of contact, and Companies. Every default Twenty workspace has these.
+- **Stages are auto-detected.** It reads your workspace's stage names, you don't configure
+  anything. Whatever you named your stages, they show up.
+- The **Sales page** is MindMap's own kanban. It reads your pipeline and, when you drag a
+  card to a new column, writes that stage change straight to Twenty (a GraphQL mutation). The
+  agent can do the same move, but the agent's version waits for your approval first.
+- No n8n anywhere in this feature. Lead intake and templated email (which do use n8n) are the
+  separate Automations bundle.
 
-- "show my sales pipeline" / "what's in the pipeline"
-- "find the lead for <name / company / email>"
-- "move [deal] to [stage]" (queues an approval, then writes the stage to Twenty)
+## WHAT CAN BE CALLED VIA AI
 
-## Limitations
+- "show my sales pipeline" / "what's in the pipeline": live pipeline by stage
+- "find the lead for <name / company / email>": locate a deal
+- "move <deal> to <stage>": queues an approval, then writes the stage to Twenty
 
-- Standard Twenty schema. Works out of the box on a default Twenty (Opportunities / People / Companies). Deleted or renamed standard objects need adjusting.
-- Twenty version. The field and mutation shapes were verified on a current Twenty (v2.8.x). A very different version could need a small tweak.
-- Read and move-stage only. This feature does not create opportunities or send email (those are the n8n Automations bundle). The only write here is moving a stage.
+(The Sales page does the read + drag-to-move visually, same data.)
+
+## LIMITATIONS
+
+- **Standard Twenty schema.** Works out of the box on a default Twenty (Opportunities / People
+  / Companies). If someone deleted or renamed those standard objects or their fields, the
+  queries would come back empty and need adjusting.
+- **Twenty version.** The field and mutation shapes were verified on a current Twenty (v2.8.x).
+  A very different version could need a small tweak, this is the thing most likely to surface
+  when a new customer connects a different build.
+- **Read + move-stage only.** This feature does not create opportunities or send email, those
+  are the n8n Automations bundle. The only write here is moving a stage.
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="Does it create leads or send emails?">
-    No. Those run through n8n and live in the Automations feature. This one reads your pipeline and moves stages.
-  </Accordion>
-  <Accordion title="Does it write to my CRM?">
-    Only stage changes, and only the ones you make: drag a kanban card (direct) or approve the agent's proposed move (approval-gated). Nothing else writes.
-  </Accordion>
-  <Accordion title="Does it work with any Twenty setup?">
-    Any standard Twenty, yes, just URL plus key. A heavily customized schema or a very old or new version may need a query tweak.
-  </Accordion>
-  <Accordion title="Is my API key safe?">
-    The key box is write-only. It's saved to your pod and never shown back or returned to the browser, and never in the repo.
-  </Accordion>
-  <Accordion title="My Twenty is behind Cloudflare.">
-    Handled. Brain Map sends a browser User-Agent so Cloudflare doesn't block the server-side call.
-  </Accordion>
-</AccordionGroup>
+**Does it create leads or send emails?** No. Those run through n8n and live in the Automations
+feature. This one reads your pipeline and moves stages.
+
+**Does it write to my CRM?** Only stage changes, and only the ones you make: drag a kanban card
+(direct) or approve the agent's proposed move (approval-gated). Nothing else writes.
+
+**Does it work with any Twenty setup?** Any standard Twenty, yes, just URL + key. A heavily
+customized schema or a very old/new version may need a query tweak.
+
+**Is my API key safe?** The key box is write-only. It's saved to your pod and never shown back
+or returned to the browser, and it's never in the repo.
+
+**My Twenty is behind Cloudflare.** Handled, MindMap sends a browser User-Agent so Cloudflare
+doesn't block the server-side call.

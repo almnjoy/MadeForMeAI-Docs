@@ -1,0 +1,49 @@
+---
+title: "Trust Rules"
+description: "By default every agent write (send email, create CRM lead, run a Zapier/Composio write, Telegram reply) waits for your approval."
+---
+
+By default every agent write (send email, create CRM lead, run a Zapier/Composio write, Telegram
+reply) waits for your approval. Trust rules let you "grant once" so a specific action runs by itself
+next time. They are narrow by default and you stay in control: secrets can never be auto-approved,
+and you can disable or delete a rule any time.
+
+## HOW TO SETUP
+
+1. Ask the agent to do something that needs approval (e.g. "draft the welcome email to X").
+2. On the approval card, tick **Always allow this** before clicking **Approve & Send**.
+3. A narrow rule is created (same action kind + its key fields, e.g. that template to that recipient).
+4. Manage rules under **Admin -> Trust**: see each rule, disable/enable, or delete it.
+
+## HOW IT WORKS
+
+- A proposed action is auto-run only if an **enabled** rule matches: same action kind, in scope, not
+  expired, under its use limit, and every payload constraint matches. Otherwise it queues as before.
+- Rules created from "Always allow" are **narrow**: e.g. `send_templated_email` is matched on
+  `templateKey` + `to`; connector writes on the action `tool`. A different recipient/tool still queues.
+- Scope can be `any` (default) or a single channel (canvas / chat / telegram / scheduled). Rules can
+  carry a **max-uses** and an **expiry** (useful for a time-boxed campaign).
+- Auto-runs are audited in **Admin -> Actions** as `auto-sent` with the rule id.
+- `reveal_secret` is excluded entirely and can never be auto-approved.
+
+## WHAT CAN BE CALLED VIA AI
+
+Nothing. Rules are created by you (the "Always allow" box or, later, a create form), never by the
+agent. The agent simply benefits: a matching action runs without a card.
+
+## LIMITATIONS
+
+- Narrow by default. To widen (e.g. allow any recipient for one template), edit/recreate the rule
+  with fewer constraints; a broaden-in-place editor is a future enhancement.
+- A use-limit race falls back to queueing (safe). Disabling a rule takes effect immediately.
+- Use this carefully: an auto-approve rule lets the agent (and scheduled jobs) act without you in the
+  loop. Keep rules narrow and review them under Admin -> Trust.
+
+## FAQ
+
+**How do I stop auto-approving something?** Admin -> Trust -> Disable or Delete the rule.
+
+**Can a scheduled job send email unattended?** Only if a trust rule covers that exact action;
+otherwise the job's write queues for your approval. See the Scheduled Jobs guide.
+
+**Can the agent grant itself a rule?** No. Only you create rules.

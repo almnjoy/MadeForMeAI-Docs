@@ -1,0 +1,59 @@
+---
+title: "GitHub"
+description: "Give the agent read access to your GitHub repos and code, plus approval-gated writes."
+---
+
+Give the agent read access to your GitHub repos and code, plus approval-gated writes. It can list your repos, read a file, search code, and open issues and pull requests with their diffs. Reads run immediately. Writes (creating an issue, commenting, committing a file, opening a PR) queue as a proposal and only fire after you approve. This is the native GitHub addon, which talks straight to the GitHub API. Composio also offers GitHub as a separate lane; this one is the first-class, approval-gated path.
+
+## HOW TO SETUP
+
+1. Create a fine-grained **GitHub Personal Access Token** at `github.com/settings/personal-access-tokens/new`. Set these repository permissions: **Contents** (read), **Issues** (read/write), **Pull requests** (read/write), **Metadata** (read). For read-only use you only need **Contents** and **Metadata** (read).
+2. Copy the token. GitHub shows it once.
+3. Open MindMap -> **Admin (marketplace)** -> the **GitHub** card.
+4. Paste the token into the write-only **GITHUB_TOKEN** box and **Save**.
+5. Optional: set **GITHUB_DEFAULT_OWNER** and **GITHUB_DEFAULT_REPO** so you can say "the repo" instead of naming the owner and repo every time.
+6. Flip **Enable** on. It applies on your next message, no restart.
+
+Off by default.
+
+## WHAT USER NEEDS TO GET
+
+- A **fine-grained GitHub Personal Access Token** with the permissions above, scoped to the repos you want the agent to see.
+- Optional: the **owner** and **repo** names you want set as defaults.
+
+## HOW IT WORKS
+
+- The agent only calls `api.github.com`. It cannot be steered to another host.
+- Your token is saved write-only to your box, never shown back to the browser, and never in the code. Edit it in Admin and it applies live, no restart.
+- Repo content (code, issue text, PR descriptions) is treated as data to quote, never as instructions to follow.
+- **Reads run immediately. Writes are approval-gated.** When the agent wants to create an issue, comment, commit, or open a PR, it queues a proposal and the action only fires after you approve. The agent never changes anything on its own.
+- These GitHub tools are **not** exposed over the MCP server endpoint, so a private repo is never readable through that token-gated surface.
+
+## WHAT CAN BE CALLED VIA AI
+
+- "list my repos": read (runs immediately)
+- "read src/server.js from acme/widgets": read (reading a folder path lists it)
+- "search the code for TODO in acme/widgets": read
+- "show PR 42 in acme/widgets": read, returns the diff
+- "list open issues in acme/widgets": read
+- "open an issue titled Broken login in acme/widgets": write (queued for approval)
+- "comment on issue 17 in acme/widgets": write (queued for approval)
+- "commit this file to the docs branch": write (queued for approval)
+- "open a pull request from my branch into main": write (queued for approval)
+
+## LIMITATIONS
+
+- This is GitHub-API access: read files, issues, and PRs, and propose commits and PRs for approval. It is not a local clone you edit on disk.
+- One token per box. The agent sees only the repos that token can reach.
+- It does not run CI, manage releases, or change repo settings. It works through the issues, PRs, contents, and search parts of the API.
+- Composio also offers GitHub as a no-credential-handover lane. This native addon is the direct, approval-gated one. Pick whichever fits.
+
+## FAQ
+
+**Native GitHub or the Composio one?** This native addon talks straight to the GitHub API with your token, which keeps it simple and approval-gated end to end. Composio's GitHub runs OAuth on its side, so you do not hand the box a token. Both work; use whichever you prefer.
+
+**Can the agent push code or open a PR on its own?** No. Every write queues for your approval and only fires after you approve. Reads run on their own.
+
+**Why can't I see one of my repos?** The agent sees only what your token can reach. Re-scope the fine-grained token to include that repo, or check that its permissions cover what you are trying to do.
+
+**Where does my token live?** Saved write-only to your box, never shown back to the browser, never in the repo. Edit or rotate it in Admin and it applies live.
