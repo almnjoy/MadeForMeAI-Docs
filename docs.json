@@ -1,10 +1,10 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "MindMap",
+  "name": "MadeForMeAI",
   "theme": "mint",
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/Logo.svg",
+    "dark": "/logo/Logo.svg"
   },
   "favicon": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MiniLogo-e1781884807487.png",
   "colors": {

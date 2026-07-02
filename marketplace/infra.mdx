@@ -1,122 +1,28 @@
 ---
 title: "Infrastructure Monitoring"
-description: "Connect MindMap to your monitoring stack and ask about your servers, containers, and network gear in plain language."
+description: "Custom operations pages and dashboards that fold live server metrics, logs, and alerts into your workspace."
 ---
 
-Infra connects MindMap to your monitoring stack so you can ask about the systems you run in plain language. Point it at your Grafana, Prometheus, and Loki (or a similar setup) and the agent can pull live metrics, search logs, and render your dashboards as tiles on the canvas.
+## Overview
 
-It works for any infrastructure you monitor: physical servers, virtual machines, containers, network gear. It is fully customizable to your own nodes and dashboards.
+Infrastructure Monitoring turns your workspace into a live operations view of the servers and services you run. It combines standard open tooling such as Grafana, Prometheus, Loki, and Alloy into pages and dashboards you can read at a glance and ask your agent about in plain language.
 
-This bundle combines two things:
+It is set up per deployment for operators who want their infrastructure surfaced next to the rest of their work. On a standard setup it stays off; it is turned on and pointed at your own stack as part of a managed or white-glove rollout.
 
-- **Infra metrics**: PromQL queries against Prometheus, LogQL queries against Loki, and saved Grafana dashboards rendered as tiles.
-- **Infra snapshots**: health snapshots and case files from your monitoring agents (node status, container checks, recent warnings, open incidents), if you run them.
+## What it can show
 
-<Note>
-Infra is a custom add-on, not a one-click marketplace install. It points at your own
-monitoring stack, so it is set up for your box rather than enabled by you from the catalog.
-</Note>
-
-## What you need
-
-- **A Prometheus URL** scraping node_exporter (`PROM_URL`).
-- **A Loki URL** for logs (`LOKI_URL`).
-- **A Grafana base URL** plus the dashboards you want to render (uid, slug, key, and optional
-  template `params`), in the tenant config `infra.dashboards`.
-- **A node list** for the overview cards (`infra.nodes`): a label and a PromQL selector per node.
-- For the snapshot tools: the **infra-health files** mounted into the container, if you run
-  monitoring agents that write them.
-
-## How to set it up
-
-<Steps>
-<Step title="Turn on the feature">
-Set `features.infra: true` in your box's tenant config, or flip it in the settings table.
-</Step>
-
-<Step title="Point it at your stack">
-Set `PROM_URL`, `LOKI_URL`, the Grafana base (`infra.grafanaBase`), and the saved dashboards
-list (`infra.dashboards`) via env or tenant config.
-</Step>
-
-<Step title="Define your node cards">
-Set `infra.nodes` to a list of `{ key, label, selector }`, where `selector` is a brace-less
-PromQL label set, for example:
-
-```
-instance="web-01",job="node"
-```
-
-Each card runs CPU, memory, disk, and load against its selector. If `infra.nodes` is empty,
-the cards fall back to neutral placeholders.
-</Step>
-
-<Step title="Add dashboard params (optional)">
-Each `infra.dashboards` entry can carry a `params` string of Grafana template variables
-appended to the embed URL, for example:
-
-```
-var-instance=web-01
-```
-
-The embed keeps the dashboard's variable dropdowns usable inside the frame.
-</Step>
-
-<Step title="Mount the snapshot files (optional)">
-If you run monitoring agents, mount their output directory (the `latest.md` snapshot, hourly
-snapshots, and `helpdesk/cases/`) at `/infra-health` in the API container.
-</Step>
-</Steps>
-
-<Warning>
-**Embedding Grafana across domains.** When MindMap and Grafana live on different domains,
-Grafana needs `allow_embedding=true` plus either anonymous Viewer access or a same-site
-session, and MindMap's own CSP must permit the frame (`frame-src 'self' https:` in the web
-server config). A missing `frame-src` falls back to `default-src 'self'`, and the browser
-blocks the frame with "This content is blocked".
-</Warning>
+- **Live node health** — CPU, memory, disk, and load per host, as cards you can scan.
+- **Dashboards** — your existing Grafana dashboards embedded inline as tiles.
+- **Logs** — search recent logs across your services without leaving the page.
+- **Alerts** — see and adjust alert rules; changes are approval-gated like any other write.
+- **Ask in plain language** — "how is CPU on the main node", "any errors in the last hour", "show the overview dashboard". Reads run instantly and the agent answers from your live metrics and logs.
 
 ## How it works
 
-- `query_metric` runs an instant PromQL query. By default it scrapes **node_exporter host
-  metrics** (CPU, memory, disk, load, network, up). If your stack only exposes host metrics,
-  the agent says so rather than invent a metric name.
-- `query_logs` runs a LogQL selector against Loki (labels such as host, container, namespace,
-  service_name, job), newest lines first.
-- `show_dashboard` renders one of your saved Grafana dashboards as an embedded tile.
-- `infra_health` reads the latest agent snapshot; `infra_cases` lists recent helpdesk cases;
-  `read_infra_file` opens a specific snapshot or case file by name.
-- Everything here is **read-only**.
+Reads are read-only. Metrics, logs, and dashboards come straight back. The only writes are alert-rule changes, and those queue for your approval. Each deployment points at its own monitoring stack, so what you see is always your own infrastructure and nothing is shared across setups.
 
-## What you can ask
+## Good to know
 
-- "What is CPU on web-01?" / "memory free on web-02?" (PromQL metric)
-- "Any errors in the app logs in the last hour?" (Loki logs)
-- "Show the node overview dashboard." (Grafana tile)
-- "How is the infra?" / "What do the agents report?" (latest health snapshot)
-- "Any open cases?" / "Recent incidents?" (agent helpdesk cases)
-
-## Limits
-
-- **Host metrics by default.** Out of the box it reads node_exporter metrics. Container or
-  application metrics depend on what your Prometheus scrapes. Asking for a metric that does
-  not exist returns a plain "not available", not a guess.
-- **Dashboards must be in your config** (uid, slug, key). An unknown key returns the list of
-  valid ones.
-- **Snapshot tools need the mount.** Without the infra-health directory mounted, the
-  health and cases tools have nothing to read.
-- **Read-only.** Every tool reads: metrics, logs, dashboards, snapshots, and case files. None
-  of them change your systems.
-
-## FAQ
-
-**Can it monitor any kind of infrastructure?** Yes. Point it at the Prometheus, Loki, and
-Grafana you already run, and it works for servers, VMs, containers, and network gear. It is
-fully customizable to your own nodes and dashboards.
-
-**Does it change anything on my systems?** No. Every tool is read-only: metrics, logs,
-dashboards, snapshots, and case files.
-
-**Do I need the monitoring agents?** No. The metric, log, and dashboard tools work on their
-own. The snapshot and case tools only light up if you run agents that write those files and
-mount them in.
+- This is an operator feature, configured for your environment rather than self-serve.
+- It surfaces the stack you already run (Grafana, Prometheus, Loki, Alloy); it does not replace them.
+- Available on managed and white-glove setups. Ask if you want it enabled for yours.

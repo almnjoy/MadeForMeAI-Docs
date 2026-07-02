@@ -1,0 +1,7 @@
+# Leak-safety tooling — local only, NEVER push (holds the internal denylist).
+scripts/
+DOCS-PUBLISH-SAFETY.md
+
+# Local build / deps
+node_modules/
+.mintlify/
