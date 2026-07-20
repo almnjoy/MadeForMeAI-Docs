@@ -1,13 +1,11 @@
 ---
 title: "Twenty CRM"
-description: "Read your Twenty CRM pipeline from the MindMap chat and move deals between stages, plus a Sales pipeline kanban page you drag cards on."
+description: "Connect your Twenty CRM to MindMap. It powers your Sales, Clients, Client-360, and Activity pages, and lets the agent read and move deals from chat."
 ---
 
-Read your Twenty CRM pipeline from the MindMap chat and move deals between stages, plus a
-**Sales pipeline kanban page** you drag cards on. One toggle gives you both the agent tools
-and the page. It talks straight to Twenty's API, no automation layer in between. Creating
-leads and sending email are a different bundle (n8n Automations), this one is your live
-pipeline, read and move-stage.
+Connect your Twenty CRM and MindMap reads your live pipeline, your people, and your companies. One toggle gives you both the agent tools in chat and the **CRM pages** in the left nav: **Sales**, **Clients**, a full **Client-360** profile, and **Activity**. Those pages shape themselves to your own fields and stages, and with editing turned on you can change a client and act on them right from the profile. It talks straight to Twenty's API, no automation layer in between.
+
+For the full tour of the pages, see [Your CRM and Clients](/build/crm-and-clients).
 
 ## HOW TO SETUP
 
@@ -18,7 +16,7 @@ pipeline, read and move-stage.
 4. Flip **Enable** on.
 
 It applies on your next message, no restart. Enabling it also turns on the **Sales** page in
-the left nav.
+the left nav. The rest of the CRM pages and inline editing roll out per account, ask in the help desk.
 
 ## WHAT USER NEEDS TO GET
 
@@ -36,19 +34,25 @@ That's it. No connector, no agent, no dashboard to build.
   never in the browser or the repo.
 - It reads Twenty's **standard objects**: Opportunities (name, stage, amount, dates), the
   People who are points of contact, and Companies. Every default Twenty workspace has these.
-- **Stages are auto-detected.** It reads your workspace's stage names, you don't configure
-  anything. Whatever you named your stages, they show up.
+- **Your pages shape themselves.** MindMap reads your workspace's fields, their types, and your
+  stage names, then builds the CRM pages to match. You don't configure page layouts. Rename a
+  stage or add a field and the pages follow.
 - The **Sales page** is MindMap's own kanban. It reads your pipeline and, when you drag a
   card to a new column, writes that stage change straight to Twenty (a GraphQL mutation). The
   agent can do the same move, but the agent's version waits for your approval first.
-- No n8n anywhere in this feature. Lead intake and templated email (which do use n8n) are the
-  separate Automations bundle.
+- **Client-360, inline editing, and actions.** With editing on, a Client-360 profile lets you
+  change a field inline (it writes back to Twenty) and carry one-click action buttons. These
+  are approval-gated and scoped to the fields and buttons set up for your box. See
+  [Your CRM and Clients](/build/crm-and-clients).
+- No n8n in the connector itself. Lead intake and templated email (which do use n8n) are the
+  separate Automations bundle, and the action buttons run through that same automation.
 
 ## WHAT CAN BE CALLED VIA AI
 
 - "show my sales pipeline" / "what's in the pipeline": live pipeline by stage
 - "find the lead for `<name / company / email>`": locate a deal
 - "move `<deal>` to `<stage>`": queues an approval, then writes the stage to Twenty
+- "update `<client>`'s `<field>` to `<value>`": queues an approval, then writes it (editing on)
 
 (The Sales page does the read + drag-to-move visually, same data.)
 
@@ -57,19 +61,23 @@ That's it. No connector, no agent, no dashboard to build.
 - **Standard Twenty schema.** Works out of the box on a default Twenty (Opportunities / People
   / Companies). If someone deleted or renamed those standard objects or their fields, the
   queries would come back empty and need adjusting.
-- **Twenty version.** The field and mutation shapes were verified on a current Twenty (v2.8.x).
+- **Twenty version.** The field and mutation shapes were verified on a current Twenty (v2.17.x).
   A very different version could need a small tweak, this is the thing most likely to surface
   when a new customer connects a different build.
-- **Read + move-stage only.** This feature does not create opportunities or send email, those
-  are the n8n Automations bundle. The only write here is moving a stage.
+- **Editing rolls out per account.** The connector reads your pipeline out of the box and writes
+  stage moves. Inline field editing, the action buttons, and the full set of CRM pages ship off
+  by default and get switched on per box.
 
 ## FAQ
 
-**Does it create leads or send emails?** No. Those run through n8n and live in the Automations
-feature. This one reads your pipeline and moves stages.
+**Does it create leads or send emails?** The connector reads your pipeline and writes stage
+moves and, with editing on, inline field changes. Lead intake and templated email run through
+n8n and live in the Automations feature. The Client-360 action buttons trigger that same
+automation.
 
-**Does it write to my CRM?** Only stage changes, and only the ones you make: drag a kanban card
-(direct) or approve the agent's proposed move (approval-gated). Nothing else writes.
+**Does it write to my CRM?** Stage changes always, and with editing turned on, inline field
+edits from a Client-360 profile. Every write queues for your approval (or is a drag you made
+yourself on the Sales kanban). Nothing writes on its own.
 
 **Does it work with any Twenty setup?** Any standard Twenty, yes, just URL + key. A heavily
 customized schema or a very old/new version may need a query tweak.

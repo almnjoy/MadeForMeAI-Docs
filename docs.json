@@ -66,6 +66,12 @@
         ]
       },
       {
+        "group": "CRM and Clients",
+        "pages": [
+          "build/crm-and-clients"
+        ]
+      },
+      {
         "group": "Apps Marketplace",
         "pages": [
           "marketplace/overview",

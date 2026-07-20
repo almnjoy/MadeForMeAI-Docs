@@ -1,0 +1,62 @@
+---
+title: "Your CRM and Clients"
+description: "Sales, Clients, a full Client-360 profile, and Activity, all shaped to your own CRM fields, with inline editing and one-click actions."
+---
+
+Your CRM pages in MindMap are not a fixed template. They build themselves from your own CRM setup. Connect your CRM and MindMap reads your real fields, stages, and lists, then renders four pages around them: **Sales**, **Clients**, a full single-client **Client-360** profile, and **Activity**. Track "Consult Booked" or "Protocol Sent" and that is what shows up, with the right columns, sections, and filters. You can also edit a client and act on them without leaving the profile.
+
+## HOW TO SETUP
+
+1. Open MindMap, go to **Admin** (the marketplace).
+2. Turn on the **Twenty CRM** card and save your CRM URL and key (see [Twenty CRM](/marketplace/twenty-crm)).
+3. Ask in the help desk to switch on the CRM pages and, if you want it, inline editing and actions. These roll out per account.
+
+The pages read your live CRM, so there is nothing to lay out by hand. Your setup drives what you see.
+
+## WHAT USER NEEDS TO GET
+
+- **A connected CRM.** The Twenty CRM card has to be on and saved first. The CRM pages read through that connection.
+- **Nothing else.** MindMap derives the columns, sections, and fields from your CRM schema. You do not configure page layouts.
+
+## HOW IT WORKS
+
+- **The pages shape themselves to your CRM.** MindMap reads your CRM's fields and their types, then builds the pages to match. Rename a stage or add a field and the pages follow, no rebuild.
+- **Sales** is your pipeline by stage, the kanban you drag cards on.
+- **Clients** is the list of everyone in your book, using the columns that matter to your business.
+- **Client-360** is one profile per client: their details, files, notes, and history in one place, laid out in sections that come from your own fields.
+- **Activity** is the running feed of what happened, grouped by the kinds of activity you actually track.
+- **Sort, filter, and group** the way you already think about your clients. Those controls come from your fields too.
+
+## EDIT AND ACT FROM A PROFILE
+
+- **Inline editing.** Click a field on a Client-360 profile, change it, done. The edit writes back to your CRM. Like every write in MindMap, it goes through the approval gate first.
+- **Action buttons.** A client's profile can carry one-click buttons for the things you do often, like send a welcome, a project kickoff, or a check-in email. Each button runs on your own templates and your own brand, through the automation you already have connected.
+- **Off by default.** Editing and actions are switched on per account. Ask in the help desk to enable them and to set which fields are editable and which buttons appear.
+
+## WHAT CAN BE CALLED VIA AI
+
+- "show my sales pipeline" / "what's in the pipeline": live pipeline by stage
+- "pull up the profile for `<client>`": opens their Client-360
+- "what's the latest activity this week": reads your Activity feed
+- "update `<client>`'s status to `<value>`": queues an approval, then writes it to your CRM
+
+Reads run the moment you ask. Anything that writes queues for your approval first.
+
+## LIMITATIONS
+
+- **Needs a connected CRM.** The pages read through the Twenty CRM card. No connection, no pages.
+- **Rolling out.** The CRM engine, inline editing, and actions ship off by default while they roll out. Ask to have your box switched over.
+- **Editing is scoped.** Only the fields set as editable can be changed inline, and only the buttons set up for your box appear. This is deliberate, so a profile cannot be edited in ways you did not intend.
+- **Writes are approval-gated.** Inline edits and action buttons queue for your approval, the same as any other write.
+
+## FAQ
+
+**Do I have to lay these pages out?** No. They build themselves from your CRM fields. Your setup is the configuration.
+
+**What if I rename a stage or add a field?** The pages follow your CRM. Rename or add, and it shows up without a rebuild.
+
+**Can it change a client on its own?** No. Inline edits and action buttons queue for your approval first, like every write in MindMap.
+
+**What do the action buttons send?** Whatever you set them to, on your own templates and brand, through your connected automation. Common ones are a welcome, a project kickoff, and a check-in email.
+
+**Why is editing off on my box?** The engine, editing, and actions roll out per account. Ask in the help desk to switch yours on and to pick the editable fields and buttons.
