@@ -38,6 +38,20 @@
         ]
       },
       {
+        "group": "What I Build",
+        "pages": [
+          "openclaw",
+          "crm",
+          "kalshi-bot",
+          "study-bot",
+          "interview-bot",
+          "stock-radar",
+          "retell-voice",
+          "cognibrain",
+          "research"
+        ]
+      },
+      {
         "group": "Understanding MindMap",
         "pages": [
           "understanding/what-it-can-do",
@@ -77,11 +91,18 @@
           "marketplace/overview",
           {
             "group": "Network and Infrastructure",
-            "pages": ["marketplace/meraki", "marketplace/infra"]
+            "pages": [
+              "marketplace/meraki",
+              "marketplace/infra"
+            ]
           },
           {
             "group": "Money and Sales",
-            "pages": ["marketplace/money", "marketplace/twenty-crm", "marketplace/review-requests"]
+            "pages": [
+              "marketplace/money",
+              "marketplace/twenty-crm",
+              "marketplace/review-requests"
+            ]
           },
           {
             "group": "Automation and Connectors",
@@ -113,7 +134,10 @@
           },
           {
             "group": "Browser and Security",
-            "pages": ["marketplace/agent-browser", "marketplace/1password"]
+            "pages": [
+              "marketplace/agent-browser",
+              "marketplace/1password"
+            ]
           }
         ]
       },
@@ -138,7 +162,10 @@
       },
       {
         "group": "Legal",
-        "pages": ["legal/privacy", "legal/terms"]
+        "pages": [
+          "legal/privacy",
+          "legal/terms"
+        ]
       }
     ]
   }
