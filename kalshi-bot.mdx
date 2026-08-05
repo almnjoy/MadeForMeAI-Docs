@@ -5,6 +5,47 @@ description: "An event-market bot: research, forecast, risk gates, alerts"
 
 An event-market trading bot. Research and forecast agents decide direction, a risk engine decides the money with hard gates and position sizing, and it pings you when a bet stages. Paper mode first, your money and your rules when you go live.
 
+## The loop
+
+Every day the bot works event markets on [Kalshi](https://kalshi.com), the regulated US prediction exchange, through a pipeline where each agent has one job:
+
+<Steps>
+  <Step title="Scan">
+    A scheduled scan pulls the day's markets and filters down to candidates worth a real look: enough volume, enough time, a question that research can actually move.
+  </Step>
+  <Step title="Research">
+    A research agent digs into each candidate: news, primary sources, base rates. It comes back with evidence, not a hunch.
+  </Step>
+  <Step title="Forecast">
+    A forecast agent turns the evidence into a probability and compares it against the market's price. No edge, no trade.
+  </Step>
+  <Step title="Critique">
+    A critique agent attacks the thesis before money does. If the case survives its own devil's advocate, it moves on.
+  </Step>
+  <Step title="Risk engine">
+    Code, not a model, decides the money: position sizing, exposure caps, daily limits. An LLM never touches the wallet directly.
+  </Step>
+  <Step title="Alert">
+    A staged bet lands in Discord with the thesis, the probability, the price, and the size. You see exactly why before anything happens.
+  </Step>
+</Steps>
+
+## The risk engine is the boss
+
+The design rule that matters most: agents propose, the risk engine disposes. Hard position-size caps, exposure limits, and balance checks live in plain code with no way for a persuasive forecast to talk past them. If a gate fails, the trade dies, no matter how good the thesis looked.
+
+## Human in the loop
+
+The bot runs its research and staging on schedule, but real money moves on approval. Paper mode proved the pipeline first, and live trading keeps a person on the trigger. It's a research department that never sleeps, not a slot machine.
+
+## The stack
+
+Claude agents for research, forecasting, and critique. A scheduler for the daily scan. The Kalshi API for markets and orders. Discord for alerts. A risk module in plain code holding the keys.
+
+## Status
+
+Running daily scans with staged alerts. Live-money automation stays deliberately conservative: the gates exist because event markets punish overconfidence, and the bot is built to know that.
+
 <Note>
-This is a short overview. A full walkthrough is on the way. Want it sooner, or want one built for you? [Start on the homepage](https://madeformeai.com) or ask in the [Discord](https://discord.gg/Cxddsbxrv).
+Want an agent pipeline like this pointed at your problem? [Start on the homepage](https://madeformeai.com) or ask in the [Discord](https://discord.gg/Cxddsbxrv).
 </Note>

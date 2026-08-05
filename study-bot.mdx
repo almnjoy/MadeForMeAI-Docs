@@ -5,6 +5,30 @@ description: "A cert coach that drills you and tracks mastery"
 
 A certification study coach that drills you on a weighted blueprint, tracks your mastery over time, and forces the labs you keep avoiding. Answer-first grading, weak-area rotation, and a real practice surface instead of flashcards.
 
+## Built against the real blueprint
+
+Mine runs the CCNP Automation track: AUTOCOR 350-901 and ENAUTO 300-435, loaded topic by topic with the same weights Cisco uses on the exam. A topic worth 20 percent of the exam gets 20 percent of your drilling. You study the test you'll actually sit, not a random question dump.
+
+## Answer first, then grade
+
+The core design call: you type your answer before you see anything to grade against. No multiple choice, no recognition memory doing the work for you. The bot grades what you actually recalled, explains what you missed, and logs the result. It's the difference between "that looks familiar" and "I can produce this in the exam room."
+
+## Mastery that moves
+
+Every answer updates a per-topic mastery score, so the bot always knows where you're weak and rotates those areas back in more often. Strong topics don't disappear, they just stop eating your time. Over weeks you watch the weak spots climb, which does more for motivation than any streak counter.
+
+## It makes you lab
+
+Reading about network automation is not doing network automation. The bot pushes lab work alongside the drilling: real topology exercises to build and break, because the exam and the job both assume your hands have done it.
+
+## The stack
+
+A lightweight web app with a database keeping score, and Claude doing the grading and explanations. Simple on purpose: the value is in the grading discipline and the rotation logic, not the frontend.
+
+## Status
+
+Live and in daily use: it's my own study tool for my own cert path, which keeps it honest. And it generalizes: the engine is blueprint plus weights plus recall grading, which fits any cert. Load a different blueprint and it coaches that instead.
+
 <Note>
-This is a short overview. A full walkthrough is on the way. Want it sooner, or want one built for you? [Start on the homepage](https://madeformeai.com) or ask in the [Discord](https://discord.gg/Cxddsbxrv).
+Studying for something? [Start on the homepage](https://madeformeai.com) or ask in the [Discord](https://discord.gg/Cxddsbxrv).
 </Note>

@@ -20,151 +20,182 @@
     }
   },
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Get Started",
-        "pages": [
-          "index",
-          "getting-started/what-is-mindmap",
-          "getting-started/log-in",
-          "getting-started/first-chat",
-          "getting-started/the-approval-gate",
-          "getting-started/the-marketplace",
-          "getting-started/build-a-dashboard",
-          "getting-started/spaces",
-          "getting-started/connect-an-app",
-          "getting-started/install-on-your-phone",
-          "faq"
-        ]
-      },
-      {
-        "group": "What I Build",
-        "pages": [
-          "openclaw",
-          "crm",
-          "kalshi-bot",
-          "study-bot",
-          "interview-bot",
-          "stock-radar",
-          "retell-voice",
-          "cognibrain",
-          "research"
-        ]
-      },
-      {
-        "group": "Understanding MindMap",
-        "pages": [
-          "understanding/what-it-can-do",
-          "understanding/how-memory-works",
-          "understanding/cloud-not-local",
-          "understanding/tool-calls",
-          "understanding/file-uploads"
-        ]
-      },
-      {
-        "group": "Core Surfaces and Tools",
-        "pages": [
-          "core/chat-app",
-          "core/artifacts",
-          "core/widgets",
-          "core/web-search",
-          "core/calendar"
-        ]
-      },
-      {
-        "group": "Dashboards and Spaces",
-        "pages": [
-          "build/dashboards",
-          "build/spaces",
-          "build/morning-brief"
-        ]
-      },
-      {
-        "group": "CRM and Clients",
-        "pages": [
-          "build/crm-and-clients"
-        ]
-      },
-      {
-        "group": "Apps Marketplace",
-        "pages": [
-          "marketplace/overview",
+        "tab": "Start Here",
+        "groups": [
           {
-            "group": "Network and Infrastructure",
+            "group": "Welcome",
             "pages": [
-              "marketplace/meraki",
-              "marketplace/infra"
+              "index"
             ]
           },
           {
-            "group": "Money and Sales",
+            "group": "Legal",
             "pages": [
-              "marketplace/money",
-              "marketplace/twenty-crm",
-              "marketplace/review-requests"
-            ]
-          },
-          {
-            "group": "Automation and Connectors",
-            "pages": [
-              "marketplace/composio",
-              "marketplace/zapier",
-              "marketplace/n8n-automations",
-              "marketplace/github",
-              "marketplace/connectors-rich-tiles"
-            ]
-          },
-          {
-            "group": "Messaging and Voice",
-            "pages": [
-              "marketplace/telegram",
-              "marketplace/unified-inbox",
-              "marketplace/voice-elevenlabs",
-              "marketplace/voice-calls-retell"
-            ]
-          },
-          {
-            "group": "Knowledge and Storage",
-            "pages": [
-              "marketplace/memory-view",
-              "marketplace/webdav-vault",
-              "marketplace/assets",
-              "marketplace/skills"
-            ]
-          },
-          {
-            "group": "Browser and Security",
-            "pages": [
-              "marketplace/agent-browser",
-              "marketplace/1password"
+              "legal/privacy",
+              "legal/terms"
             ]
           }
         ]
       },
       {
-        "group": "Admin and Automation",
-        "pages": [
-          "admin/trust-rules",
-          "admin/scheduled-jobs",
-          "admin/saved-plays",
-          "admin/mcp-server",
-          "admin/feedback"
+        "tab": "What I Build",
+        "groups": [
+          {
+            "group": "The Platform",
+            "pages": [
+              "mindmap",
+              "openclaw",
+              "crm"
+            ]
+          },
+          {
+            "group": "Bots and Agents",
+            "pages": [
+              "kalshi-bot",
+              "study-bot",
+              "interview-bot",
+              "retell-voice",
+              "stock-radar"
+            ]
+          },
+          {
+            "group": "Research",
+            "pages": [
+              "cognibrain",
+              "research"
+            ]
+          }
         ]
       },
       {
-        "group": "Troubleshooting",
-        "pages": [
-          "troubleshooting/common-issues",
-          "troubleshooting/cant-log-in",
-          "troubleshooting/my-ai-forgot-me",
-          "troubleshooting/slow-or-stuck"
-        ]
-      },
-      {
-        "group": "Legal",
-        "pages": [
-          "legal/privacy",
-          "legal/terms"
+        "tab": "MindMap",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "getting-started/what-is-mindmap",
+              "getting-started/log-in",
+              "getting-started/first-chat",
+              "getting-started/the-approval-gate",
+              "getting-started/the-marketplace",
+              "getting-started/build-a-dashboard",
+              "getting-started/spaces",
+              "getting-started/connect-an-app",
+              "getting-started/install-on-your-phone",
+              "faq"
+            ]
+          },
+          {
+            "group": "Understanding MindMap",
+            "pages": [
+              "understanding/what-it-can-do",
+              "understanding/how-memory-works",
+              "understanding/cloud-not-local",
+              "understanding/tool-calls",
+              "understanding/file-uploads"
+            ]
+          },
+          {
+            "group": "Core Surfaces and Tools",
+            "pages": [
+              "core/chat-app",
+              "core/artifacts",
+              "core/widgets",
+              "core/web-search",
+              "core/calendar"
+            ]
+          },
+          {
+            "group": "Dashboards and Spaces",
+            "pages": [
+              "build/dashboards",
+              "build/spaces",
+              "build/morning-brief"
+            ]
+          },
+          {
+            "group": "CRM and Clients",
+            "pages": [
+              "build/crm-and-clients"
+            ]
+          },
+          {
+            "group": "Apps Marketplace",
+            "pages": [
+              "marketplace/overview",
+              {
+                "group": "Network and Infrastructure",
+                "pages": [
+                  "marketplace/meraki",
+                  "marketplace/infra"
+                ]
+              },
+              {
+                "group": "Money and Sales",
+                "pages": [
+                  "marketplace/money",
+                  "marketplace/twenty-crm",
+                  "marketplace/review-requests"
+                ]
+              },
+              {
+                "group": "Automation and Connectors",
+                "pages": [
+                  "marketplace/composio",
+                  "marketplace/zapier",
+                  "marketplace/n8n-automations",
+                  "marketplace/github",
+                  "marketplace/connectors-rich-tiles"
+                ]
+              },
+              {
+                "group": "Messaging and Voice",
+                "pages": [
+                  "marketplace/telegram",
+                  "marketplace/unified-inbox",
+                  "marketplace/voice-elevenlabs",
+                  "marketplace/voice-calls-retell"
+                ]
+              },
+              {
+                "group": "Knowledge and Storage",
+                "pages": [
+                  "marketplace/memory-view",
+                  "marketplace/webdav-vault",
+                  "marketplace/assets",
+                  "marketplace/skills"
+                ]
+              },
+              {
+                "group": "Browser and Security",
+                "pages": [
+                  "marketplace/agent-browser",
+                  "marketplace/1password"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Admin and Automation",
+            "pages": [
+              "admin/trust-rules",
+              "admin/scheduled-jobs",
+              "admin/saved-plays",
+              "admin/mcp-server",
+              "admin/feedback"
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "troubleshooting/common-issues",
+              "troubleshooting/cant-log-in",
+              "troubleshooting/my-ai-forgot-me",
+              "troubleshooting/slow-or-stuck"
+            ]
+          }
         ]
       }
     ]
