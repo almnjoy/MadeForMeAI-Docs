@@ -63,11 +63,15 @@ change risk settings without my explicit instruction.
     pip install -r requirements.txt
     ```
   </Step>
-  <Step title="Create your config">
-    Copy `bot/.env.template` to `bot/.env`. Open it and paste your Alpaca **paper**
-    key id and secret into `ALPACA_KEY_ID` and `ALPACA_SECRET_KEY`.
+  <Step title="Run the guided setup">
+    ```bash
+    python setup.py
+    ```
+    It checks your Python, takes your Alpaca keys and **validates them against the
+    API**, detects whether your account has real-time data, asks how you plan to use
+    it, and writes `bot/.env` for you.
 
-    Leave `STOCK_ENV=paper`. Leave every auto-trading flag `false` for now.
+    Re-run it any time - it shows your current settings and lets you keep them.
   </Step>
   <Step title="Launch">
     Windows: double-click **`run-portable.bat`**.
@@ -77,6 +81,37 @@ change risk settings without my explicit instruction.
     Then open [http://localhost:8410](http://localhost:8410).
   </Step>
 </Steps>
+
+## What setup asks you
+
+<AccordionGroup>
+  <Accordion title="Paper or live account" icon="building-columns">
+    Paper is the default and the right answer to start. Paper and live keys are
+    different pairs and live in different settings, so one can never be used as the
+    other.
+  </Accordion>
+  <Accordion title="Your keys - which it then tests" icon="key">
+    Setup calls the Alpaca account endpoint with what you typed. If the keys are wrong
+    or from the wrong dashboard, you find out immediately instead of at first launch.
+  </Accordion>
+  <Accordion title="Nothing - it detects your data feed" icon="bolt">
+    It asks Alpaca whether your account can read recent SIP data. Entitled accounts get
+    **real-time**; everyone else gets the free IEX feed. No question to answer, no
+    subscription page to go read.
+  </Accordion>
+  <Accordion title="How you will use it" icon="sliders">
+    - **Research only** - radar, charts, chatter, copilot. No trading at all.
+    - **Research + manual trades** - you pull the trigger from the ticket.
+    - **Small automatic entries** - hard-capped, trailing stop on every entry.
+
+    Whatever you pick is shown in the dashboard header, so the desk never leaves you
+    guessing about what it is allowed to do.
+  </Accordion>
+  <Accordion title="Optional scoring and alerts" icon="microchip">
+    Whether to enable LLM catalyst scoring (and where your model lives), and a Discord
+    webhook if you want radar hits on your phone. Both can be skipped and added later.
+  </Accordion>
+</AccordionGroup>
 
 ## Getting Alpaca paper keys
 

@@ -88,6 +88,32 @@ Node.js. Nothing phones home.
   </Accordion>
 </AccordionGroup>
 
+## Market data: free versus real-time
+
+Alpaca gives every account the free **IEX** feed. It is real quotes, but from one
+exchange - a slice of total volume, so dollar-volume reads low and thin names look
+thinner than they are.
+
+If you pay Alpaca for market data, your account is entitled to the **SIP** feed: the
+full consolidated tape across all exchanges, in real time.
+
+<Note>
+**You do not have to know which one you have.** `python setup.py` asks Alpaca directly
+(it requests a recent SIP trade; entitled accounts answer, free ones return a
+subscription error) and writes the right value. Subscribe later, re-run setup, and it
+switches you over.
+</Note>
+
+The dashboard shows which feed is live in the top bar: **data: REAL-TIME (SIP)** in
+green, or **data: IEX (free)**. Set it by hand with `ALPACA_DATA_FEED=sip` or `iex` in
+`bot/.env`.
+
+On SIP it is also worth raising the liquidity floor (`MIN_DOLLAR_VOLUME`) toward 20M,
+since the free feed's numbers were scaled for a partial tape - setup does this for you.
+
+Other market data providers (Polygon, Databento, and friends) are not wired in.
+Market Forge reads prices through Alpaca today.
+
 ## Feature-to-dependency map
 
 | You want... | You need |
