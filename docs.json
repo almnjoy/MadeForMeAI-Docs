@@ -27,7 +27,18 @@
           {
             "group": "Welcome",
             "pages": [
-              "index"
+              "index",
+              "north-star-coach"
+            ]
+          },
+          {
+            "group": "Your Free Tools",
+            "pages": [
+              "tools/trip-planner",
+              "tools/csv-doc-organizer",
+              "tools/website-builder",
+              "tools/jobhunter",
+              "tools/music-analyzer"
             ]
           },
           {
@@ -76,12 +87,6 @@
             "group": "Get Started",
             "pages": [
               "getting-started/what-is-mindmap",
-              "getting-started/log-in",
-              "getting-started/first-chat",
-              "getting-started/the-approval-gate",
-              "getting-started/the-marketplace",
-              "getting-started/connect-an-app",
-              "getting-started/build-a-dashboard",
               "getting-started/install-on-your-phone",
               "faq"
             ]
@@ -110,15 +115,6 @@
               "marketplace/twenty-crm",
               "marketplace/money",
               "marketplace/review-requests"
-            ]
-          },
-          {
-            "group": "Troubleshooting",
-            "pages": [
-              "troubleshooting/common-issues",
-              "troubleshooting/cant-log-in",
-              "troubleshooting/my-ai-forgot-me",
-              "troubleshooting/slow-or-stuck"
             ]
           }
         ]
