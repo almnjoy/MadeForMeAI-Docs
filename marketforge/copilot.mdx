@@ -1,0 +1,119 @@
+---
+title: "The copilot"
+description: "How the AI seat works: chat, voice, panels, memory, and the file bus"
+---
+
+Market Forge does not have an AI feature bolted on. It has a **seat**, and any capable
+coding agent can sit in it.
+
+## How it actually works
+
+The desk and the agent talk through plain files in the project folder. No API, no
+plugin, no SDK.
+
+```
+you ──voice/chat──> dashboard ──HTTP──> bot engine (scanner, gates, orders)
+        │               │
+        │               ├── panels/*.html    the agent writes files here,
+        └── AI agent ───┼── chat-*.jsonl     the dashboard renders them live
+                        ├── memory.md
+                        └── journal.jsonl
+```
+
+That is the whole contract. It is why the copilot is not locked to one vendor: if your
+agent can read and write files and make local HTTP calls, it can drive this desk.
+
+## The two lanes
+
+<CardGroup cols={2}>
+  <Card title="The bridge" icon="bolt">
+    Built in. Every message you send spawns a short headless agent turn that answers
+    in chat and can build panels. Fast, conversational, no window to manage.
+  </Card>
+  <Card title="Your terminal agent" icon="terminal">
+    Your own session running in the folder. The deep-work lane: big builds, research
+    dives, editing rules, changing the engine. It reads the same files.
+  </Card>
+</CardGroup>
+
+Both read `CLAUDE.md`, which is the copilot's brief: the API cheat sheet, the panel
+format, and the hard rules.
+
+## Talking to it
+
+- **Type** in the COPILOT tab.
+- **Push to talk** with the mic button.
+- **Hot mic** from the top bar keeps listening while you work in other tabs, and
+  ignores the copilot's own speech so it does not loop.
+- Replies are **spoken aloud**. With [Voicebox](/marketforge/requirements) running you
+  get a natural voice; otherwise the browser reads it.
+
+While a turn runs you see its real tool steps and elapsed time, plus a **Stop** button
+that kills the turn and silences the audio immediately.
+
+## Asking for boards
+
+The Workbench is the copilot's canvas. Useful things to say:
+
+<CodeGroup>
+```text Morning
+Build the morning brief as one full-width board: market state, my account,
+top radar signals with your read, reddit overlap, and the plan for today.
+```
+
+```text Research
+Pull the newest catalyst - chart, news links, reddit chatter, and your read
+on whether it is chaseable.
+```
+
+```text Watchlist
+Make me a watchlist board for AMD, NVDA and SPY with candles and the levels
+that matter.
+```
+
+```text Cleanup
+Clear the board and build tomorrow's plan as one page.
+```
+</CodeGroup>
+
+Panels appear within a couple of seconds of being written. Ask for a change and watch
+it transform.
+
+## Memory: teaching it your plan
+
+The brain icon in the top bar opens `memory.md` - your standing orders. Example:
+
+```md
+- Max $50 per trade while learning
+- Every entry gets an exit: trailing stop, 10% default
+- Don't chase IPOs or sub-$3 low-float spikers
+- Prefer earnings-driven catalysts over vague momentum
+- One idea at a time; no revenge trades
+```
+
+Those lines are injected into **every** copilot turn. Say "remember I only trade the
+first two hours" and it appends the rule itself.
+
+<Note>
+This file is the fastest way to make the desk yours. When someone hands Market Forge
+to a friend, rewriting `memory.md` is most of the personalisation.
+</Note>
+
+## Replay: reviewing process, not P/L
+
+Everything that happens is logged to `journal.jsonl`. In the JOURNAL tab, pick a day
+and press **Replay this day**. The copilot reads the log, cross-checks your orders,
+and reconstructs the session: what the radar fired, what you took, what you passed on,
+how it ended, and one lesson about how you decided.
+
+Most trading journals record outcomes. This one records decisions, which is the part
+you can actually improve.
+
+## The hard rules
+
+The copilot's brief forbids it from placing trades or changing risk settings without
+your explicit instruction in that conversation. The trade ticket and your own terminal
+session are the execution lanes - the chat lane is for research and building.
+
+Trust but verify: the journal records every order, and the RULES tab always shows the
+settings the engine is actually running.

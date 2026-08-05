@@ -1,0 +1,117 @@
+---
+title: "Tour the desk"
+description: "What every tab does, and the parts that are easy to miss"
+---
+
+One screen, seven tabs. Here is what each one is for.
+
+<Frame caption="CATALYST_RADAR - scored movers with live price versus the alert price">
+  <img src="/images/marketforge/radar.png" alt="Market Forge catalyst radar" />
+</Frame>
+
+## OVERVIEW
+
+Your account at a glance: equity, cash, positions, day P/L, drawdown, and the
+bankroll the bot is allowed to size against. Below that, a candlestick chart for any
+symbol with volume, a price axis, and the last-price line, plus recent headlines for
+that ticker. Positions and recent orders sit on the right, each with a Trade button.
+
+Type any symbol into the chart box to switch it.
+
+## CATALYST_RADAR
+
+The core. Each card is a stock that moved, with:
+
+- The **verified** percentage move. The screener's number is never trusted directly:
+  it is recomputed from real daily bars and the live tape, and if the real move does
+  not clear the bar, the card is dropped entirely.
+- A **conviction score** (0-100) and a **signal** or **noise** verdict from the LLM,
+  with a one-line reason.
+- **Live "now versus alert"** so you can see whether the move followed through or
+  faded since the bot flagged it.
+- The source headline, the catalyst type, and a discipline note.
+
+**Re-scan** forces a fresh scan; the timestamp beside it tells you how stale the
+current one is.
+
+## RETAIL_RADAR
+
+What Reddit is pushing right now, from the hot pages of r/wallstreetbets,
+r/swingtrading, and r/stocks. Tickers are extracted, validated as real tradeable
+symbols, and ranked by how much they are being talked about, with links to the actual
+posts. The same buzz is fed to the catalyst radar's scorer, so a name with news *and*
+chatter reads differently than one with only chatter.
+
+## WORKBENCH
+
+<Frame caption="WORKBENCH - panels the copilot writes appear live">
+  <img src="/images/marketforge/workbench.png" alt="Market Forge workbench" />
+</Frame>
+
+The copilot's canvas. Every HTML file in the `panels/` folder renders here as a live
+card, and the page re-reads that folder every couple of seconds. So when you ask for
+a board, you watch it appear.
+
+- Drag any card's corner to resize it; your sizes are remembered.
+- **Save board** freezes the current set under a name; **Load** brings it back (and
+  auto-saves whatever was there first).
+- Panels can request full width, so "tomorrow's plan" comes back as one proper board
+  rather than a wall of tiles.
+
+## RULES
+
+The agent's plan, in plain language: the whole pipeline from screener to verified
+move to scoring to gates to a trailing-stop entry, followed by every live setting the
+engine is running with.
+
+**Click any setting** and it drafts a question to the copilot about that knob - what
+it controls, the trade-off of changing it, and how to apply it. Your own
+training-wheels document sits beside it.
+
+## JOURNAL
+
+The decision log. Every scan, chat, board, and order is recorded with a timestamp.
+Pick a day and you see the timeline; press **Replay this day** and the copilot
+reconstructs it: what fired, what you took, what you skipped, and one lesson about
+your process.
+
+It is git history for your trading decisions, and it is worth more than the P/L
+number after a few weeks.
+
+## COPILOT
+
+<Frame caption="COPILOT - chat or voice, with the bridge answering automatically">
+  <img src="/images/marketforge/copilot.png" alt="Market Forge copilot" />
+</Frame>
+
+Chat with your agent. Type or talk; replies render here and are spoken aloud. While
+it works you see its real steps ("Write · panels/10-plan.html"), and a **Stop** button
+kills the turn and silences the voice instantly.
+
+See [the copilot](/marketforge/copilot) for the full picture.
+
+## Things that are easy to miss
+
+<AccordionGroup>
+  <Accordion title="Ctrl+K opens a command palette" icon="keyboard">
+    Type `chart amd`, `trade nvda`, `re-scan`, `save board`, `clear board`,
+    `morning brief`, `hot mic`, or a saved board's name. Anything the palette does not
+    recognise gets sent to the copilot as a message - so it is one box for the whole
+    app.
+  </Accordion>
+  <Accordion title="The hot mic works from any tab" icon="microphone">
+    The button in the top bar keeps listening while you look at charts. It ignores the
+    copilot's own voice so it does not talk to itself.
+  </Accordion>
+  <Accordion title="The memory drawer is your plan" icon="brain">
+    The brain icon opens `memory.md`: your standing orders, honored on every copilot
+    turn. Saying "remember I don't touch biotech" writes a line there.
+  </Accordion>
+  <Accordion title="The ticker tape pauses" icon="pause">
+    Hover to pause it, click to pin the pause. Each ticker is tinted by the size of
+    its move, so the tape doubles as a heat strip.
+  </Accordion>
+  <Accordion title="The market clock knows the session" icon="clock">
+    Top right: pre-market, open with a countdown to the close, after-hours, or closed.
+  </Accordion>
+</AccordionGroup>

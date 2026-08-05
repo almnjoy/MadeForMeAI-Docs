@@ -81,6 +81,33 @@
         ]
       },
       {
+        "tab": "Market Forge",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "marketforge/index",
+              "marketforge/requirements",
+              "marketforge/install"
+            ]
+          },
+          {
+            "group": "Using the Desk",
+            "pages": [
+              "marketforge/the-desk",
+              "marketforge/copilot"
+            ]
+          },
+          {
+            "group": "Risk and Support",
+            "pages": [
+              "marketforge/rules-and-risk",
+              "marketforge/troubleshooting"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "MindMap",
         "groups": [
           {

@@ -1,0 +1,110 @@
+---
+title: "What you need"
+description: "Required and optional dependencies, called out plainly"
+---
+
+Market Forge is deliberately light. Two required things, one required account, and a
+short list of optional extras that each unlock a specific feature.
+
+## Required
+
+<CardGroup cols={2}>
+  <Card title="Python 3.10 or newer" icon="python" href="https://python.org">
+    The dashboard uses only the standard library. The bot engine adds one package.
+    On Windows, tick **Add Python to PATH** during install.
+  </Card>
+  <Card title="Git" icon="code-branch" href="https://git-scm.com">
+    Used to install and update. The one-line installer needs it.
+  </Card>
+  <Card title="Flask" icon="flask" href="https://flask.palletsprojects.com">
+    The bot engine's web layer. Installed for you:
+    `pip install -r requirements.txt`
+  </Card>
+  <Card title="An Alpaca account" icon="building-columns" href="https://alpaca.markets">
+    Free. **Paper** keys are all you need to start; they are separate from live keys
+    and use fake money against real market data.
+  </Card>
+</CardGroup>
+
+<Note>
+That is the entire required list. No Docker, no database, no cloud account, no
+Node.js. Nothing phones home.
+</Note>
+
+## Optional, and what each one buys you
+
+<AccordionGroup>
+  <Accordion title="An AI coding agent - unlocks the copilot" icon="robot">
+    **Claude Code**, Codex, or any agent that can read and write files in a folder.
+
+    Without it the dashboard works fine as a scanner and manual trading surface. With
+    it, the COPILOT tab comes alive: it answers you in chat, builds live panels on the
+    Workbench, explains your risk knobs, and replays your trading day.
+
+    Market Forge talks to agents through plain files (`panels/`, `chat-*.jsonl`,
+    `memory.md`, `journal.jsonl`), so it is not locked to one vendor. The built-in
+    bridge shells out to `claude` by default; the model is set in `config.json`.
+  </Accordion>
+
+  <Accordion title="Ollama - unlocks catalyst scoring" icon="microchip">
+    A free local LLM runner. Install it, then:
+
+    ```bash
+    ollama pull qwen2.5:3b
+    ```
+
+    Then in `bot/.env` set `RADAR_USE_LLM=true`. The radar will now label each mover
+    **signal** or **noise** with a 0-100 conviction score and a one-line "why".
+
+    Without it the radar still finds and alerts movers, it just does not score them.
+    Auto-entries require a score, so rules-only mode is effectively alert-only.
+    Any OpenAI-compatible endpoint works if you prefer another provider.
+  </Accordion>
+
+  <Accordion title="Voicebox - unlocks a better voice" icon="microphone">
+    A local text-to-speech app. Point Market Forge at it in `config.json`
+    (`"voicebox_url": "http://127.0.0.1:17493"`) and pick a **Kokoro** voice profile.
+
+    Spoken replies then come out in that voice instead of the browser's built-in
+    speech synthesis. Purely a quality upgrade: without Voicebox the copilot still
+    talks, it just sounds like a browser.
+  </Accordion>
+
+  <Accordion title="Chrome or Edge - unlocks voice input" icon="chrome">
+    Voice input (push-to-talk and the always-on hot mic) uses the browser's speech
+    recognition, which ships in Chrome and Edge. Everything else works in any modern
+    browser.
+  </Accordion>
+
+  <Accordion title="A Discord webhook - unlocks phone alerts" icon="discord">
+    Paste a webhook URL into `RADAR_DISCORD_WEBHOOK` in `bot/.env` and scored
+    catalysts get pushed to that channel, which is the easiest way to see radar hits
+    on your phone.
+  </Accordion>
+
+  <Accordion title="A FRED API key - richer macro in the Market Brief" icon="chart-line">
+    Free from the St. Louis Fed. Set `FRED_API_KEY` and the Market Brief folds rates,
+    oil, and unemployment context into its read of the day.
+  </Accordion>
+</AccordionGroup>
+
+## Feature-to-dependency map
+
+| You want... | You need |
+| --- | --- |
+| Catalyst radar, charts, manual trading | Python + Flask + Alpaca paper keys |
+| Scored signal-vs-noise catalysts | Ollama (or any OpenAI-compatible LLM) |
+| The copilot: chat, panels, replay | An AI coding agent (Claude Code, Codex, ...) |
+| Talking to the desk | Chrome or Edge |
+| A natural-sounding voice back | Voicebox with a Kokoro profile |
+| Alerts on your phone | Discord webhook |
+| Auto-entries (paper or live) | Scoring enabled, then flags in `bot/.env` |
+
+## System notes
+
+- **Windows, macOS, and Linux** all work. Windows has a double-click launcher
+  (`run-portable.bat`); other platforms run `MF_EMBEDDED=1 python app.py`.
+- **Disk and memory** are trivial: the app is a few hundred KB of code plus your
+  screenshots. Ollama's 3B model is about 2 GB if you use it.
+- **The desk runs while it is open.** Scans fire at 10am, noon, 2pm, and 4pm ET on
+  weekdays *while the app is running*. It is a desk tool, not a headless server.

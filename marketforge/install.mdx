@@ -1,0 +1,121 @@
+---
+title: "Install"
+description: "One line, an AI agent, or by hand - then your first launch"
+---
+
+Three ways in. They all end at the same place: the desk open at `localhost:8410` in
+paper mode.
+
+<Note>
+Check [what you need](/marketforge/requirements) first. Short version: Python 3.10+,
+git, and free Alpaca paper keys.
+</Note>
+
+## Option 1: one line
+
+<Tabs>
+  <Tab title="Windows">
+    ```powershell
+    powershell -c "irm https://madeformeai.com/marketforge/install.ps1 | iex"
+    ```
+  </Tab>
+  <Tab title="macOS / Linux">
+    ```bash
+    curl -fsSL https://madeformeai.com/marketforge/install.sh | bash
+    ```
+  </Tab>
+</Tabs>
+
+It clones the repo to your home folder, installs the one dependency, creates your
+config file, and opens the folder. Run it again later and it updates in place.
+
+## Option 2: let your AI agent do it
+
+Paste this to Claude Code, Codex, Cursor, or whatever you run. It installs the desk,
+sets up your keys **with** you, and then learns your trading plan.
+
+```text
+Set up Market Forge - the open-source AI trading desk - on this machine.
+Repo: https://github.com/almnjoy/MarketForge
+
+1. Check for git and Python 3.10+; help me install whichever is missing.
+2. Clone the repo to my home directory.
+3. Install the one dependency: python -m pip install -r requirements.txt
+4. Copy bot/.env.template to bot/.env, then ask me for my Alpaca PAPER keys
+   (free at alpaca.markets) and fill them in. Keep STOCK_ENV=paper and leave
+   every auto-trading flag false.
+5. Launch it (run-portable.bat on Windows, else MF_EMBEDDED=1 python app.py)
+   and confirm http://localhost:8410 loads with PAPER in the header.
+6. Read PORTABLE.md and CLAUDE.md, then walk me through the RULES tab and
+   memory.md so the desk learns MY plan.
+
+Hard rules for you: never enable live trading, never place a trade, never
+change risk settings without my explicit instruction.
+```
+
+## Option 3: by hand
+
+<Steps>
+  <Step title="Clone and install">
+    ```bash
+    git clone https://github.com/almnjoy/MarketForge
+    cd MarketForge
+    pip install -r requirements.txt
+    ```
+  </Step>
+  <Step title="Create your config">
+    Copy `bot/.env.template` to `bot/.env`. Open it and paste your Alpaca **paper**
+    key id and secret into `ALPACA_KEY_ID` and `ALPACA_SECRET_KEY`.
+
+    Leave `STOCK_ENV=paper`. Leave every auto-trading flag `false` for now.
+  </Step>
+  <Step title="Launch">
+    Windows: double-click **`run-portable.bat`**.
+
+    macOS / Linux: `MF_EMBEDDED=1 python app.py`
+
+    Then open [http://localhost:8410](http://localhost:8410).
+  </Step>
+</Steps>
+
+## Getting Alpaca paper keys
+
+<Steps>
+  <Step title="Sign up">
+    Create a free account at [alpaca.markets](https://alpaca.markets).
+  </Step>
+  <Step title="Switch to the paper dashboard">
+    There is a toggle between Live and Paper. Choose **Paper** - fake money, real
+    market data.
+  </Step>
+  <Step title="Generate a key">
+    In the API Keys panel, generate a key. You get an ID and a secret, and the secret
+    is shown **once**. Paste both into `bot/.env` immediately.
+  </Step>
+</Steps>
+
+<Warning>
+Paper and live keys are different pairs. Market Forge keeps them in separate settings
+on purpose, so a paper key can never place a live order by accident.
+</Warning>
+
+## First launch checklist
+
+You should see, top to bottom:
+
+- The Market Forge logo, then a **PAPER** badge
+- A scrolling ticker of index and megacap prices
+- Equity and cash matching your Alpaca paper balance
+- Tabs: OVERVIEW, CATALYST_RADAR, RETAIL_RADAR, WORKBENCH, RULES, JOURNAL, COPILOT
+
+If the radar is empty, that is normal outside market hours. Scans run at 10am, noon,
+2pm, and 4pm ET on weekdays. You can force one with the **Re-scan** button.
+
+## Turning on the copilot
+
+Open a terminal in the Market Forge folder and start your agent there (for Claude
+Code, just run `claude`). It reads `CLAUDE.md` on its own and becomes your desk
+copilot. Now anything you type in the COPILOT tab gets answered automatically, and
+you can ask it to build boards for you.
+
+Next: [tour the desk](/marketforge/the-desk).

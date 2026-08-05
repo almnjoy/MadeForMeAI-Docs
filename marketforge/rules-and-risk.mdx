@@ -1,0 +1,109 @@
+---
+title: "Rules and risk"
+description: "The gates that protect you, the exits, and how going live works"
+---
+
+The whole point of Market Forge is that the discipline lives in code. Here is exactly
+what that means.
+
+## The pipeline a trade must survive
+
+<Steps>
+  <Step title="Screener">
+    The day's biggest movers come from Alpaca. Nothing is trusted yet.
+  </Step>
+  <Step title="Verification">
+    Every percentage is recomputed: current price from the **live tape**, prior close
+    from the last completed session's real bar. Stale prints, par-priced warrants, and
+    unadjusted splits get corrected - and if the real move no longer clears the
+    threshold, the name is dropped entirely rather than shown as a fake mover.
+  </Step>
+  <Step title="Scoring">
+    An LLM reads the headlines plus any Reddit chatter and returns a 0-100 conviction
+    score, a signal-or-noise verdict, and a one-line reason.
+  </Step>
+  <Step title="Gates">
+    Every gate below must pass. Any failure, or any missing data, blocks the trade.
+  </Step>
+  <Step title="Entry with an exit">
+    A whole-share market buy, then the fill is confirmed, then a GTC trailing stop is
+    armed. The exit exists before you look away.
+  </Step>
+</Steps>
+
+## The gates
+
+| Gate | Default | Why |
+| --- | --- | --- |
+| Master switch | off | Live auto-entries need **two** flags on, on purpose |
+| Conviction | score >= 85 and verdict "signal" | only high-conviction catalysts |
+| Data trust | verified move, not an IPO first-session | never trade a number we could not check |
+| Price floor | >= $3.00 | keeps the bot out of low-float spiker junk |
+| Size | $50 per trade | small while learning |
+| Frequency | 2 entries per day | no machine-gunning a bad day |
+| Total exposure | $150 of auto capital | a hard ceiling regardless of ideas |
+| Concurrency | never adds to a held symbol | no accidental averaging down |
+| Kill switch | drawdown / daily-loss breaker | trips and nothing enters |
+
+All of them **fail closed**: if a value cannot be read, the answer is no.
+
+## Exits, and why trailing
+
+Default exit is a **GTC trailing stop** at 10%. The stop follows the high-water mark
+and never moves down, so a runner keeps running and a fader gets cut.
+
+That directly fixes the most common beginner mistake: watching a winner round-trip.
+
+<Warning>
+Two honest caveats. A tight trail on a volatile name will shake you out mid-run - the
+width is a real decision, not a default to ignore. And a stop trigger fires a market
+order, so on a thin name in a fast drop the fill can be worse than the stop level.
+</Warning>
+
+The alternative mode is a fixed bracket: take-profit and stop-loss attached at entry.
+Set `RADAR_AUTO_EXIT=bracket` if you prefer defined targets to a trailing exit.
+
+## Going live
+
+Live trading is off by default and takes deliberate steps.
+
+<Steps>
+  <Step title="Trade paper until the journal says you are ready">
+    Not until it feels good - until the replay shows a process you would repeat.
+  </Step>
+  <Step title="Add live keys">
+    Put your Alpaca **live** key pair in `ALPACA_LIVE_KEY_ID` and
+    `ALPACA_LIVE_SECRET_KEY`, then set `STOCK_ENV=live`. Paper and live keys are
+    separate settings so one can never be used as the other.
+  </Step>
+  <Step title="Arm the autos, if you want them">
+    Live auto-entries require **both** `RADAR_AUTO_EXECUTE=true` and
+    `LIVE_AUTO_ENABLED=true`. Manual trading through the ticket works either way.
+  </Step>
+  <Step title="Restart the app">
+    Settings are read at startup. Restart so the engine picks them up, then confirm
+    the header shows **LIVE** in red and the auto chip reads what you expect.
+  </Step>
+</Steps>
+
+Worst realistic day at the defaults: two $50 entries both stopping out is roughly a
+$10 loss. That is the point of starting there.
+
+## Tuning with your copilot
+
+On the RULES tab, click any setting. It drafts a question that gets you an explanation
+of the trade-off, a suggestion checked against your `memory.md`, and the exact steps to
+apply it. Change one thing at a time and let the journal tell you whether it helped.
+
+<Note>
+Ideas worth revisiting once you have data: trail width by volatility instead of a flat
+10%, a time-of-day filter, scaling out half a position, and feeding settled trades back
+into the scorer as lessons.
+</Note>
+
+## What Market Forge will never do
+
+- Enable live trading on its own
+- Place a trade the copilot was not explicitly told to place
+- Send your keys anywhere - they live in `bot/.env` on your disk
+- Hide what it did - every action lands in the journal

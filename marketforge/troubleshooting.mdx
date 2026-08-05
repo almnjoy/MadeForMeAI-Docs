@@ -1,0 +1,79 @@
+---
+title: "Troubleshooting"
+description: "Fixes for the things that actually go wrong"
+---
+
+<AccordionGroup>
+  <Accordion title="The radar is empty" icon="radar">
+    Most often this is correct behaviour, not a bug.
+
+    - **Outside market hours** the movers list is junk, and Market Forge drops movers
+      whose real verified move does not clear the threshold. Overnight, that is
+      usually everything. Check again after 10am ET on a weekday.
+    - **Scans run while the app is open** at 10am, noon, 2pm and 4pm ET. If the app
+      was closed, no scan happened. Press **Re-scan**.
+    - The timestamp beside Re-scan tells you how old the current scan is.
+  </Accordion>
+
+  <Accordion title="Cards show no score, just a dash" icon="microchip">
+    Scoring needs an LLM. Either `RADAR_USE_LLM=false` in `bot/.env`, or the model was
+    not reachable when the scan ran (a cold Ollama model can time out on first use).
+
+    Warm the model once (`ollama run qwen2.5:3b "hi"`), then press Re-scan. Note that
+    already-alerted symbols are deduplicated for the day and will not be re-scored
+    until tomorrow.
+  </Accordion>
+
+  <Accordion title="The copilot does not answer" icon="robot">
+    The COPILOT header shows the bridge state.
+
+    - **bridge: off** - set `"bridge": true` in `config.json`.
+    - **bridge: ?** or an error reply - your agent's CLI was not found. Make sure it
+      runs from a plain terminal, and if needed set `CLAUDE_BIN` to its full path.
+    - **Stuck on "working"** - press Stop. If a turn regularly runs long, lower
+      `bridge_timeout` or switch `bridge_model` to a faster model in `config.json`.
+  </Accordion>
+
+  <Accordion title="No voice, or the wrong voice" icon="volume-high">
+    - **Nothing speaks:** check the "speak replies" box in the COPILOT tab.
+    - **Browser voice instead of yours:** the dot beside that box is your Voicebox
+      status. Red or grey means it is not reachable, so it fell back. Confirm Voicebox
+      is running and has a **Kokoro** voice profile.
+    - **Voice input missing:** speech recognition is Chrome and Edge only.
+  </Accordion>
+
+  <Accordion title="An order failed" icon="triangle-exclamation">
+    The message from the broker is shown in the ticket and logged to the journal.
+    Common ones:
+
+    - *trading halt* - the symbol is halted; nothing you can do but wait.
+    - *insufficient buying power* - paper accounts reset, live accounts settle.
+    - *size too small for 1 whole share* - trailing exits need whole shares, so a $50
+      order cannot buy a $700 stock. Raise the size or skip the name.
+
+    If a buy fills but the trailing stop fails to arm, you get a loud warning. Set a
+    stop manually, immediately - that is the one case where a position sits unprotected.
+  </Accordion>
+
+  <Accordion title="Changed a setting, nothing happened" icon="gear">
+    Settings in `bot/.env` are read when the engine starts. Restart the app after
+    editing. The RULES tab always shows what the engine is **actually** running, so
+    compare it against what you think you set.
+  </Accordion>
+
+  <Accordion title="Port 8410 or 8796 already in use" icon="plug">
+    Another copy is probably running. Close it, or change `port` (dashboard) and
+    `bot_port` in `config.json`, plus `API_PORT` in `bot/.env` to match.
+  </Accordion>
+
+  <Accordion title="The page reads old messages aloud on refresh" icon="rotate">
+    Fixed in current versions - history renders silently and only new replies are
+    spoken. Update: `git pull` in the Market Forge folder, then restart.
+  </Accordion>
+</AccordionGroup>
+
+## Still stuck
+
+Bring the error text and what you were doing to [Discord](https://discord.gg/JE8TEYZp2f),
+or open an issue on [GitHub](https://github.com/almnjoy/MarketForge/issues). The
+console window that launched the app usually has the real message.

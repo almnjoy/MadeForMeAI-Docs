@@ -1,12 +1,36 @@
 ---
 title: "Stock-market radar"
-description: "A catalyst scanner that sorts real movers from noise"
+description: "A catalyst scanner that sorts real movers from noise - now part of Market Forge"
 ---
 
-A catalyst scanner that watches the market, separates real movers from noise with an LLM pass, and pings you when something actually matters. A read-only feed you can wire into a dashboard.
+A catalyst scanner that watches the market, separates real movers from noise with an
+LLM pass, verifies every percentage against the live tape, and pings you when
+something actually matters.
 
 <Note>
-**This one is mid-rebuild.** The radar is getting a full revamp into something considerably bigger, and this page gets rewritten when it ships. The short version above describes the current scanner; the interesting part is what's coming.
+**The revamp shipped.** The radar is now the engine inside **Market Forge**, an
+open-source AI trading desk you run on your own machine - dashboard, risk gates,
+trailing exits, and an AI copilot that builds your boards while you talk to it.
 </Note>
 
-Want to hear about it when it lands? [Start on the homepage](https://madeformeai.com) or ask in the [Discord](https://discord.gg/Cxddsbxrv).
+<CardGroup cols={2}>
+  <Card title="Market Forge docs" icon="book" href="/marketforge/index">
+    What it is, what you need, and how to install it.
+  </Card>
+  <Card title="Source on GitHub" icon="github" href="https://github.com/almnjoy/MarketForge">
+    MIT licensed, runs locally, your keys stay yours.
+  </Card>
+</CardGroup>
+
+## What the radar does now
+
+- Pulls the day's biggest movers, then **re-verifies** every percentage against real
+  price bars and the live tape - stale prints and split artifacts get dropped instead
+  of shown.
+- Scores each survivor **signal or noise** (0-100) with the headlines and Reddit
+  chatter folded in.
+- Shows live **"now versus alert"** so you can see follow-through or fade.
+- Feeds hard risk gates: conviction floor, price floor, size, entries per day, total
+  exposure, and a kill switch - with a trailing stop armed on every entry.
+
+Full write-up: [Market Forge](/marketforge/index).
