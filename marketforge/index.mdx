@@ -30,6 +30,32 @@ it round-tripped.
 Both are discipline problems. So the discipline went into code instead of willpower.
 Every entry the bot takes is capped, verified, and carries an exit before it exists.
 
+## The flow, in plain English
+
+```mermaid
+flowchart TD
+    You(["You"]) <-->|"talk or type"| Desk["Market Forge<br/>runs on your computer"]
+    Desk <-->|"asks it things, it builds you boards"| Copilot(["Your AI copilot"])
+    Desk --> Scan["Checks what's moving<br/>4 times a day"]
+    Scan --> Real{"Is that move real?"}
+    Real -->|"no - stale or fake number"| Drop["Thrown out"]
+    Real -->|"yes"| Rate["Reads the news and Reddit,<br/>rates it 0-100"]
+    Rate --> Rules{"Does it pass YOUR rules?"}
+    Rules -->|"no"| Skip["Listed as noise"]
+    Rules -->|"yes"| Ready["On your radar,<br/>with the reason why"]
+    Ready --> Who{"Who pulls the trigger?"}
+    Who -->|"you - the default"| Manual["You click Trade"]
+    Who -->|"only if you switch it on"| Auto["It buys a small amount"]
+    Manual --> Exit["Automatic sell-stop armed<br/>follows the price up, never down"]
+    Auto --> Exit
+    Exit --> Journal["Written to your journal:<br/>what happened and why"]
+    Skip --> Journal
+    Journal -->|"replay yesterday"| Copilot
+```
+
+Nothing trades itself unless you deliberately turn that on, and every entry gets
+an exit the moment it fills. Details in [rules and risk](/marketforge/rules-and-risk).
+
 ## The three pieces
 
 <Steps>

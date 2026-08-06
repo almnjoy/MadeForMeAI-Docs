@@ -11,14 +11,9 @@ coding agent can sit in it.
 The desk and the agent talk through plain files in the project folder. No API, no
 plugin, no SDK.
 
-```
-you ──voice/chat──> dashboard ──HTTP──> bot engine (scanner, gates, orders)
-        │               │
-        │               ├── panels/*.html    the agent writes files here,
-        └── AI agent ───┼── chat-*.jsonl     the dashboard renders them live
-                        ├── memory.md
-                        └── journal.jsonl
-```
+<Frame caption="Every layer of the desk, and the plain files the agent drives">
+  <img src="/images/marketforge/architecture.svg" alt="Market Forge architecture" />
+</Frame>
 
 That is the whole contract. It is why the copilot is not locked to one vendor: if your
 agent can read and write files and make local HTTP calls, it can drive this desk.
