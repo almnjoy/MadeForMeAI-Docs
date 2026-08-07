@@ -63,6 +63,32 @@ order, so on a thin name in a fast drop the fill can be worse than the stop leve
 The alternative mode is a fixed bracket: take-profit and stop-loss attached at entry.
 Set `RADAR_AUTO_EXIT=bracket` if you prefer defined targets to a trailing exit.
 
+### Three layers, because one was not enough
+
+A trailing stop can only be armed against a position that exists, so arming waits on the
+fill. That gap is where a position can end up naked, and it is exactly what happened
+once on a real account here: the buy went in, the fill was slow, the arming attempt gave
+up, and the position sat overnight with no stop.
+
+So arming now runs on three layers:
+
+| Layer | When | What it does |
+| --- | --- | --- |
+| Inline poll | at order time, ~18 seconds | arms the trail the moment the fill confirms |
+| Watcher | up to 6 hours, survives a restart | the order is written to disk with its trail; whenever it fills, the trail arms |
+| Sweep | every 30 seconds | scans open positions and flags anything with no working exit |
+
+Send an order pre-market and you will see the first layer fail, on purpose: there is
+nothing to arm against until the bell. The watcher has it logged, and it arms at the
+open. That exact sequence is the last beat of the
+[walkthrough, at 5:56](https://youtu.be/y60QIhaU3Vk?t=357).
+
+<Warning>
+The ORDERS list in the app reads a local ledger and is blind to stops placed broker-side.
+`GET /api/broker/orders` and the unprotected banner are the truth. If the banner is red,
+something is open with no exit, and that is the one alarm worth stopping for.
+</Warning>
+
 ## Going live
 
 Live trading is off by default and takes deliberate steps.
@@ -104,6 +130,6 @@ into the scorer as lessons.
 ## What Market Forge will never do
 
 - Enable live trading on its own
-- Place a trade the copilot was not explicitly told to place
+- Let the chat copilot press send - it stages the ticket, you confirm it, no exceptions
 - Send your keys anywhere - they live in `bot/.env` on your disk
 - Hide what it did - every action lands in the journal

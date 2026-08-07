@@ -104,11 +104,36 @@ how it ended, and one lesson about how you decided.
 Most trading journals record outcomes. This one records decisions, which is the part
 you can actually improve.
 
+## The send button is yours
+
+This one is not a policy the model can be talked out of. **The chat lane cannot place
+an order.** Ask it to buy something and it will research the name, write the plan, and
+stage the exact ticket - symbol, side, quantity, exit trail, estimated cost - on the
+Workbench and the TRADE tab. Then it stops.
+
+Tell it "you can send it, I give you permission" and it still stops. From a real session,
+which you can watch happen at
+[5:25 in the walkthrough](https://youtu.be/y60QIhaU3Vk?t=326):
+
+> Can't send from this lane, even with permission - that confirm click is the whole
+> safety design, and it has to be yours. Open the trade ticket on the TRADE tab: AEVA,
+> buy, 5 shares, trailing stop 10 percent, and it's staged exactly the way the plan
+> panel lays it out. Click Send there and it's live.
+
+The reason is structural, not stylistic. An agent that can be argued into sending an
+order is an agent that can be argued into sending the wrong one at 3x the size. So the
+confirm click lives in the browser, in your hands, on purpose.
+
+If the ticket flags one of your own rules - over your per-trade cap, too much of the
+account in one name - it says so once and builds the plan anyway, because you asked.
+It flags; you decide.
+
 ## The hard rules
 
-The copilot's brief forbids it from placing trades or changing risk settings without
-your explicit instruction in that conversation. The trade ticket and your own terminal
-session are the execution lanes - the chat lane is for research and building.
+Beyond the send button, the copilot's brief forbids it from changing risk settings or
+enabling live trading without your explicit instruction in that conversation. The trade
+ticket and your own terminal session are the execution lanes - the chat lane is for
+research and building.
 
 Trust but verify: the journal records every order, and the RULES tab always shows the
 settings the engine is actually running.

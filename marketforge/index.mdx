@@ -32,14 +32,64 @@ Every entry the bot takes is capped, verified, and carries an exit before it exi
 
 ## See it move
 
-<iframe
+<video
   className="w-full aspect-video rounded-xl"
-  src="https://www.youtube.com/embed/Q2wnAheNqRw"
-  title="Market Forge - your AI trading desk"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-  allowFullScreen
+  src="https://madeformeai.com/marketforge/demo-2026-08-07.mp4"
+  poster="https://madeformeai.com/marketforge/demo-poster-2026-08-07.png"
+  controls
+  playsInline
+  preload="metadata"
 />
+
+Two minutes, cut from one real pre-market session on a real $1,000 account. Nothing
+staged, nothing re-shot.
+
+<CardGroup cols={2}>
+  <Card title="The short cut (2 min)" icon="youtube" href="https://youtu.be/3jalTccK5eg">
+    Same video, on YouTube: the brief, the plan, the staged ticket, the refusal.
+  </Card>
+  <Card title="The whole session (6 min)" icon="youtube" href="https://youtu.be/y60QIhaU3Vk">
+    Unscripted and chaptered, including the parts where the agent is just thinking.
+  </Card>
+</CardGroup>
+
+## What a session actually looks like
+
+The demo above is the honest shape of a morning, and it is worth reading before you
+install anything:
+
+<Steps>
+  <Step title="You ask for the brief">
+    One request, spoken or typed. The desk, the charts and the broker all get driven
+    from it.
+  </Step>
+  <Step title="It reports state, not vibes">
+    What changed since last time, which positions are protected, what the radar found,
+    and what it scored. On the day this was filmed the radar had exactly one name, the
+    model scored it 18, called it noise, and told him to skip.
+  </Step>
+  <Step title="You point it at a name">
+    It pulls the chart into your own browser, then writes the read: what actually moved
+    the stock, the levels that matter, and whether the name is even inside your sizing.
+  </Step>
+  <Step title="It writes the plan and stages the ticket">
+    Zones to buy, a no-touch level, the exact order with a trailing stop, and the dollar
+    risk. If the plan breaks one of your own rules it says so once, then builds it anyway
+    because you asked.
+  </Step>
+  <Step title="You press send">
+    It will not. See [the copilot](/marketforge/copilot#the-send-button-is-yours).
+  </Step>
+  <Step title="The exit gets armed">
+    On a fill the trailing stop arms immediately. On a slow fill a watcher arms it late,
+    and a sweep flags anything still unprotected. See
+    [rules and risk](/marketforge/rules-and-risk#exits-and-why-trailing).
+  </Step>
+</Steps>
+
+Every step above is a chapter in the
+[6 minute walkthrough](https://youtu.be/y60QIhaU3Vk), if you would rather watch it than
+read it.
 
 ## The flow, in plain English
 
