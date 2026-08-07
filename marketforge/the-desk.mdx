@@ -90,6 +90,31 @@ kills the turn and silences the voice instantly.
 
 See [the copilot](/marketforge/copilot) for the full picture.
 
+## SAVED
+
+Every board you save, as a clickable tile. Opening one reads it in an overlay
+without disturbing the live Workbench, and you can copy it back onto the desk
+when you want it again.
+
+## ADMIN
+
+Read-only, on purpose. No controls anywhere - it answers "what is in place",
+nothing more. Sub-tabbed so it is not a wall:
+
+| | |
+|---|---|
+| **Status** | uptime, every AI lane and the model it uses, live trading state |
+| **Rules** | the engine's actual risk gates, and `RULES.md` |
+| **Usage** | what the copilot has cost, measured from the CLI's own reporting, by model and by day |
+| **Files** | the files that really govern behaviour, with sizes and last-changed |
+| **Activity** | the journal feed |
+| **Appearance** | pick a skin, and see which voice is configured |
+
+Four skins ship: **forge** (the default, dark and warm), **vault** (near-black,
+numbers-first), **tape** (amber terminal) and **broadsheet** (light, for a bright
+room). Your choice is remembered per machine, and panels follow the app - a board
+built in one skin reads correctly in all of them.
+
 ## Things that are easy to miss
 
 <AccordionGroup>

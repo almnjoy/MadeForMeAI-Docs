@@ -1,15 +1,39 @@
 ---
 title: "Install"
-description: "One line, an AI agent, or by hand - then your first launch"
+description: "Download the app, one line, an AI agent, or by hand"
 ---
 
-Three ways in. They all end at the same place: the desk open at `localhost:8410` in
-paper mode.
+Every route ends at the same place: the desk open in paper mode, with your keys on
+your own machine.
+
+## One codebase, two ways to install it
+
+There is no "app version" and "open-source version" - the app **is** the repo,
+built. Same code, same MIT licence, same features.
+
+| | What you do | Platform |
+|---|---|---|
+| **The app** | download, unzip, double-click | **Windows** |
+| **From source** | clone and run it | Windows, macOS, Linux |
+
+Windows-only for the download is a property of the build tool, not a decision:
+PyInstaller builds for the operating system it runs on. Nothing is missing on
+macOS or Linux, you just install it the developer way.
 
 <Note>
-Check [what you need](/marketforge/requirements) first. Short version: Python 3.10+,
-git, and free Alpaca paper keys.
+The Windows app is being packaged now. Until the first release lands, use one of
+the source options below - they are what the app runs internally anyway.
 </Note>
+
+## Option 0: the app (Windows)
+
+Grab the newest `MarketForge-win64.zip` from
+[Releases](https://github.com/almnjoy/MarketForge/releases/latest), unzip it
+anywhere, and run `MarketForge.exe`. No Python, no terminal, no git.
+
+First launch walks you through your Alpaca paper keys. It ships in paper mode with
+auto-trading off, and going live is a deliberate, separate act - see
+[rules and risk](/marketforge/rules-and-risk).
 
 ## Option 1: one line
 

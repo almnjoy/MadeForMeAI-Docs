@@ -1,0 +1,76 @@
+---
+title: "TradingView"
+description: "Steer your chart by voice, and let an AI actually look at it"
+---
+
+Market Forge does not try to be a charting package. TradingView is thousands of
+engineer-years ahead and it is free. What Market Forge adds is the ability to
+**drive** it and to **read** it.
+
+<Note>
+Entirely optional. Skip this page and everything else still works.
+</Note>
+
+## What you get
+
+Say *"pull up AMWL on the daily"* and your actual TradingView chart moves. Ask
+what the chart looks like, and the desk captures it to a PNG that an AI agent can
+open and describe.
+
+That second half is the interesting one. It turns a question you can only answer
+with your eyes into **a file**, which any image-capable agent can read.
+
+## Setup
+
+1. Have TradingView open in a browser (a free account is fine).
+2. Run **`run-tradingview.bat`**. It opens Chrome with the DevTools protocol on
+   port 9222, using its own profile.
+3. Log in to TradingView once in that window.
+
+<Warning>
+The separate Chrome profile is load-bearing. Without it, Chrome hands the URL to
+your already-running browser and silently ignores the debug flag, and nothing
+works with no error to explain why.
+</Warning>
+
+**The TradingView desktop app will not work.** It ships from the Microsoft Store
+as a packaged app, so it cannot accept the debugging flag and its install
+directory is locked. Use the browser.
+
+## Using it
+
+Just talk to the copilot:
+
+```text
+pull up AMWL on the daily
+show me SPY on the 15 minute
+chart NVDA and tell me what you see
+```
+
+Or call it directly:
+
+| | |
+|---|---|
+| `POST /api/tv/open` | `{symbol, interval}` - `1m 5m 15m 30m 1h 4h 1d 1w` |
+| `POST /api/tv/shot` | capture to `tv-shots/`, returns a `web_path` |
+| `GET /api/tv/status` | is the debug browser up, is TradingView open |
+
+Captures are servable, so a panel can show one next to its notes:
+
+```html
+<img src="/api/shot?name=tv-20260806-111920.png">
+```
+
+## What it deliberately does not do
+
+No drawing tools, no indicator manipulation, no reading TradingView's internal
+chart state. Symbol and interval travel in the URL, which is public and stable.
+Everything beyond that would mean reverse-engineering their internals, which
+breaks on their next release and is not a foundation worth building on.
+
+## Going the other way
+
+TradingView alerts can POST to a webhook. Pointing them at Market Forge would make
+their alert engine another radar input, running through the same verification and
+the same risk gates as everything else. Their charting, your discipline. Not built
+yet, but the shape is right.
