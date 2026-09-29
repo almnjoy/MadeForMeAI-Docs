@@ -1,54 +1,38 @@
 ---
-title: "Chat App"
-description: "Talk to your agent in a full chat workspace on its own page, the Chat tab."
+title: "Chat"
+description: "The Chat tab: type, watch the reply stream in, and open results as cards."
 ---
 
-Talk to your agent in a full chat workspace on its own page, the Chat tab. You type, the reply streams in word by word, and any result the agent produces (a chart, a document, a search, a CRM lookup) lands as an inline artifact card you can expand into a side panel. Small chips under each reply show which tools ran and suggest a sensible next step. Reads run immediately. Writes queue for your approval, the same as on the Canvas.
+Chat is the conversation view of your assistant, on its own tab. You type, the reply streams in word by word, and any result the assistant produces (a chart, a document, a search, a CRM lookup) lands as a card you can open in a side panel. It is the same assistant as the Canvas, with the same memory and the same approval gate.
 
-## HOW TO SETUP
+For a walkthrough, see [Your first chat](/guides/3-your-first-chat).
 
-1. Open MindMap -> Admin (marketplace) -> the Chat card.
-2. Flip Enable on. It applies on your next message, no restart.
-3. Open the Chat tab and start typing.
+## Turning it on
 
-No key. Nothing to paste. Chat runs on the agent you already have.
+Chat is a card in the marketplace. Open **Admin**, find the **Chat** card, and flip **Enable** on. It applies on your next message. There is no key to paste. If you want Chat to pull from a CRM, email, or another connector, set those up on their own cards first. See [Connect an app](/guides/5-connect-an-app).
 
-## WHAT USER NEEDS TO GET
+## How it works
 
-Nothing. Chat uses your existing agent, persona, and connected tools. If you want it to pull from a CRM, email, or another connector, set those up in their own marketplace cards first.
+- Replies stream in as they are written, so you see the answer forming.
+- Results render as cards (chart, document, search, lookup). Click a card to open it in a side panel for a wider view.
+- Tool chips under a reply show which tools the assistant used. Follow-up chips offer a likely next step you can click instead of typing.
+- Reads run on their own. Writes queue and only fire after you approve. The assistant never sends or changes anything on its own. See [Approving what the AI does](/guides/9-approving-what-the-ai-does).
+- You can launch Skills from the Chat page, and you can talk to the assistant by voice.
+- On a phone, Chat is the surface you land on.
 
-## HOW IT WORKS
+## Examples
 
-- It is the same agent as the Canvas, with the same approval gate. Reads run immediately, writes queue and only fire after you approve. The agent never sends or changes anything on its own.
-- Replies stream in as they are written, so you see the answer forming instead of waiting for the whole thing.
-- Results render as inline artifact cards (chart, document, search, lookup). Click a card to open it in a side panel for a wider view.
-- Tool chips show which tools the agent used on a reply. Follow-up chips offer a likely next step you can click instead of typing.
-- The conversation stays put when you navigate to another tab and come back. Clear wipes it.
-- You can launch Skills from the Chat page, and you can talk to the agent by voice inline.
-- Keys for any connected tools are saved write-only to your box, never shown back to the browser, never in the code. Edit them in Admin and they apply live.
+- "what's my newest lead": a read, runs on the spot
+- "chart last quarter's revenue": a read, drops a chart card
+- "make a one-page brief on X": a read, drops a document card
+- "draft a follow-up email to them": a write, queued for your approval
 
-## WHAT CAN BE CALLED VIA AI
+## History and Clear
 
-Anything your agent can do shows up here. For example:
+Your conversation stays put when you move to the Canvas or another tab and come back. History is saved in the browser you are using, so a different browser or device starts a fresh conversation. There is no synced cross-device history. Your memory is shared across all of them. See [How memory works](/understanding/how-memory-works).
 
-- "what's my newest lead": runs immediately (read)
-- "chart last quarter's revenue": runs immediately (read), drops a chart card
-- "make a one-page brief on X": runs immediately (read), drops a document card
-- "draft a follow-up email to them": queued for approval (write)
+<Warning>**Clear** wipes the current conversation. There is no undo and no archive of cleared conversations.</Warning>
 
-## LIMITATIONS
+## Chat or Canvas
 
-- Chat is the linear conversation surface. For a visual board where tiles stay arranged and savable, use the Canvas. The two run side by side on the same agent.
-- Chat history is saved per browser. Open Chat in a different browser or on another device and you start a fresh conversation. There is no synced cross-device history.
-- Clear is permanent. There is no undo and no archive of cleared conversations.
-- On a phone, Chat is the default surface and the Canvas takes a back seat.
-
-## FAQ
-
-**Is this a different agent from the Canvas?** No, it is the same agent with the same persona, tools, and approval gate. Chat and Canvas are two surfaces over one agent. A write you approve in Chat is the same kind of action you would approve on the Canvas.
-
-**Does my conversation sync across my devices?** No. Chat history is saved in the browser you are using. Switch browsers or devices and you get a new conversation, your earlier chat stays on the first browser.
-
-**Can the agent send an email or change a record on its own?** No. Writes queue for your approval and fire only after you approve them. Reads run on their own.
-
-**What happens to my chat when I switch tabs?** It stays. Move to the Canvas or another page and come back, and your conversation is still there. Clear is the only thing that wipes it.
+Use Chat for a plain back-and-forth. Use the Canvas when you want answers as tiles you can arrange and keep. Same assistant, same keys, same memory behind both, so switch whenever you want. A write you approve in Chat is the same kind of action you would approve on the Canvas.

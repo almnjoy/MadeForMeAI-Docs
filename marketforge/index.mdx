@@ -1,16 +1,18 @@
 ---
 title: "What is Market Forge?"
-description: "An open-source AI trading desk that runs on your machine, with your keys"
+description: "An open-source AI trading desk that runs on your machine, with your keys on your disk"
 ---
 
-Market Forge is a **local trading desk with an AI copilot sitting next to you**.
+Market Forge is a **local trading desk with an AI copilot in the seat next to you**.
 
-A scanner engine hunts catalyst-driven movers and checks its own numbers against the
-live tape. A dashboard shows you the desk. And a coding agent drives that desk while
-you talk to it, building panels, answering questions, and replaying your trading day.
+A scanner engine finds catalyst-driven movers, verifies every number against the live
+tape, scores them signal-vs-noise, and enforces hard risk gates. A dashboard shows you
+the desk. A coding agent (Claude Code, Codex, any of them) drives that desk through
+plain files: you talk, by voice or chat, and it builds boards, replays your trading day,
+and honors your standing rules on every turn.
 
-It runs on your computer. Your broker keys stay in a file on your disk. It ships in
-paper mode with auto-trading switched off.
+It runs on your computer. Your broker keys never leave it. It ships in paper mode with
+auto-trading switched off.
 
 <CardGroup cols={2}>
   <Card title="Install it" icon="download" href="/marketforge/install">
@@ -23,12 +25,9 @@ paper mode with auto-trading switched off.
 
 ## Why it exists
 
-It was built by a network engineer learning swing trading who kept watching the same
-two mistakes happen: chasing a move that already happened, and holding a winner until
-it round-tripped.
-
-Both are discipline problems. So the discipline went into code instead of willpower.
-Every entry the bot takes is capped, verified, and carries an exit before it exists.
+It was built by a network engineer learning swing trading who wanted his discipline
+in code, not in willpower. Every entry the bot takes is capped, verified, and carries
+an exit before it exists.
 
 ## See it move
 
@@ -41,30 +40,25 @@ Every entry the bot takes is capped, verified, and carries an exit before it exi
   allowFullScreen
 />
 
-Three videos, in the order they are worth watching. The player above starts on the first
-and the rest are in the same playlist.
+Three videos, in the order to watch them. The player above starts on the first and the
+rest are in the same playlist.
 
 <CardGroup cols={3}>
-  <Card title="The tour - 1:40" icon="play" href="https://youtu.be/Q2wnAheNqRw">
-    What the desk is and what every tab does, narrated end to end in one take.
+  <Card title="The tour, 1:40" icon="play" href="https://youtu.be/Q2wnAheNqRw">
+    What the desk is and what every tab does, narrated end to end.
   </Card>
-  <Card title="It will not press send - 2:19" icon="hand" href="https://youtu.be/3jalTccK5eg">
+  <Card title="It will not press send, 2:19" icon="hand" href="https://youtu.be/3jalTccK5eg">
     Two minutes from a real pre-market session: the brief, the plan, the staged ticket,
     and the refusal.
   </Card>
-  <Card title="A live trade - 6:27" icon="chart-line" href="https://youtu.be/y60QIhaU3Vk">
-    The whole unscripted session the short cut came from, chaptered. Real account,
-    real order.
+  <Card title="A live trade, 6:27" icon="chart-line" href="https://youtu.be/y60QIhaU3Vk">
+    The whole session the short cut came from, chaptered. Real account, real order.
   </Card>
 </CardGroup>
 
-The two session videos are one morning on a real $1,000 account. Nothing staged,
-nothing re-shot.
+## What a session looks like
 
-## What a session actually looks like
-
-The demo above is the honest shape of a morning, and it is worth reading before you
-install anything:
+The shape of a morning, worth reading before you install anything:
 
 <Steps>
   <Step title="You ask for the brief">
@@ -73,12 +67,12 @@ install anything:
   </Step>
   <Step title="It reports state, not vibes">
     What changed since last time, which positions are protected, what the radar found,
-    and what it scored. On the day this was filmed the radar had exactly one name, the
-    model scored it 18, called it noise, and told him to skip.
+    and what it scored. On the day this was filmed the radar had one name, the model
+    scored it 18, called it noise, and said skip.
   </Step>
   <Step title="You point it at a name">
-    It pulls the chart into your own browser, then writes the read: what actually moved
-    the stock, the levels that matter, and whether the name is even inside your sizing.
+    It pulls the chart into your own browser, then writes the read: what moved the
+    stock, the levels that matter, and whether the name is inside your sizing.
   </Step>
   <Step title="It writes the plan and stages the ticket">
     Zones to buy, a no-touch level, the exact order with a trailing stop, and the dollar
@@ -96,8 +90,7 @@ install anything:
 </Steps>
 
 Every step above is a chapter in the
-[6 minute walkthrough](https://youtu.be/y60QIhaU3Vk), if you would rather watch it than
-read it.
+[6 minute walkthrough](https://youtu.be/y60QIhaU3Vk).
 
 ## The flow, in plain English
 
@@ -130,8 +123,8 @@ an exit the moment it fills. Details in [rules and risk](/marketforge/rules-and-
 <Steps>
   <Step title="The engine">
     Pulls the day's biggest movers, re-verifies every percentage against real price
-    bars and the live tape, scores each one signal-vs-noise with an LLM, and applies
-    hard risk gates before anything can trade.
+    bars and the live tape, scores each one signal-vs-noise, and applies hard risk
+    gates before anything can trade.
   </Step>
   <Step title="The dashboard">
     A single screen: account, catalyst radar, Reddit chatter, live charts, your rules,
@@ -153,8 +146,8 @@ Trading involves substantial risk of loss. Live trading is off until you turn it
 yourself, and it starts hard-capped.
 </Warning>
 
-It also does not replace your broker. Alpaca stays your broker; Market Forge is the
-desk you sit at. Most people keep the Alpaca window open beside it.
+It does not replace your broker. Alpaca stays your broker; Market Forge is the desk
+you sit at.
 
 ## Where to go next
 
@@ -174,4 +167,4 @@ desk you sit at. Most people keep the Alpaca window open beside it.
 </CardGroup>
 
 The source lives at [github.com/almnjoy/MarketForge](https://github.com/almnjoy/MarketForge)
-(MIT licensed). Questions and setups: [Discord](https://discord.gg/JE8TEYZp2f).
+(MIT licensed). Questions: email support@madeformeai.com.

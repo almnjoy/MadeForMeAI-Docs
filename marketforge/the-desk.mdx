@@ -3,10 +3,10 @@ title: "Tour the desk"
 description: "What every tab does, and the parts that are easy to miss"
 ---
 
-One screen, seven tabs. Here is what each one is for. Every screenshot below is a frame
-from one real session, so what you see is what a morning actually looks like. Same
-session on video: [6 minutes, chaptered](https://youtu.be/y60QIhaU3Vk), or
-[2 minutes](https://youtu.be/3jalTccK5eg) if you just want the shape of it.
+One screen, nine tabs. This page says what each one is for. Every screenshot below is a
+frame from one real session. Same session on video:
+[6 minutes, chaptered](https://youtu.be/y60QIhaU3Vk), or
+[2 minutes](https://youtu.be/3jalTccK5eg) for the shape of it.
 
 <Frame caption="OVERVIEW - and the banner it puts up when something is open with no working exit">
   <img src="/images/marketforge/overview.png" alt="Market Forge overview" />
@@ -23,7 +23,7 @@ Type any symbol into the chart box to switch it.
 
 If anything is open without a working sell order, a red banner sits above all of it with
 an **Arm trail** button. That is the one thing on this screen you should never scroll
-past - see [rules and risk](/marketforge/rules-and-risk#exits-and-why-trailing).
+past. See [rules and risk](/marketforge/rules-and-risk#exits-and-why-trailing).
 
 ## CATALYST_RADAR
 
@@ -36,8 +36,8 @@ The core. Each card is a stock that moved, with:
 - The **verified** percentage move. The screener's number is never trusted directly:
   it is recomputed from real daily bars and the live tape, and if the real move does
   not clear the bar, the card is dropped entirely.
-- A **conviction score** (0-100) and a **signal** or **noise** verdict from the LLM,
-  with a one-line reason.
+- A **conviction score** (0-100) and a **signal** or **noise** verdict from your
+  coding agent, with a one-line reason.
 - **Live "now versus alert"** so you can see whether the move followed through or
   faded since the bot flagged it.
 - The source headline, the catalyst type, and a discipline note.
@@ -90,8 +90,7 @@ Pick a day and you see the timeline; press **Replay this day** and the copilot
 reconstructs it: what fired, what you took, what you skipped, and one lesson about
 your process.
 
-It is git history for your trading decisions, and it is worth more than the P/L
-number after a few weeks.
+It is git history for your trading decisions.
 
 ## COPILOT
 
@@ -136,7 +135,7 @@ built in one skin reads correctly in all of them.
   <Accordion title="Ctrl+K opens a command palette" icon="keyboard">
     Type `chart amd`, `trade nvda`, `re-scan`, `save board`, `clear board`,
     `morning brief`, `hot mic`, or a saved board's name. Anything the palette does not
-    recognise gets sent to the copilot as a message - so it is one box for the whole
+    recognise gets sent to the copilot as a message, so it is one box for the whole
     app.
   </Accordion>
   <Accordion title="The hot mic works from any tab" icon="microphone">

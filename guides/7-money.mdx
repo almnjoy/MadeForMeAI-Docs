@@ -1,0 +1,53 @@
+---
+title: "Money"
+description: "See your Stripe revenue and your bank balances in MindMap. Read-only, nothing moves money."
+---
+
+When you finish this page the **Money** page shows your Stripe revenue, your bank, credit, and investment balances, and a net worth number, and the assistant can answer "how much cash do I have." Everything here is read-only. Nothing moves money.
+
+<iframe
+  width="100%"
+  style={{ aspectRatio: "9 / 16", maxWidth: "340px", borderRadius: "12px" }}
+  src="https://www.youtube.com/embed/8udRwjU4a44"
+  title="MindMap Money demo"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+Stripe and Plaid are independent. Set up one or both. Stripe needs a key from you. Plaid is managed for you, so there are no Plaid keys to enter. You only link your bank.
+
+<Steps>
+  <Step title="Get a read-only Stripe key">
+    In Stripe, open **Developers**, then **API keys**. Create a **restricted key** with read access only: Balance read, Charges read, Payouts read. A read-only key can never move money.
+    Skip this step if you only want bank balances.
+  </Step>
+  <Step title="Open the Money card">
+    In MindMap, open **Admin** and click the **Money** card.
+  </Step>
+  <Step title="Paste the Stripe key and Save">
+    Paste the key into the **Stripe secret key** box and click **Save**. The box is write-only. The key is never shown back to you.
+  </Step>
+  <Step title="Flip Enable on">
+    It applies on your next message. No restart.
+  </Step>
+  <Step title="Link a bank">
+    Open the **Money** page and click **Connect a bank**. Log in to your bank in the window that opens. Repeat for each bank you want to see.
+  </Step>
+  <Step title="Ask the assistant">
+    In **Chat**, try "what's my cash position," "what's my net worth," or "what's pending in Stripe." Whichever side you set up is what comes back.
+  </Step>
+</Steps>
+
+<Note>
+Net worth is cash plus investments minus credit, across every bank you linked. Balances are cached, not live to the second. They are fine for a cash position, not for trading numbers.
+</Note>
+
+The Money page is a live board, so its numbers refresh every time you open it. Ask "show me the money tile" to drop the same numbers on the Canvas.
+
+## If this fails
+
+- Plaid shows nothing -> you have not linked a bank yet. Open the **Money** page and click **Connect a bank**.
+- Stripe shows nothing -> the key is missing or wrong. Paste it into the Money card again and click **Save**.
+- Transactions are empty for one account -> that bank's link does not include transactions. Balances still work.
+- Still stuck: email support@madeformeai.com with a screenshot and the time it happened.

@@ -1,0 +1,83 @@
+---
+title: "When something breaks"
+description: "What to do when you cannot log in, the assistant seems to forget you, a reply stalls, or a feature is missing."
+---
+
+When you finish this page you have matched what you see to a cause and worked through the fix. Most of these are a normal pause or a setting that is off, not a fault.
+
+## Can't log in
+
+**You keep landing back on the login page.**
+
+<Steps>
+  <Step title="Close the tab and open madeformeai.com fresh">
+    A half-finished session is the most common cause of a loop.
+  </Step>
+  <Step title="Use a normal browser window">
+    MindMap needs cookies to hold your session. Private or incognito windows and strict cookie blockers break it.
+  </Step>
+  <Step title="Sign out fully, then sign in again">
+    Use **Sign out** in the header, close the tab, then go to madeformeai.com and sign in with the same Google, GitHub, Microsoft, or Discord account, or request a new magic link.
+  </Step>
+</Steps>
+
+**You were in, and later it sent you back to the login page.** Your session expired. Sign in again. Nothing is lost. See [Log in](/guides/1-log-in).
+
+## The assistant forgot me
+
+**It acts like it is meeting you for the first time.** Memory is shared across your whole workspace and is not tied to one chat. An empty-looking chat means that thread has no history yet, not that memory is gone.
+
+<Steps>
+  <Step title="Ask about something you saved">
+    Type "what do you remember about me?" If it answers, memory is intact.
+  </Step>
+  <Step title="Check where you are">
+    Chat, the Canvas, and any Spaces each keep their own conversation history. Switch back to the one you were working in.
+  </Step>
+  <Step title="Save what matters">
+    Tell it plainly: "Remember that I'm the ops lead and I prefer short replies." To fix a wrong fact, say so the same way. See [How memory works](/understanding/how-memory-works).
+  </Step>
+</Steps>
+
+## Slow or stuck
+
+**It paused on a tool chip.** That is the assistant working, not freezing. Give it 10 to 30 seconds. A web search or a slow connector can take longer. See [Tool calls](/understanding/tool-calls).
+
+**It looks done but nothing was sent or changed.** The write is waiting for you. Find the approval card and click **Approve** or **Reject**. See [Approving what the AI does](/guides/9-approving-what-the-ai-does).
+
+**It has been over a minute with nothing.**
+
+<Steps>
+  <Step title="Stop the run if you want it to halt">
+    Use the **Stop** control on the active message. If a write is queued, **Reject** it so it never runs. Stopping does not undo anything already approved.
+  </Step>
+  <Step title="Refresh and resend">
+    Reload the page and send your message again. A long task can drop its stream, and resending picks it back up.
+  </Step>
+  <Step title="Check your connection">
+    Replies stream from the cloud to your browser. A slow or dropped connection looks like a slow assistant.
+  </Step>
+  <Step title="Break up a big request">
+    Split one sprawling ask into smaller steps and send the first one.
+  </Step>
+</Steps>
+
+**The reply cut off partway.** Type "continue" and it resumes where it left off.
+
+**Typing does nothing at all.** Hard refresh the page (Ctrl+Shift+R on Windows, Cmd+Shift+R on Mac). If that does not help, clear your browser cache, then try a different browser.
+
+## Common issues
+
+**A feature or app is not showing up.** Features are off until they are enabled. Open **Admin**, find the card, and flip **Enable** on. It applies on your next message. See [Connect an app](/guides/5-connect-an-app).
+
+**A connector says it needs a key or will not run.** Its key is missing, expired, or was rotated on the other side. Open the connector's card in **Admin**, paste a fresh key, and click **Save**. Its tools work again on your next message.
+
+**The assistant cannot see files on your computer.** MindMap runs in the cloud, not on your machine. Upload the file into the chat with the attachment button, or connect a cloud source like Google Drive from the marketplace. See [Cloud, not local](/understanding/cloud-not-local).
+
+**The assistant stopped with an error about the model, credits, or a key.** You did nothing wrong. The key behind the AI needs more credit. Email support and say what the error said.
+
+## If this fails
+
+- You have tried the steps above and the same symptom comes back -> note the exact time it happened and what you saw (a stuck chip, a pending approval, a login loop, or a frozen chat).
+- The problem is a missing feature or a connector key -> say which card it is so it can be checked on your account.
+- Still stuck: email support@madeformeai.com with a screenshot and the time it happened.

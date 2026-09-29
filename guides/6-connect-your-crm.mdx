@@ -1,0 +1,56 @@
+---
+title: "Connect your CRM (Twenty)"
+description: "Link your Twenty CRM so the assistant can read your pipeline, and get the Sales, Clients, Client-360, and Activity pages."
+---
+
+When you finish this page MindMap reads your live pipeline, people, and companies from Twenty. You get a **Sales** page you can drag deals on, and the assistant can find and move deals from Chat.
+
+<Steps>
+  <Step title="Get an API key from Twenty">
+    In Twenty, open **Settings**, then **API & Webhooks**, and generate an API key. It is a long token. Copy it.
+  </Step>
+  <Step title="Note your Twenty URL">
+    This is the base address of your Twenty workspace, like `https://crm.yourcompany.com`, or your Twenty Cloud workspace address.
+  </Step>
+  <Step title="Open the Twenty CRM card">
+    In MindMap, open **Admin** and click the **Twenty CRM** card.
+  </Step>
+  <Step title="Paste the URL and the key">
+    Paste your **Twenty API URL** and your **Twenty API key** into their boxes and click **Save** on each.
+    The boxes are write-only. The key is never shown back to you after you save it.
+  </Step>
+  <Step title="Flip Enable on">
+    It applies on your next message. The **Sales** page appears in the left menu.
+  </Step>
+  <Step title="Ask about your pipeline">
+    Open **Chat** and try "show my sales pipeline" or "find the lead for Acme." These are reads and run on the spot.
+  </Step>
+  <Step title="Move a deal">
+    Drag a card to a new column on the **Sales** page and the stage change writes straight to Twenty.
+    Or ask "move Acme to Proposal Sent." The assistant queues an approval first. Click **Approve** and it writes the stage.
+  </Step>
+</Steps>
+
+## The CRM pages
+
+The pages build themselves from your own Twenty setup. MindMap reads your fields, their types, and your stage names, so rename a stage or add a field and the pages follow. You do not lay anything out.
+
+- **Sales** is your pipeline by stage, the board you drag cards on.
+- **Clients** is the list of everyone in your book, with the columns that matter to you.
+- **Client-360** is one profile per client: details, files, notes, and history in one place.
+- **Activity** is the running feed of what happened, grouped by the kinds of activity you track.
+
+With editing turned on, you can change a field on a Client-360 profile and it writes back to Twenty, and the profile can carry one-click action buttons for things you do often, like a welcome or a check-in email. Every one of these writes goes through the approval gate. Only the fields set as editable can be changed, and only the buttons set up for your account appear.
+
+<Note>
+The Sales page and stage moves work as soon as you connect. Clients, Client-360, Activity, inline editing, and action buttons are switched on per account. Email support@madeformeai.com to have yours turned on and to choose the editable fields and buttons.
+</Note>
+
+MindMap reads Twenty's standard objects: Opportunities, People, and Companies. Every default Twenty workspace has these. This connection reads your pipeline and writes stage moves and inline edits. It does not create leads or send email on its own.
+
+## If this fails
+
+- The pipeline comes back empty -> check the URL and the key on the Twenty CRM card and click **Save** again. If your Twenty has renamed or deleted the standard Opportunities, People, or Companies objects, the queries will not find them.
+- The Sales page is missing from the left menu -> the card is not enabled. Flip **Enable** on and send one message.
+- A drag on the Sales page did not stick -> refresh the page. If it still shows the old stage, the key may have expired. Generate a new one in Twenty and paste it in.
+- Still stuck: email support@madeformeai.com with a screenshot and the time it happened.

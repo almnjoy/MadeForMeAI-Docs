@@ -3,9 +3,8 @@ title: "TradingView"
 description: "Steer your chart by voice, and let an AI actually look at it"
 ---
 
-Market Forge does not try to be a charting package. TradingView is thousands of
-engineer-years ahead and it is free. What Market Forge adds is the ability to
-**drive** it and to **read** it.
+Market Forge is not a charting package. It can **drive** your TradingView chart by
+voice and **read** it by capturing a screenshot an AI agent can look at.
 
 <Note>
 Entirely optional. Skip this page and everything else still works.
@@ -17,8 +16,8 @@ Say *"pull up AMWL on the daily"* and your actual TradingView chart moves. Ask
 what the chart looks like, and the desk captures it to a PNG that an AI agent can
 open and describe.
 
-That second half is the interesting one. It turns a question you can only answer
-with your eyes into **a file**, which any image-capable agent can read.
+That second half turns a question you can only answer with your eyes into **a
+file**, which any image-capable agent can read.
 
 ## Setup
 
@@ -39,7 +38,7 @@ directory is locked. Use the browser.
 
 ## Using it
 
-Just talk to the copilot:
+Talk to the copilot:
 
 ```text
 pull up AMWL on the daily
@@ -65,12 +64,5 @@ Captures are servable, so a panel can show one next to its notes:
 
 No drawing tools, no indicator manipulation, no reading TradingView's internal
 chart state. Symbol and interval travel in the URL, which is public and stable.
-Everything beyond that would mean reverse-engineering their internals, which
-breaks on their next release and is not a foundation worth building on.
-
-## Going the other way
-
-TradingView alerts can POST to a webhook. Pointing them at Market Forge would make
-their alert engine another radar input, running through the same verification and
-the same risk gates as everything else. Their charting, your discipline. Not built
-yet, but the shape is right.
+Everything beyond that would depend on TradingView internals that change between
+releases.

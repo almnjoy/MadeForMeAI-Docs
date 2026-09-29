@@ -1,56 +1,60 @@
 ---
 title: "FAQ"
-description: "Questions people actually ask about MindMap, answered plainly."
+description: "Common questions about MindMap, answered plainly."
 ---
 
 <AccordionGroup>
 
   <Accordion title="Do I need to know anything about AI to use this?">
-    No. If you can text a friend or send an email, you can use MindMap. Type what you need in plain words, like you are talking to a person. Nothing technical to set up or figure out.
+    No. If you can text a friend or send an email, you can use MindMap. Type what you need in plain words, like you are talking to a person. See [Your first chat](/guides/3-your-first-chat).
   </Accordion>
 
   <Accordion title="Is MindMap a search engine or an assistant?">
-    An assistant. A search engine hands you a list of links and forgets you the moment you close the tab. MindMap is your own agent. It remembers your context, uses the tools you connect, and does the work, not the looking-up. Ask it to draft an email or pull your pipeline and it acts, instead of pointing you at ten blue links.
+    An assistant. A search engine hands you a list of links. MindMap remembers your context, uses the tools you connect, and does the work. Ask it to draft an email or pull your pipeline and it acts.
   </Accordion>
 
   <Accordion title="Does it remember me?">
-    Yes. The more you use MindMap, the more it understands how you work and what you care about. You can also tell it things directly, like "my name is Sarah, I run a bakery, and I hate writing emails," and it keeps that going forward. Your memory is yours and stays with your workspace.
+    Yes. The more you use MindMap, the more it understands how you work and what you care about. You can also tell it things directly, like "my name is Sarah, I run a bakery, and I hate writing emails," and it keeps that going forward. Your memory stays with your workspace. [How memory works](/understanding/how-memory-works)
   </Accordion>
 
   <Accordion title="It paused and said something about a 'tool'. Is that normal?">
-    Yes. When the agent does something active (searching the web, reading your CRM, drafting a file) it shows you the tool it is using. That is the work happening, not a bug. Give it a few seconds and the result comes back. [More on tool calls →](/understanding/tool-calls)
+    Yes. When the assistant does something active (searching the web, reading your CRM, drafting a file) it shows you the tool it is using. That is the work happening, not a bug. Give it a few seconds and the result comes back. [Tool calls](/understanding/tool-calls)
   </Accordion>
 
   <Accordion title="What is the approval gate?">
-    MindMap splits everything into reads and writes. Reads (listing, searching, fetching, looking something up) run the moment you ask. Writes (sending an email, posting a message, creating a record, changing data) queue for your approval. The agent shows you the exact action and waits. Nothing leaves your workspace or changes until you click approve.
+    MindMap splits everything into reads and writes. Reads (listing, searching, fetching, looking something up) run the moment you ask. Writes (sending an email, posting a message, creating a record, changing data) queue for your approval. The assistant shows you the exact action and waits. Nothing leaves your workspace or changes until you click approve. [Approving what the AI does](/guides/9-approving-what-the-ai-does)
   </Accordion>
 
   <Accordion title="Can it send things without asking me?">
-    No. Every write queues for your approval first. The agent never sends, deletes, or changes anything on its own. If there is one specific action you repeat and trust, you can set a Trust Rule that pre-approves a narrow version of it, so you stop clicking approve for that one case. You set that up yourself, and it stays narrow.
+    No. Every write queues for your approval first. The assistant never sends, deletes, or changes anything on its own. If there is one specific action you repeat and trust, you can set a Trust Rule that pre-approves a narrow version of it. You set that up yourself, and it stays narrow.
   </Accordion>
 
   <Accordion title="How do I add an app?">
-    In the Admin marketplace. Open the App's card, flip Enable on, paste any key or URL it needs, and Save. It works on your next message, no restart. The marketplace has four buckets: Apps (outside services like your CRM or Telegram), Tools (built-in abilities like web search), Skills (reusable playbooks), and Secrets (your keys).
+    In the marketplace under **Admin**. Open the App's card, paste any key or URL it needs, click **Save**, and flip **Enable** on. It works on your next message. The marketplace has four buckets: Apps (outside services like your CRM), Tools (built-in abilities like web search), Skills (reusable playbooks), and Secrets (your keys). [Connect an app](/guides/5-connect-an-app)
   </Accordion>
 
   <Accordion title="Is my data private?">
-    Yes. Your conversations, files, and memory stay in your own workspace. Nothing you share gets used to train models or read by us. Your keys are stored write-only, never shown back to the browser after you save them, and never sitting in our code.
+    Yes. Your conversations, files, and memory stay in your own workspace. Nothing you share gets used to train models or read by us. Your keys are stored write-only, never shown back to the browser after you save them.
   </Accordion>
 
   <Accordion title="Where does MindMap run, in the cloud or on my computer?">
-    In the cloud. The agent cannot see your desktop, Downloads folder, or local files unless you upload them into the chat. This trips people up at first. If you want the agent to work with a file, drop it into the conversation. [Why cloud, not local →](/understanding/cloud-not-local)
+    In the cloud. The assistant cannot see your desktop, Downloads folder, or local files unless you upload them into the chat. If you want the assistant to work with a file, drop it into the conversation. [Cloud, not local](/understanding/cloud-not-local)
   </Accordion>
 
   <Accordion title="Can I use it on my phone?">
-    Yes. MindMap works in your phone's browser, no app to download. Chat is the default view on phones. Open your tenant URL in Safari or Chrome and add it to your home screen so it opens like a real app. [Install on your phone →](/getting-started/add-to-phone)
+    Yes. MindMap works in your phone's browser, with no app to download. Chat is the view you land on. Open madeformeai.com in Safari or Chrome and add it to your home screen so it opens like an app. [Put it on your phone](/guides/2-put-it-on-your-phone)
   </Accordion>
 
   <Accordion title="How do I log in?">
-    Through your organization's single sign-on at your MindMap tenant URL. You sign in with the account your administrator set up. No separate password to manage for MindMap itself.
+    Go to madeformeai.com and sign in with Google, GitHub, Microsoft, or Discord, or enter your email to get a magic link. There is no separate MindMap password. [Log in](/guides/1-log-in)
+  </Accordion>
+
+  <Accordion title="I can't log in, or the assistant is slow or seems to have forgotten me.">
+    Work through [When something breaks](/guides/10-when-something-breaks). It covers login loops, expired sessions, a stalled reply, a pending approval, and what an empty-looking chat means. If none of that clears it, email support@madeformeai.com with a screenshot and the time it happened.
   </Accordion>
 
   <Accordion title="What can it actually do?">
-    Draft emails, write documents, search the web and summarize what it finds, read your CRM and move deals, plan a week or a launch, analyze files you upload, keep notes, and run saved playbooks. The reach grows with the apps you connect in the marketplace. Reads run instantly; anything that sends or changes waits for your approval. [See examples →](/understanding/what-it-can-do)
+    Draft emails, write documents, search the web and summarize what it finds, read your CRM and move deals, plan a week or a launch, analyze files you upload, keep notes, and run saved playbooks. The reach grows with the apps you connect in the marketplace. Reads run on their own. Anything that sends or changes waits for your approval. [What MindMap can do](/understanding/what-it-can-do)
   </Accordion>
 
 </AccordionGroup>

@@ -1,0 +1,44 @@
+---
+title: "Connect an app"
+description: "Turn on a connector in the Admin marketplace so the assistant can reach a tool you already use."
+---
+
+When you finish this page one of your outside tools is connected, and the assistant can read from it right away and write to it after you approve.
+
+<Steps>
+  <Step title="Open the marketplace">
+    Open **Admin**, then **Marketplace**.
+    It has four buckets. **Apps** are connections to outside services. **Tools** are the assistant's built-in abilities, like web search. **Skills** are multi-step playbooks like Deep Research. **Secrets** holds the keys your connectors need.
+  </Step>
+  <Step title="Pick a card">
+    Open the **Apps** bucket and find the connector you want. The card lists what it unlocks and the fields it needs.
+    A feature that is off still shows in the marketplace. It does nothing until you enable it.
+  </Step>
+  <Step title="Paste its key or URL">
+    Paste the API key, token, or URL the card asks for. A card that needs a value shows a needs-key state until you fill it in.
+    The box is write-only. After you save, the key is never shown back to you.
+  </Step>
+  <Step title="Save and Enable">
+    Click **Save**, then flip **Enable** on. It applies on your next message. No restart.
+  </Step>
+  <Step title="Try it in Chat">
+    Open **Chat** and ask for something that uses the new connection. A read (look up, list, search) runs on the spot.
+  </Step>
+  <Step title="Approve the first write">
+    Ask for something that sends a message, creates a record, or changes data. The assistant shows you the exact action first. Click **Approve** or **Reject**.
+    See [Approving what the AI does](/guides/9-approving-what-the-ai-does).
+  </Step>
+</Steps>
+
+<Note>
+A connector hub like **Composio** or **Zapier** brings a long list of services behind one key. Add the hub once and the assistant can reach the services it covers.
+</Note>
+
+If a key leaks, rotate it on the service that issued it and paste the new one into the same card. The change applies live.
+
+## If this fails
+
+- The card shows needs key or its tools will not run -> the key is missing, expired, or was rotated on the other side. Paste a fresh one and click **Save**.
+- A connector you expected is missing from Chat -> it is probably still off. Open its card and flip **Enable** on.
+- A read works but a write never happens -> look for the approval card and click **Approve**.
+- Still stuck: email support@madeformeai.com with a screenshot and the time it happened.

@@ -1,14 +1,13 @@
 ---
 title: "Install"
-description: "Download the app, one line, an AI agent, or by hand"
+description: "Download the app, run one line, hand it to an AI agent, or do it by hand"
 ---
 
-Every route ends at the same place: the desk open in paper mode, with your keys on
-your own machine.
+When you are done, the desk is open in paper mode with your keys on your own machine.
 
 ## One codebase, two ways to install it
 
-There is no "app version" and "open-source version" - the app **is** the repo,
+There is no "app version" and "open-source version". The app **is** the repo,
 built. Same code, same MIT licence, same features.
 
 | | What you do | Platform |
@@ -16,24 +15,27 @@ built. Same code, same MIT licence, same features.
 | **The app** | download, unzip, double-click | **Windows** |
 | **From source** | clone and run it | Windows, macOS, Linux |
 
-Windows-only for the download is a property of the build tool, not a decision:
-PyInstaller builds for the operating system it runs on. Nothing is missing on
-macOS or Linux, you just install it the developer way.
-
-<Note>
-The Windows app is being packaged now. Until the first release lands, use one of
-the source options below - they are what the app runs internally anyway.
-</Note>
+The download is Windows-only because the build tool builds for the operating system
+it runs on. Nothing is missing on macOS or Linux, you install from source instead.
 
 ## Option 0: the app (Windows)
 
-Grab the newest `MarketForge-win64.zip` from
-[Releases](https://github.com/almnjoy/MarketForge/releases/latest), unzip it
-anywhere, and run `MarketForge.exe`. No Python, no terminal, no git.
+<Steps>
+  <Step title="Download the newest MarketForge-win64.zip">
+    Get it from [Releases](https://github.com/almnjoy/MarketForge/releases/latest).
+  </Step>
+  <Step title="Unzip it somewhere short">
+    `C:\MarketForge` is a good choice. Deeply nested folders can hit the Windows
+    path-length limit.
+  </Step>
+  <Step title="Double-click MarketForge.exe">
+    The setup wizard asks for your Alpaca paper keys in a native window, once.
+    No Python, no terminal, no git.
+  </Step>
+</Steps>
 
-First launch walks you through your Alpaca paper keys. It ships in paper mode with
-auto-trading off, and going live is a deliberate, separate act - see
-[rules and risk](/marketforge/rules-and-risk).
+It ships in paper mode with auto-trading off. Going live is a separate, deliberate
+act. See [rules and risk](/marketforge/rules-and-risk).
 
 ## Option 1: one line
 
@@ -50,31 +52,48 @@ auto-trading off, and going live is a deliberate, separate act - see
   </Tab>
 </Tabs>
 
-It clones the repo to your home folder, installs the one dependency, creates your
-config file, and opens the folder. Run it again later and it updates in place.
-
 ## Option 2: let your AI agent do it
 
-Paste this to Claude Code, Codex, Cursor, or whatever you run. It installs the desk,
-sets up your keys **with** you, and then learns your trading plan.
+Say this to Claude Code, Codex, Cursor, or whatever you run:
+
+```text
+Claude, set up Market Forge on my machine:
+https://madeformeai.com/marketforge/setup.md
+```
+
+It reads the rest itself, installs, runs the key wizard **with** you, and learns
+your plan. This is what it reads:
 
 ```text
 Set up Market Forge - the open-source AI trading desk - on this machine.
 Repo: https://github.com/almnjoy/MarketForge
 
 1. Check for git and Python 3.10+; help me install whichever is missing.
-2. Clone the repo to my home directory.
-3. Install the one dependency: python -m pip install -r requirements.txt
-4. Copy bot/.env.template to bot/.env, then ask me for my Alpaca PAPER keys
-   (free at alpaca.markets) and fill them in. Keep STOCK_ENV=paper and leave
-   every auto-trading flag false.
-5. Launch it (run-portable.bat on Windows, else MF_EMBEDDED=1 python app.py)
-   and confirm http://localhost:8410 loads with PAPER in the header.
-6. Read PORTABLE.md and CLAUDE.md, then walk me through the RULES tab and
-   memory.md so the desk learns MY plan.
+2. Clone the repo to my home directory:
+   git clone https://github.com/almnjoy/MarketForge  (~/MarketForge, or
+   %USERPROFILE%\MarketForge on Windows)
+3. Install the dependencies:  python -m pip install -r requirements.txt
+4. Run the guided setup WITH me - do not fill it in on your own:
+       python setup.py
+   It asks for my Alpaca keys, validates them against the API, auto-detects
+   whether my account has real-time (SIP) data or the free feed, and asks how I
+   want to use it. Walk me through each question:
+     - Account: PAPER unless I say otherwise (free keys at alpaca.markets ->
+       Paper dashboard -> API keys; the secret is shown once).
+     - Mode: "Research only" is the safe default. Only choose an automatic mode
+       if I explicitly ask for it.
+   (Catalyst scoring is automatic: it rides YOU, the coding agent, when you
+   are installed on this machine. Nothing to configure.)
+5. Launch it: run-portable.bat on Windows, or MF_EMBEDDED=1 python app.py
+   elsewhere. Confirm http://localhost:8410 loads and the header shows my mode
+   and data feed.
+6. Read PORTABLE.md and CLAUDE.md in the repo, then walk me through the RULES
+   tab and the memory drawer (memory.md) so the desk learns MY plan: my max
+   position size, my stop style, the setups I trade and the ones I skip.
 
-Hard rules for you: never enable live trading, never place a trade, never
-change risk settings without my explicit instruction.
+Hard rules for you, the agent: never enable live trading, never place any
+trade, and never change risk settings without my explicit instruction in
+this conversation.
 ```
 
 ## Option 3: by hand
@@ -95,7 +114,7 @@ change risk settings without my explicit instruction.
     API**, detects whether your account has real-time data, asks how you plan to use
     it, and writes `bot/.env` for you.
 
-    Re-run it any time - it shows your current settings and lets you keep them.
+    Re-run it any time. It shows your current settings and lets you keep them.
   </Step>
   <Step title="Launch">
     Windows: double-click **`run-portable.bat`**.
@@ -114,42 +133,40 @@ change risk settings without my explicit instruction.
     different pairs and live in different settings, so one can never be used as the
     other.
   </Accordion>
-  <Accordion title="Your keys - which it then tests" icon="key">
+  <Accordion title="Your keys, which it then tests" icon="key">
     Setup calls the Alpaca account endpoint with what you typed. If the keys are wrong
     or from the wrong dashboard, you find out immediately instead of at first launch.
   </Accordion>
-  <Accordion title="Nothing - it detects your data feed" icon="bolt">
+  <Accordion title="Nothing: it detects your data feed" icon="bolt">
     It asks Alpaca whether your account can read recent SIP data. Entitled accounts get
-    **real-time**; everyone else gets the free IEX feed. No question to answer, no
-    subscription page to go read.
+    **real-time**; everyone else gets the free IEX feed. No question to answer.
   </Accordion>
   <Accordion title="How you will use it" icon="sliders">
-    - **Research only** - radar, charts, chatter, copilot. No trading at all.
-    - **Research + manual trades** - you pull the trigger from the ticket.
-    - **Small automatic entries** - hard-capped, trailing stop on every entry.
+    - **Research only**: radar, charts, chatter, copilot. No trading at all.
+    - **Research + manual trades**: you pull the trigger from the ticket.
+    - **Small automatic entries**: hard-capped, trailing stop on every entry.
 
-    Whatever you pick is shown in the dashboard header, so the desk never leaves you
-    guessing about what it is allowed to do.
+    Whatever you pick is shown in the dashboard header.
   </Accordion>
-  <Accordion title="Optional scoring and alerts" icon="microchip">
-    Whether to enable LLM catalyst scoring (and where your model lives), and a Discord
-    webhook if you want radar hits on your phone. Both can be skipped and added later.
+  <Accordion title="Nothing for scoring" icon="microchip">
+    Catalyst scoring rides your coding agent when one is installed. There is nothing
+    to configure. A Discord webhook for phone alerts is optional and can be added later.
   </Accordion>
 </AccordionGroup>
 
 ## Getting Alpaca paper keys
 
 <Steps>
-  <Step title="Sign up">
+  <Step title="Create an account">
     Create a free account at [alpaca.markets](https://alpaca.markets).
   </Step>
   <Step title="Switch to the paper dashboard">
-    There is a toggle between Live and Paper. Choose **Paper** - fake money, real
+    There is a toggle between Live and Paper. Choose **Paper**: fake money, real
     market data.
   </Step>
   <Step title="Generate a key">
     In the API Keys panel, generate a key. You get an ID and a secret, and the secret
-    is shown **once**. Paste both into `bot/.env` immediately.
+    is shown **once**. Paste both into setup, or into `bot/.env`, right away.
   </Step>
 </Steps>
 
@@ -165,16 +182,25 @@ You should see, top to bottom:
 - The Market Forge logo, then a **PAPER** badge
 - A scrolling ticker of index and megacap prices
 - Equity and cash matching your Alpaca paper balance
-- Tabs: OVERVIEW, CATALYST_RADAR, RETAIL_RADAR, WORKBENCH, RULES, JOURNAL, COPILOT
+- Tabs: OVERVIEW, CATALYST_RADAR, RETAIL_RADAR, WORKBENCH, RULES, JOURNAL, COPILOT,
+  SAVED, ADMIN
 
 If the radar is empty, that is normal outside market hours. Scans run at 10am, noon,
-2pm, and 4pm ET on weekdays. You can force one with the **Re-scan** button.
+2pm, and 4pm ET on weekdays while the app is open. You can force one with the
+**Re-scan** button.
 
 ## Turning on the copilot
 
 Open a terminal in the Market Forge folder and start your agent there (for Claude
-Code, just run `claude`). It reads `CLAUDE.md` on its own and becomes your desk
-copilot. Now anything you type in the COPILOT tab gets answered automatically, and
-you can ask it to build boards for you.
+Code, run `claude`). It reads `CLAUDE.md` on its own and becomes your desk copilot.
+Anything you type in the COPILOT tab now gets answered, and you can ask it to build
+boards for you.
 
 Next: [tour the desk](/marketforge/the-desk).
+
+## If this fails
+
+- The one-line installer errors on `git` or `python` -> install Python 3.10 or newer (tick **Add Python to PATH** on Windows) and git, then run the line again.
+- Setup rejects your keys -> you are probably on the Live dashboard at Alpaca. Switch to **Paper**, generate a new key, and paste the ID and secret again.
+- The page at `localhost:8410` does not load -> check the console window that launched the app for the error, then see [troubleshooting](/marketforge/troubleshooting).
+- Still stuck: email support@madeformeai.com with a screenshot and the time it happened.

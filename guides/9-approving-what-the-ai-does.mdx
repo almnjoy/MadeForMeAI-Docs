@@ -1,0 +1,55 @@
+---
+title: "Approving what the AI does"
+description: "Reads run on their own. Every write waits for your approval, and you can pre-approve one narrow action with a Trust Rule."
+---
+
+When you finish this page you know how to read an approval card, approve or reject it, and set a Trust Rule for one action you repeat and trust.
+
+The assistant runs **reads** the moment you ask: listing, searching, fetching, opening a record. Nothing changes, so there is nothing to approve. A **write** changes something in the outside world: sending an email, posting a message, creating a record, moving a deal. The assistant builds the action, shows it to you, and waits. If you close the tab before approving, the action never happens.
+
+<Steps>
+  <Step title="Ask for a write">
+    In **Chat**, ask for something that sends or changes, like "send a follow-up to the client who went quiet."
+  </Step>
+  <Step title="Read the approval card">
+    The card shows what it will do, where it goes (the recipient, channel, or record), and the exact content, such as the email body.
+  </Step>
+  <Step title="Click Approve or Reject">
+    **Approve** fires the action and the assistant reports back with the result.
+    **Reject** drops it. Tell the assistant what to change ("make it shorter," "send it to Jamie instead") and it builds a fresh card.
+  </Step>
+</Steps>
+
+## Pre-approve one repeated action
+
+A **Trust Rule** lets one narrow action run by itself next time. Keep these narrow.
+
+<Steps>
+  <Step title="Tick Always allow this">
+    On an approval card for an action you repeat and trust, check **Always allow this** before you click **Approve & Send**.
+  </Step>
+  <Step title="Check the rule that was created">
+    The rule matches the same action kind plus its key fields. A rule for "send this welcome template to this address" only auto-runs for that template and that recipient. A different template or recipient still queues.
+  </Step>
+  <Step title="Manage it under Admin, then Trust">
+    Every rule is listed there. Disable it, delete it, or set a use limit or an expiry for a time-boxed campaign. Disabling takes effect at once.
+  </Step>
+  <Step title="Review auto-runs under Admin, then Actions">
+    Anything a rule allowed is logged there, marked auto-sent, with the rule that allowed it.
+  </Step>
+</Steps>
+
+<Warning>
+A Trust Rule lets the assistant, and any scheduled job, act without you in the loop. Review your rules under **Admin**, then **Trust**, and delete the ones you no longer need.
+</Warning>
+
+<Note>
+Revealing a stored key can never be auto-approved. No rule, scheduled job, or assistant run can pull a key back out without you. Only you create Trust Rules. The assistant cannot create one for itself.
+</Note>
+
+## If this fails
+
+- The assistant says it queued something and nothing happened -> the write is waiting for you. Find the approval card and click **Approve** or **Reject**.
+- An action ran without asking you -> a Trust Rule matched it. Open **Admin**, then **Trust**, and disable or delete the rule. Check **Admin**, then **Actions**, for what it did.
+- You want an action to stop auto-running -> disable or delete its rule under **Admin**, then **Trust**. It takes effect at once.
+- Still stuck: email support@madeformeai.com with a screenshot and the time it happened.

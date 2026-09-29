@@ -1,0 +1,46 @@
+---
+title: "Build a dashboard"
+description: "Ask for a dashboard in plain words, approve it once, and get a page of live tiles."
+---
+
+When you finish this page you have a dashboard the assistant built for you: a page of tiles such as a number, a chart, a table, or a short note, and you know how to change it by asking.
+
+<Steps>
+  <Step title="Turn on Dashboards">
+    Open **Admin**, find the **Dashboards** card, and flip **Enable** on.
+    It applies on your next message. No key to paste.
+  </Step>
+  <Step title="Ask for the board in Chat">
+    Open **Chat** and describe what you want on it.
+    Try: "Build me a dashboard of this week's leads, revenue, and top opportunities."
+    The assistant picks the tiles that fit and arranges them into one page.
+  </Step>
+  <Step title="Approve it">
+    Building a dashboard is a write, so the whole board arrives as one approval card. Click **Approve** and all the tiles land together.
+  </Step>
+  <Step title="Open the Dashboards page">
+    The **Dashboards** page lists every board you have built. Open one, or ask "show me my dashboards."
+  </Step>
+  <Step title="Change it by asking">
+    Name the board you mean. Each change queues its own approval.
+    "Add a KPI for my newest credit card balance to the money page."
+    "Change the revenue chart on my sales board to a bar chart."
+    "Remove the table from the leads board."
+  </Step>
+  <Step title="Rate a tile">
+    Every tile has a thumbs up and a thumbs down. Tap one to mark whether it was useful. The vote goes to the audit log so you can look back later.
+  </Step>
+</Steps>
+
+<Note>
+A tile is live or a snapshot. A live tile re-fetches its data every time you open the board, but only when the source behind it is set up in its own marketplace card first: Stripe or Plaid for money tiles, Twenty for pipeline tiles. Without that source the assistant fills the tile with static values. Ask for live tiles when you want them current.
+</Note>
+
+The assistant never writes code to build a board. It picks from a fixed catalog of tile types (KPI, chart, table, doc), so what it builds is always something MindMap already knows how to draw. The **Money** page is itself a live board named money, so "edit the money page" edits that board.
+
+## If this fails
+
+- The assistant says it cannot build dashboards -> the Dashboards card is off. Turn it on in **Admin** and ask again.
+- A tile shows a stale or placeholder number -> connect the source behind it (Stripe, Plaid, or Twenty) in **Admin**, then ask for a live tile.
+- The board never appears -> look for the approval card and click **Approve**. Nothing lands until you do.
+- Still stuck: email support@madeformeai.com with a screenshot and the time it happened.

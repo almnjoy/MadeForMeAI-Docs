@@ -6,23 +6,16 @@
     "light": "/logo/Logo.svg",
     "dark": "/logo/Logo.svg"
   },
-  "favicon": "https://docimages.quickitprojects.com/wp-content/uploads/2026/06/MiniLogo-e1781884807487.png",
+  "favicon": "/favicon.svg",
   "colors": {
     "primary": "#F97316",
     "light": "#FB923C",
     "dark": "#EA580C"
   },
-  "navbar": {
-    "primary": {
-      "type": "button",
-      "label": "Get a demo",
-      "href": "https://madeformeai.com"
-    }
-  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Start Here",
+        "tab": "Start here",
         "groups": [
           {
             "group": "Welcome",
@@ -32,7 +25,7 @@
             ]
           },
           {
-            "group": "Your Free Tools",
+            "group": "Free tools",
             "pages": [
               "tools/trip-planner",
               "tools/csv-doc-organizer",
@@ -51,31 +44,61 @@
         ]
       },
       {
-        "tab": "What I Build",
+        "tab": "MindMap",
         "groups": [
           {
-            "group": "The Platform",
+            "group": "Guides",
             "pages": [
-              "mindmap",
-              "openclaw",
-              "crm"
+              "guides/1-log-in",
+              "guides/2-put-it-on-your-phone",
+              "guides/3-your-first-chat",
+              "guides/4-build-a-dashboard",
+              "guides/5-connect-an-app",
+              "guides/6-connect-your-crm",
+              "guides/7-money",
+              "guides/8-morning-brief",
+              "guides/9-approving-what-the-ai-does",
+              "guides/10-when-something-breaks"
             ]
           },
           {
-            "group": "Bots and Agents",
+            "group": "How it works",
             "pages": [
-              "kalshi-bot",
-              "study-bot",
-              "interview-bot",
-              "retell-voice",
-              "stock-radar"
+              "getting-started/what-is-mindmap",
+              "understanding/what-it-can-do",
+              "understanding/how-memory-works",
+              "understanding/cloud-not-local",
+              "understanding/tool-calls",
+              "core/chat-app",
+              "faq"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "PocketOps",
+        "groups": [
           {
-            "group": "Research",
+            "group": "Guides",
             "pages": [
-              "cognibrain",
-              "research"
+              "pocketops/1-install",
+              "pocketops/2-connect",
+              "pocketops/3-what-you-can-do"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Your Twenty CRM",
+        "groups": [
+          {
+            "group": "Guides",
+            "pages": [
+              "twenty-hosting/1-what-you-have",
+              "twenty-hosting/2-log-in",
+              "twenty-hosting/3-invite-your-staff",
+              "twenty-hosting/4-use-it-on-your-phone",
+              "twenty-hosting/5-add-ons"
             ]
           }
         ]
@@ -84,7 +107,7 @@
         "tab": "Market Forge",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Get started",
             "pages": [
               "marketforge/index",
               "marketforge/requirements",
@@ -92,7 +115,7 @@
             ]
           },
           {
-            "group": "Using the Desk",
+            "group": "Using the desk",
             "pages": [
               "marketforge/the-desk",
               "marketforge/copilot",
@@ -100,49 +123,10 @@
             ]
           },
           {
-            "group": "Risk and Support",
+            "group": "Risk and support",
             "pages": [
               "marketforge/rules-and-risk",
               "marketforge/troubleshooting"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "MindMap",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "getting-started/what-is-mindmap",
-              "getting-started/install-on-your-phone",
-              "faq"
-            ]
-          },
-          {
-            "group": "Understanding MindMap",
-            "pages": [
-              "understanding/what-it-can-do",
-              "understanding/how-memory-works",
-              "understanding/cloud-not-local",
-              "understanding/tool-calls"
-            ]
-          },
-          {
-            "group": "Daily Surfaces",
-            "pages": [
-              "core/chat-app",
-              "build/morning-brief",
-              "build/dashboards"
-            ]
-          },
-          {
-            "group": "CRM and Money",
-            "pages": [
-              "build/crm-and-clients",
-              "marketplace/twenty-crm",
-              "marketplace/money",
-              "marketplace/review-requests"
             ]
           }
         ]
@@ -154,5 +138,106 @@
       "light": "#FFF7F0",
       "dark": "#17110B"
     }
-  }
+  },
+  "seo": {
+    "metatags": {
+      "robots": "noindex, nofollow"
+    },
+    "indexing": "navigable"
+  },
+  "footer": {
+    "links": [
+      {
+        "header": "Help",
+        "items": [
+          {
+            "label": "support@madeformeai.com",
+            "href": "mailto:support@madeformeai.com"
+          }
+        ]
+      }
+    ]
+  },
+  "redirects": [
+    {
+      "source": "/mindmap",
+      "destination": "/getting-started/what-is-mindmap"
+    },
+    {
+      "source": "/crm",
+      "destination": "/twenty-hosting/1-what-you-have"
+    },
+    {
+      "source": "/retell-voice",
+      "destination": "/twenty-hosting/5-add-ons"
+    },
+    {
+      "source": "/stock-radar",
+      "destination": "/marketforge/index"
+    },
+    {
+      "source": "/openclaw",
+      "destination": "/"
+    },
+    {
+      "source": "/kalshi-bot",
+      "destination": "/"
+    },
+    {
+      "source": "/interview-bot",
+      "destination": "/"
+    },
+    {
+      "source": "/cognibrain",
+      "destination": "/"
+    },
+    {
+      "source": "/research",
+      "destination": "/"
+    },
+    {
+      "source": "/study-bot",
+      "destination": "/"
+    },
+    {
+      "source": "/getting-started/install-on-your-phone",
+      "destination": "/guides/2-put-it-on-your-phone"
+    },
+    {
+      "source": "/getting-started/add-to-phone",
+      "destination": "/guides/2-put-it-on-your-phone"
+    },
+    {
+      "source": "/build/crm-and-clients",
+      "destination": "/guides/6-connect-your-crm"
+    },
+    {
+      "source": "/marketplace/twenty-crm",
+      "destination": "/guides/6-connect-your-crm"
+    },
+    {
+      "source": "/marketplace/money",
+      "destination": "/guides/7-money"
+    },
+    {
+      "source": "/build/morning-brief",
+      "destination": "/guides/8-morning-brief"
+    },
+    {
+      "source": "/build/dashboards",
+      "destination": "/guides/4-build-a-dashboard"
+    },
+    {
+      "source": "/marketplace/review-requests",
+      "destination": "/guides/6-connect-your-crm"
+    },
+    {
+      "source": "/getting-started/:slug*",
+      "destination": "/guides/1-log-in"
+    },
+    {
+      "source": "/troubleshooting/:slug*",
+      "destination": "/guides/10-when-something-breaks"
+    }
+  ]
 }
